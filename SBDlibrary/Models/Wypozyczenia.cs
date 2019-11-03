@@ -31,6 +31,6 @@ namespace SBDlibrary.Models
         [ForeignKey("id_egzemplarza")]
         public virtual Egzemplarze id_egzemplarza { get; set; }
 
-        public ICollection<Zwroty> Zwroty { get; set; }
+        public Zwroty Zwroty { get; set; }
     }
 }

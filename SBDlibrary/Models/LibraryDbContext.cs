@@ -41,7 +41,11 @@ namespace SBDlibrary.Models
             modelBuilder.Entity<Role>().ToTable("Role");
 
             modelBuilder.Entity<Rezerwacje>().ToTable("Rezerwacje");
-            modelBuilder.Entity<Wypozyczenia>().ToTable("Wypozyczenia");
+            modelBuilder.Entity<Wypozyczenia>()
+                .HasOne(p => p.Zwroty)
+                .WithOne(i => i.id_wypozyczenia)
+                .HasForeignKey<Zwroty>(b => b.id_wypozyczenia);
+
             modelBuilder.Entity<Zwroty>().ToTable("Zwroty");
 
         }

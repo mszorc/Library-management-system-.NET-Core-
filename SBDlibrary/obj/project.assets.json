@@ -12091,11 +12091,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\piawr\\Desktop\\Library-management-system-.NET-Core--Michal\\SBDlibrary\\SBDlibrary.csproj",
+      "projectUniqueName": "C:\\Users\\piawr\\Desktop\\Nowy folder\\SBDlibrary\\SBDlibrary.csproj",
       "projectName": "SBDlibrary",
-      "projectPath": "C:\\Users\\piawr\\Desktop\\Library-management-system-.NET-Core--Michal\\SBDlibrary\\SBDlibrary.csproj",
+      "projectPath": "C:\\Users\\piawr\\Desktop\\Nowy folder\\SBDlibrary\\SBDlibrary.csproj",
       "packagesPath": "C:\\Users\\piawr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\piawr\\Desktop\\Library-management-system-.NET-Core--Michal\\SBDlibrary\\obj\\",
+      "outputPath": "C:\\Users\\piawr\\Desktop\\Nowy folder\\SBDlibrary\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\piawr\\AppData\\Roaming\\NuGet\\NuGet.Config",
