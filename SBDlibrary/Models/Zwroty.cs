@@ -7,16 +7,22 @@ using System.Threading.Tasks;
 
 namespace SBDlibrary.Models
 {
-    public class Egzemplarze
+    public class Zwroty
     {
         [Key]
         [Column(Order = 0)]
-        public int id_egzemplarza { get; set; }
+        public int id_zwrotu { get; set; }
+
         [Required]
+        [Column(Order = 2)]
+        public DateTime data_zwrotu { get; set; }
+
+        [Required]
+        [Column(Order = 3)]
+        public float kara { get; set; }
+
         [Column(Order = 1)]
-        [ForeignKey("id_ksiazki")]
-        public virtual Ksiazki Ksiazki { get; set; }
-        public ICollection<Wypozyczenia> Wypozyczenia { get; set; }
-        public ICollection<Rezerwacje> Rezerwacje { get; set; }
+        public virtual Wypozyczenia id_wypozyczenia { get; set; }
+
     }
 }

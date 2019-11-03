@@ -21,6 +21,7 @@ namespace SBDlibrary.Models
         [Column(Order = 3)]
         public string komunikat { get; set; }
         [Column(Order = 1)]
+        [ForeignKey("id_uzytkownika")]
         public virtual Uzytkownicy Uzytkownicy { get; set; }
 
     }
