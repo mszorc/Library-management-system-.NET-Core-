@@ -11,10 +11,13 @@ namespace SBDlibrary.Models
     {
         [Key]
         [Column(Order = 0)]
-        public int id { get; set; }
-        [Column(Order = 2)]
-        public virtual Role Role { get; set; }
+        public int id_roli { get; set; }
+        [Key]
         [Column(Order = 1)]
+        public int id_uzytkownika { get; set; }
+        [ForeignKey("id_roli")]
+        public virtual Role Role { get; set; }
+        [ForeignKey("id_uzytkownika")]
         public virtual Uzytkownicy Uzytkownicy { get; set; }
     }
 }

@@ -11,13 +11,16 @@ namespace SBDlibrary.Models
     {
         [Key]
         [Column(Order = 0)]
-        public int id { get; set; }
-        [Required]
-        [Column(Order = 3)]
-        public int ilosc { get; set; }
+        public int id_zamowienia { get; set; }
+        [Key]
         [Column(Order = 1)]
-        public virtual Zamowienia Zamowienia { get; set; }
+        public int id_ksiazki { get; set; }
+        [Required]
         [Column(Order = 2)]
+        public int ilosc { get; set; }
+        [ForeignKey("id_zamowienia")]
+        public virtual Zamowienia Zamowienia { get; set; }
+        [ForeignKey("id_ksiazki")]
         public virtual Ksiazki Ksiazki { get; set; }
     }
 }
