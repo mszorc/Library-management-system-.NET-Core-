@@ -58,6 +58,18 @@ namespace SBDlibrary.Models
             modelBuilder.Entity<Rezerwacje>().ToTable("Rezerwacje");
             modelBuilder.Entity<Wypozyczenia>().ToTable("Wypozyczenia");
             modelBuilder.Entity<Zwroty>().ToTable("Zwroty");
+            modelBuilder.Entity("SBDlibrary.Models.Kategorie_Ksiazki", b =>
+            {
+                b.HasOne("SBDlibrary.Models.Ksiazki", "Ksiazki")
+                    .WithMany()
+                    .HasForeignKey("id_kategorii")
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                b.HasOne("SBDlibrary.Models.Kategorie", "Kategorie")
+                    .WithMany()
+                    .HasForeignKey("id_ksiazki")
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 
         }
 

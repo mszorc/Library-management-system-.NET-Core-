@@ -91,7 +91,7 @@ namespace SBDlibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("tytyuł")
+                    b.Property<string>("nazwa")
                         .IsRequired()
                         .HasMaxLength(20);
 
@@ -119,7 +119,17 @@ namespace SBDlibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Wydawnictwaid_wydawnictwa");
+
+                    b.Property<DateTime>("data_wydanania");
+
+                    b.Property<string>("tytuł")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
                     b.HasKey("id_ksiazki");
+
+                    b.HasIndex("Wydawnictwaid_wydawnictwa");
 
                     b.ToTable("Ksiazki");
                 });
@@ -153,11 +163,19 @@ namespace SBDlibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("Egzemplarzeid_egzemplarza");
+                    b.Property<DateTime>("data_rezerwacji");
+
+                    b.Property<int>("id_egzemplarza1");
+
+                    b.Property<int>("id_uzytkownika1");
+
+                    b.Property<int>("status_rezerwacji");
 
                     b.HasKey("id_rezerwacji");
 
-                    b.HasIndex("Egzemplarzeid_egzemplarza");
+                    b.HasIndex("id_egzemplarza1");
+
+                    b.HasIndex("id_uzytkownika1");
 
                     b.ToTable("Rezerwacje");
                 });
@@ -219,7 +237,7 @@ namespace SBDlibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("tytyuł")
+                    b.Property<string>("nazwa")
                         .IsRequired()
                         .HasMaxLength(20);
 
@@ -330,11 +348,19 @@ namespace SBDlibrary.Migrations
                     b.HasOne("SBDlibrary.Models.Ksiazki", "Ksiazki")
                         .WithMany()
                         .HasForeignKey("id_kategorii")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SBDlibrary.Models.Kategorie", "Kategorie")
                         .WithMany()
                         .HasForeignKey("id_ksiazki")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("SBDlibrary.Models.Ksiazki", b =>
+                {
+                    b.HasOne("SBDlibrary.Models.Wydawnictwa", "Wydawnictwa")
+                        .WithMany()
+                        .HasForeignKey("Wydawnictwaid_wydawnictwa")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -347,9 +373,15 @@ namespace SBDlibrary.Migrations
 
             modelBuilder.Entity("SBDlibrary.Models.Rezerwacje", b =>
                 {
-                    b.HasOne("SBDlibrary.Models.Egzemplarze")
+                    b.HasOne("SBDlibrary.Models.Egzemplarze", "id_egzemplarza")
                         .WithMany("Rezerwacje")
-                        .HasForeignKey("Egzemplarzeid_egzemplarza");
+                        .HasForeignKey("id_egzemplarza1")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SBDlibrary.Models.Uzytkownicy", "id_uzytkownika")
+                        .WithMany()
+                        .HasForeignKey("id_uzytkownika1")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SBDlibrary.Models.Uzytkownicy_role", b =>
