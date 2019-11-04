@@ -15,14 +15,18 @@ namespace SBDlibrary.Models
         [Required]
         [StringLength(20)]
         [Column(Order = 1)]
-        public string imie { get; set; }
+        public string haslo { get; set; }
         [Required]
         [StringLength(20)]
         [Column(Order = 2)]
+        public string imie { get; set; }
+        [Required]
+        [StringLength(20)]
+        [Column(Order = 3)]
         public string nazwisko { get; set; }
         [Required]
         [StringLength(50)]
-        [Column(Order = 3)]
+        [Column(Order = 4)]
         public string adres_zamieszkania { get; set; }
         public ICollection<Uzytkownicy_role> Uzytkownicy_role { get; set; }
         public ICollection<Logi> Logi { get; set; }

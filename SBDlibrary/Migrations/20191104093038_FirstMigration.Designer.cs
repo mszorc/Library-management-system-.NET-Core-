@@ -10,7 +10,7 @@ using SBDlibrary.Models;
 namespace SBDlibrary.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20191103211229_FirstMigration")]
+    [Migration("20191104093038_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace SBDlibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Nazwisko")
+                    b.Property<string>("imie")
                         .IsRequired()
                         .HasMaxLength(20);
 
-                    b.Property<string>("imie")
+                    b.Property<string>("nazwisko")
                         .IsRequired()
                         .HasMaxLength(20);
 
@@ -123,7 +123,7 @@ namespace SBDlibrary.Migrations
 
                     b.Property<int>("Wydawnictwaid_wydawnictwa");
 
-                    b.Property<DateTime>("data_wydanania");
+                    b.Property<DateTime>("data_wydania");
 
                     b.Property<string>("tytuł")
                         .IsRequired()
@@ -206,6 +206,10 @@ namespace SBDlibrary.Migrations
                     b.Property<string>("adres_zamieszkania")
                         .IsRequired()
                         .HasMaxLength(50);
+
+                    b.Property<string>("haslo")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.Property<string>("imie")
                         .IsRequired()

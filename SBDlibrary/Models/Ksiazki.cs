@@ -21,6 +21,6 @@ namespace SBDlibrary.Models
         public string tytuł { get; set; }
         [Required]
         [Column(Order = 3)]
-        public DateTime data_wydanania { get; set; }
+        public DateTime data_wydania { get; set; }
     }
 }

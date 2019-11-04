@@ -68,6 +68,7 @@ namespace SBDlibrary.Migrations
                 {
                     id_uzytkownika = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    haslo = table.Column<string>(maxLength: 20, nullable: false),
                     imie = table.Column<string>(maxLength: 20, nullable: false),
                     nazwisko = table.Column<string>(maxLength: 20, nullable: false),
                     adres_zamieszkania = table.Column<string>(maxLength: 50, nullable: false)
@@ -104,7 +105,7 @@ namespace SBDlibrary.Migrations
                 {
                     table.PrimaryKey("PK_Zamowienia", x => x.id_zamowienia);
                     table.ForeignKey(
-                        name: "FK_Zamowienia_Dostawcy_dostawcyid_dostawcy",
+                        name: "FK_Zamowienia_Dostawcy",
                         column: x => x.id_dostawcy,
                         principalTable: "Dostawcy",
                         principalColumn: "id_dostawcy",
@@ -125,7 +126,7 @@ namespace SBDlibrary.Migrations
                 {
                     table.PrimaryKey("PK_Logi", x => x.id_logu);
                     table.ForeignKey(
-                        name: "FK_Logi_Uzytkownicy_id_uzytkownika",
+                        name: "FK_Logi_Uzytkownicy",
                         column: x => x.id_uzytkownika,
                         principalTable: "Uzytkownicy",
                         principalColumn: "id_uzytkownika",
@@ -144,13 +145,13 @@ namespace SBDlibrary.Migrations
                     table.PrimaryKey("PK_Uzytkownicy_role", x => new { x.id_uzytkownika, x.id_roli });
                     table.UniqueConstraint("AK_Uzytkownicy_role_id_roli_id_uzytkownika", x => new { x.id_roli, x.id_uzytkownika });
                     table.ForeignKey(
-                        name: "FK_Uzytkownicy_role_Role_id_roli",
+                        name: "FK_Uzytkownicy_Role",
                         column: x => x.id_roli,
                         principalTable: "Role",
                         principalColumn: "id_roli",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Uzytkownicy_role_Uzytkownicy_id_uzytkownika",
+                        name: "FK_Uzytkownicy_Role_2",
                         column: x => x.id_uzytkownika,
                         principalTable: "Uzytkownicy",
                         principalColumn: "id_uzytkownika",
@@ -165,7 +166,7 @@ namespace SBDlibrary.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     id_wydawnictwa = table.Column<int>(nullable: false),
                     tytuł = table.Column<string>(maxLength: 50, nullable: false),
-                    data_wydanania = table.Column<DateTime>(nullable: false)
+                    data_wydania = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -189,13 +190,13 @@ namespace SBDlibrary.Migrations
                 {
                     table.PrimaryKey("PK_Autorzy_Ksiazki", x => new { x.id_autora, x.id_ksiazki });
                     table.ForeignKey(
-                        name: "FK_Autorzy_Ksiazki_Autor_id_autora",
+                        name: "FK_Autorzy_Ksiazki",
                         column: x => x.id_autora,
                         principalTable: "Autor",
                         principalColumn: "id_autor",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Autorzy_Ksiazki_Ksiazki_id_ksiazki",
+                        name: "FK_Autorzy_Ksiazki_2",
                         column: x => x.id_ksiazki,
                         principalTable: "Ksiazki",
                         principalColumn: "id_ksiazki",
@@ -214,7 +215,7 @@ namespace SBDlibrary.Migrations
                 {
                     table.PrimaryKey("PK_Egzemplarze", x => x.id_egzemplarza);
                     table.ForeignKey(
-                        name: "FK_Egzemplarze_Ksiazki_id_ksiazki",
+                        name: "FK_Egzemplarze_Ksiazki",
                         column: x => x.id_ksiazki,
                         principalTable: "Ksiazki",
                         principalColumn: "id_ksiazki",
@@ -232,13 +233,13 @@ namespace SBDlibrary.Migrations
                 {
                     table.PrimaryKey("PK_Kategorie_Ksiazki", x => new { x.id_kategorii, x.id_ksiazki });
                     table.ForeignKey(
-                        name: "FK_Kategorie_Ksiazki_Ksiazki_id_kategorii",
+                        name: "FK_Kategorie_Ksiazki",
                         column: x => x.id_kategorii,
                         principalTable: "Ksiazki",
                         principalColumn: "id_ksiazki",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Kategorie_Ksiazki_Kategorie_id_ksiazki",
+                        name: "FK_Kategorie_Ksiazki_2",
                         column: x => x.id_ksiazki,
                         principalTable: "Kategorie",
                         principalColumn: "id_kategorii",
@@ -258,13 +259,13 @@ namespace SBDlibrary.Migrations
                     table.PrimaryKey("PK_Zamowienie_ksiazki", x => new { x.id_zamowienia, x.id_ksiazki });
                     table.UniqueConstraint("AK_Zamowienie_ksiazki_id_ksiazki_id_zamowienia", x => new { x.id_ksiazki, x.id_zamowienia });
                     table.ForeignKey(
-                        name: "FK_Zamowienie_ksiazki_Ksiazki_id_ksiazki",
+                        name: "FK_Zamowienie_ksiazki",
                         column: x => x.id_ksiazki,
                         principalTable: "Ksiazki",
                         principalColumn: "id_ksiazki",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Zamowienie_ksiazki_Zamowienia_id_zamowienia",
+                        name: "FK_Zamowienie_ksiazki_2",
                         column: x => x.id_zamowienia,
                         principalTable: "Zamowienia",
                         principalColumn: "id_zamowienia",
@@ -286,13 +287,13 @@ namespace SBDlibrary.Migrations
                 {
                     table.PrimaryKey("PK_Rezerwacje", x => x.id_rezerwacji);
                     table.ForeignKey(
-                        name: "FK_Rezerwacje_Egzemplarze_id_egzemplarza1",
+                        name: "FK_Rezerwacje_Egzemplarze",
                         column: x => x.id_egzemplarza,
                         principalTable: "Egzemplarze",
                         principalColumn: "id_egzemplarza",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Rezerwacje_Uzytkownicy_id_uzytkownika1",
+                        name: "FK_Rezerwacje_Uzytkownicy_2",
                         column: x => x.id_uzytkownika,
                         principalTable: "Uzytkownicy",
                         principalColumn: "id_uzytkownika",
@@ -314,13 +315,13 @@ namespace SBDlibrary.Migrations
                 {
                     table.PrimaryKey("PK_Wypozyczenia", x => x.id_wypozyczenia);
                     table.ForeignKey(
-                        name: "FK_Wypozyczenia_Egzemplarze_id_egzemplarza1",
+                        name: "FK_Wypozyczenia_Egzemplarze",
                         column: x => x.id_egzemplarza,
                         principalTable: "Egzemplarze",
                         principalColumn: "id_egzemplarza",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Wypozyczenia_Uzytkownicy_id_uzytkownika1",
+                        name: "FK_Wypozyczenia_Uzytkownicy_2",
                         column: x => x.id_uzytkownika,
                         principalTable: "Uzytkownicy",
                         principalColumn: "id_uzytkownika",
@@ -341,7 +342,7 @@ namespace SBDlibrary.Migrations
                 {
                     table.PrimaryKey("PK_Zwroty", x => x.id_zwrotu);
                     table.ForeignKey(
-                        name: "FK_Zwroty_Wypozyczenia_id_wypozyczenia1",
+                        name: "FK_Zwroty_Wypozyczenia",
                         column: x => x.id_wypozyczenia,
                         principalTable: "Wypozyczenia",
                         principalColumn: "id_wypozyczenia",
