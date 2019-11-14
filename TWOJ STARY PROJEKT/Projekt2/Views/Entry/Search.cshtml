@@ -1,0 +1,77 @@
+﻿@model Projekt2.ViewModels.EntryVM.SearchVM
+@{
+    ViewBag.Title = "Search";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="margin:10px">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <h3>Development times</h3>
+        <div class="container">
+
+            <div class="navbar-collapse" collapse>
+
+                @if (TempData["LoginName"] != null)
+                {
+                    <ul class="nav navbar-nav" style="text-align:right">
+                        
+                        <li>
+                            Welcome @TempData["LoginName"]
+                            @Html.ActionLink("Log Out", "LogOut", "Authentication")
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <div style="text-align:right">
+                        @Html.ActionLink("Log In", "Login", "Authentication")
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div>
+        @using (Html.BeginForm())
+        {
+        <table class="table">
+            <tr style="text-align:center">
+                <th>
+                    @Html.DisplayNameFor(m => Model.Film)
+                </th>
+                <td>
+                    @Html.EditorFor(m => Model.Film)
+                    @Html.ValidationMessageFor(m => Model.Film)
+                </td>
+                </tr>
+            <tr style="text-align:center">
+                <th>
+                    @Html.DisplayNameFor(m => Model.Developer)
+                </th>
+                <td>
+                    @Html.EditorFor(m => Model.Developer)
+                    @Html.ValidationMessageFor(m => Model.Developer)
+                </td>
+            </tr>
+        </table>
+        <div>
+            <div align="center">
+                <button type="submit" class=" btn btn-primary mb-0">Submit</button>
+            </div>
+        </div>
+        <br />
+        <div>
+            <div align="center">
+                @Html.ActionLink("Back to list", "Index", "Entry")
+            </div>
+        </div>
+        }
+    </div>
+</body>
+</html>
+

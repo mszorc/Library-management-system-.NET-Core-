@@ -1,0 +1,85 @@
+﻿@model Projekt2.ViewModels.EntryVM.IndexVM
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="margin:10px">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <h3>Development times</h3>
+        <div class="container">
+
+            <div class="navbar-collapse" collapse>
+
+                @if (TempData["LoginName"] != null)
+                {
+                    <ul class="nav navbar-nav" style="text-align:right">
+                        <li>
+                            @Html.ActionLink("Search","Search","Entry") | @Html.ActionLink("Add entry", "Add", "Entry")
+                        </li>
+                        <li>
+                            Welcome @TempData["LoginName"]
+                            @Html.ActionLink("Log Out", "LogOut", "Authentication")
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <div style="text-align:right">
+                        @Html.ActionLink("Search", "Search", "Entry") |  @Html.ActionLink("Log In", "Login", "Authentication")
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div>
+        <table class="table">
+            <thead class="thead-light">
+                <tr style="text-align:center">
+                   <th>Film</th>
+                   <th>Developer</th>
+                   <th>Dillution</th>
+                   <th>ISO</th>
+                   <th>Time</th>
+                   <th>Temperature</th>
+                   <th>Notes</th>
+                   <th></th>
+                </tr>
+            </thead>
+            @foreach(var item in Model.EntriesList)
+            {
+                <tr style="text-align:center">
+                    
+                    <td>@item.Film</td>
+                    <td>@item.Developer</td>
+                    <td>@item.Dillution</td>
+                    <td>@item.ISO</td>
+                    <td>@item.Time</td>
+                    <td>@item.Temperature</td>
+                    <td>
+                    @if(item.Notes!=null)
+                    {
+                        @Html.ActionLink("notes","Notes","Entry",new { id = item.ID},null)
+                    }
+                    </td>
+                    <td>
+                        @if(item.User==(string)TempData["LoginName"])
+                        {
+                            <div>
+                            @Html.ActionLink("Delete","Delete","Entry",new { id = item.ID },null) | 
+                            @Html.ActionLink("Edit","Edit","Entry",new { id = item.ID },null)
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

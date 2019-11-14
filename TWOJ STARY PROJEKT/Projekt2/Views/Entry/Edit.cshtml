@@ -1,0 +1,95 @@
+﻿@model Projekt2.ViewModels.EntryVM.EditVM
+@{
+    ViewBag.Title = "Edit";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="margin:10px">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <h3>Development times</h3>
+        <div class=" container">
+            <div class="navbar-collapse" collapse>
+                <ul class="nav navbar-nav" style="text-align:right">
+                    <li>@Html.ActionLink("Log Out", "LogOut", "Authentication")</li>
+                </ul>
+            </div>
+        </div>
+        <br />
+    </div>
+    <br />
+    <div align="center">
+        <h5>Add entry</h5>
+    </div>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <table class="table">
+                <tr>
+                    <th style="text-align:right">@Html.DisplayNameFor(m => m.Film)</th>
+                    <td>
+                        @Html.EditorFor(m => m.Film)
+                    @Html.ValidationMessageFor(m => m.Film)
+                </td>
+            </tr>
+            <tr>
+                <th style="text-align:right">@Html.DisplayNameFor(m => m.Developer)</th>
+                <td>
+                    @Html.EditorFor(m => m.Developer)
+                @Html.ValidationMessageFor(m => m.Developer)
+            </td>
+        </tr>
+        <tr>
+            <th style="text-align:right">@Html.DisplayNameFor(m => m.Dillution)</th>
+            <td>
+                @Html.EditorFor(m => m.Dillution)
+            @Html.ValidationMessageFor(m => m.Dillution)
+        </td>
+    </tr>
+    <tr>
+        <th style="text-align:right">@Html.DisplayNameFor(m => m.ISO)</th>
+        <td>
+            @Html.EditorFor(m => m.ISO)
+        @Html.ValidationMessageFor(m => m.ISO)
+    </td>
+</tr>
+<tr>
+    <th style="text-align:right">@Html.DisplayNameFor(m => m.Time)</th>
+    <td>
+        @Html.EditorFor(m => m.Time)
+    @Html.ValidationMessageFor(m => m.Time)
+</td>
+</tr>
+<tr>
+    <th style="text-align:right">@Html.DisplayNameFor(m => m.Temperature)</th>
+    <td>
+        @Html.EditorFor(m => m.Temperature)
+    @Html.ValidationMessageFor(m => m.Temperature)
+</td>
+</tr>
+<tr>
+    <th style="text-align:right">@Html.DisplayNameFor(m => m.Notes)</th>
+    <td>@Html.EditorFor(m => m.Notes)</td>
+</tr>
+</table>
+<div>
+    <div align="center">
+        <button type="submit" class=" btn btn-primary mb-0">Submit</button>
+    </div>
+</div>
+<br />
+<div>
+    <div align="center">
+        @Html.ActionLink("Back to list", "Index", "Entry")
+    </div>
+</div>
+}
+    </div>
+</body>
+</html>
+

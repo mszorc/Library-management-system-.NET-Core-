@@ -1,0 +1,77 @@
+﻿@model Projekt2.ViewModels.AuthenticationVM.RegisterVM
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="margin:10px">
+    <div>
+        @using (Html.BeginForm())
+        {
+            <h3>Development times</h3>
+            <br />
+            <h5 align="center">Register</h5>
+            <br />
+            <table class="table ">
+                <tr>
+                    <th style="text-align:right">@Html.DisplayNameFor(m => m.firstName)</th>
+                    <td>
+                        @Html.EditorFor(m => m.firstName)
+                        @Html.ValidationMessageFor(m=>m.firstName)
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right">@Html.DisplayNameFor(m => m.lastName)</th>
+                    <td>
+                        @Html.EditorFor(m => m.lastName)
+                        @Html.ValidationMessageFor(m => m.lastName)
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right">@Html.DisplayNameFor(m => m.Username)</th>
+                    <td>
+                        @Html.EditorFor(m => m.Username)
+                        @Html.ValidationMessageFor(m => m.Username)
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right">@Html.DisplayNameFor(m => m.email)</th>
+                    <td>
+                        @Html.EditorFor(m => m.email)
+                        @Html.ValidationMessageFor(m => m.email)
+                    </td>
+                </tr>
+                <tr>
+                    <th style="text-align:right">@Html.DisplayNameFor(m => m.Password)</th>
+                    <td>
+                        @Html.PasswordFor(m => m.Password)
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <div align="center">
+                    <button type="submit" class=" btn btn-primary mb-0">Submit</button>
+                </div>
+            </div>
+            <br />
+            <div>
+                <div align="center">
+                    @Html.ActionLink("Back to list", "Index", "Entry")
+                </div>
+            </div>
+        }
+
+
+
+
+    </div>
+</body>
+</html>

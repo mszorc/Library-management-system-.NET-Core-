@@ -1,0 +1,73 @@
+﻿@model Projekt2.ViewModels.EntryVM.NotesVM
+@{
+    ViewBag.Title = "Notes";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="margin:10px">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <h3>Development times</h3>
+        <div class="container">
+
+            <div class="navbar-collapse" collapse>
+
+                @if (TempData["LoginName"] != null)
+                {
+                    <ul class="nav navbar-nav" style="text-align:right">
+                        <li>
+                            @Html.ActionLink("Search", "Search", "Entry") | @Html.ActionLink("Add entry", "Add", "Entry")
+                        </li>
+                        <li>
+                            Welcome @TempData["LoginName"]
+                            @Html.ActionLink("Log Out", "LogOut", "Authentication")
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <div style="text-align:right">
+                        @Html.ActionLink("Login", "Login", "Authentication")
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+            <div>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Film</th>
+                            <th>Developer</th>
+                            <th>Dillution</th>
+                            <th>ISO</th>
+                            <th>Time</th>
+                            <th>Temperature</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>@Html.DisplayFor(m => Model.entry.Film)</td>
+                        <td>@Html.DisplayFor(m => Model.entry.Developer)</td>
+                        <td>@Html.DisplayFor(m => Model.entry.Dillution)</td>
+                        <td>@Html.DisplayFor(m => Model.entry.ISO)</td>
+                        <td>@Html.DisplayFor(m => Model.entry.Time)</td>
+                        <td>@Html.DisplayFor(m => Model.entry.Temperature)</td>
+                    </tr>
+                </table>
+                <h3>@Html.DisplayNameFor(m => Model.entry.Notes)</h3>
+                <div>
+                    @Html.DisplayFor(m => Model.entry.Notes)
+                </div>
+                <br />
+                <div>
+                    @Html.ActionLink("Back to list", "Index", "Entry")
+                </div>
+            </div>
+</body>
+</html>
+

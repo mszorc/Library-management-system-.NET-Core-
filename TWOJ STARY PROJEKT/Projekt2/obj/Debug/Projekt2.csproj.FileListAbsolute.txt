@@ -1,0 +1,449 @@
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Projekt2.dll.config
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Projekt2.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Projekt2.pdb
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\csc.exe
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\csc.exe.config
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\csc.rsp
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\csi.exe
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\csi.exe.config
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\csi.rsp
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.AppContext.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Console.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.IO.Compression.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.IO.Pipes.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Security.Claims.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.ValueTuple.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Xml.XPath.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\vbc.exe
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\vbc.exe.config
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\vbc.rsp
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\VBCSCompiler.exe
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\EntityFramework.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\EntityFramework.SqlServer.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Helpers.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Mvc.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Razor.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Webpages.Deployment.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Webpages.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Webpages.Razor.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\EntityFramework.xml
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\EntityFramework.SqlServer.xml
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Razor.xml
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Webpages.xml
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Webpages.Deployment.xml
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Webpages.Razor.xml
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Helpers.xml
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Mvc.xml
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\pl\System.Web.Razor.resources.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\pl\System.Web.Webpages.resources.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\pl\System.Web.Webpages.Deployment.resources.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\pl\System.Web.Webpages.Razor.resources.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\pl\System.Web.Helpers.resources.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\pl\System.Web.Mvc.resources.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\obj\Debug\Projekt2.csprojAssemblyReference.cache
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\obj\Debug\Projekt2.csproj.CoreCompileInputs.cache
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\obj\Debug\Projekt2.csproj.CopyComplete
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\obj\Debug\Projekt2.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\obj\Debug\Projekt2.pdb
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Antlr3.Runtime.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Newtonsoft.Json.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Optimization.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\WebGrease.dll
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Antlr3.Runtime.pdb
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\Newtonsoft.Json.xml
+C:\Users\Piotr\source\repos\Projekt2\Projekt2\bin\System.Web.Optimization.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Projekt2.dll.config
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Projekt2.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Projekt2.pdb
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\csc.exe
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\csc.exe.config
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\csc.rsp
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\csi.exe
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\csi.exe.config
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\csi.rsp
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.AppContext.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Console.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.IO.Compression.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.IO.Pipes.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Security.Claims.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.ValueTuple.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Xml.XPath.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\vbc.exe
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\vbc.exe.config
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\vbc.rsp
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\VBCSCompiler.exe
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Antlr3.Runtime.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\EntityFramework.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\EntityFramework.SqlServer.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Newtonsoft.Json.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Helpers.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Mvc.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Optimization.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Razor.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Webpages.Deployment.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Webpages.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Webpages.Razor.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\WebGrease.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Antlr3.Runtime.pdb
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\EntityFramework.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\EntityFramework.SqlServer.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Newtonsoft.Json.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Optimization.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Razor.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Webpages.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Webpages.Deployment.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Webpages.Razor.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Helpers.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\System.Web.Mvc.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\pl\System.Web.Razor.resources.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\pl\System.Web.Webpages.resources.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\pl\System.Web.Webpages.Deployment.resources.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\pl\System.Web.Webpages.Razor.resources.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\pl\System.Web.Helpers.resources.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\bin\pl\System.Web.Mvc.resources.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\obj\Debug\Projekt2.csprojAssemblyReference.cache
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\obj\Debug\Projekt2.csproj.CoreCompileInputs.cache
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\obj\Debug\Projekt2.csproj.CopyComplete
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\obj\Debug\Projekt2.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2\Projekt2\obj\Debug\Projekt2.pdb
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Projekt2.dll.config
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Projekt2.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Projekt2.pdb
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\csc.exe
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\csc.exe.config
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\csc.rsp
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\csi.exe
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\csi.exe.config
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\csi.rsp
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.AppContext.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Console.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.IO.Compression.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.IO.Pipes.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Claims.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.ValueTuple.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Xml.XPath.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\vbc.exe
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\vbc.exe.config
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\vbc.rsp
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\VBCSCompiler.exe
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Antlr3.Runtime.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\EntityFramework.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\EntityFramework.SqlServer.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Newtonsoft.Json.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Helpers.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Mvc.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Optimization.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Razor.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Webpages.Deployment.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Webpages.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Webpages.Razor.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\WebGrease.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Antlr3.Runtime.pdb
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\EntityFramework.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\EntityFramework.SqlServer.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Newtonsoft.Json.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Optimization.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Razor.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Webpages.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Webpages.Deployment.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Webpages.Razor.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Helpers.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\System.Web.Mvc.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\pl\System.Web.Razor.resources.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\pl\System.Web.Webpages.resources.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\pl\System.Web.Webpages.Deployment.resources.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\pl\System.Web.Webpages.Razor.resources.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\pl\System.Web.Helpers.resources.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\bin\pl\System.Web.Mvc.resources.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\obj\Debug\Projekt2.csprojAssemblyReference.cache
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\obj\Debug\Projekt2.csproj.CoreCompileInputs.cache
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\obj\Debug\Projekt2.csproj.CopyComplete
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\obj\Debug\Projekt2.dll
+C:\Users\Piotr\Desktop\.net projekt\Projekt2Dev\Projekt2\obj\Debug\Projekt2.pdb
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Projekt2.dll.config
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Projekt2.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Projekt2.pdb
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\csc.exe
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\csc.exe.config
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\csc.rsp
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\csi.exe
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\csi.exe.config
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\csi.rsp
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.AppContext.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Console.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.IO.Compression.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.IO.Pipes.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Claims.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.ValueTuple.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Xml.XPath.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\vbc.exe
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\vbc.exe.config
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\vbc.rsp
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\VBCSCompiler.exe
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Antlr3.Runtime.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\EntityFramework.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\EntityFramework.SqlServer.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Newtonsoft.Json.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Helpers.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Mvc.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Optimization.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Razor.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Webpages.Deployment.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Webpages.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Webpages.Razor.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\WebGrease.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Antlr3.Runtime.pdb
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\EntityFramework.xml
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\EntityFramework.SqlServer.xml
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Newtonsoft.Json.xml
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Optimization.xml
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Razor.xml
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Webpages.xml
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Webpages.Deployment.xml
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Webpages.Razor.xml
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Helpers.xml
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\System.Web.Mvc.xml
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\pl\System.Web.Razor.resources.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\pl\System.Web.Webpages.resources.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\pl\System.Web.Webpages.Deployment.resources.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\pl\System.Web.Webpages.Razor.resources.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\pl\System.Web.Helpers.resources.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\bin\pl\System.Web.Mvc.resources.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\obj\Debug\Projekt2.csprojAssemblyReference.cache
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\obj\Debug\Projekt2.csproj.CoreCompileInputs.cache
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\obj\Debug\Projekt2.csproj.CopyComplete
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\obj\Debug\Projekt2.dll
+C:\Users\Piotr\Desktop\cv\Projekt2Dev\Projekt2\obj\Debug\Projekt2.pdb
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Projekt2.dll.config
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Projekt2.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Projekt2.pdb
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\csc.exe
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\csc.exe.config
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\csc.rsp
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\csi.exe
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\csi.exe.config
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\csi.rsp
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.AppContext.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Console.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.IO.Compression.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.IO.Pipes.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Claims.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.ValueTuple.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Xml.XPath.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\vbc.exe
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\vbc.exe.config
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\vbc.rsp
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\VBCSCompiler.exe
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Antlr3.Runtime.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\EntityFramework.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\EntityFramework.SqlServer.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Newtonsoft.Json.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Helpers.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Mvc.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Optimization.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Razor.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Webpages.Deployment.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Webpages.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Webpages.Razor.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\WebGrease.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Antlr3.Runtime.pdb
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\EntityFramework.xml
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\EntityFramework.SqlServer.xml
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Newtonsoft.Json.xml
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Optimization.xml
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Razor.xml
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Webpages.xml
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Webpages.Deployment.xml
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Webpages.Razor.xml
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Helpers.xml
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\System.Web.Mvc.xml
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\pl\System.Web.Razor.resources.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\pl\System.Web.Webpages.resources.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\pl\System.Web.Webpages.Deployment.resources.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\pl\System.Web.Webpages.Razor.resources.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\pl\System.Web.Helpers.resources.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\bin\pl\System.Web.Mvc.resources.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\obj\Debug\Projekt2.csprojAssemblyReference.cache
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\obj\Debug\Projekt2.csproj.CopyComplete
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\obj\Debug\Projekt2.dll
+C:\Users\piawr\Desktop\bazy projekt\filmdevelopersproject\Projekt2Dev\Projekt2\obj\Debug\Projekt2.pdb

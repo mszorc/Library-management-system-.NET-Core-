@@ -1,0 +1,68 @@
+﻿@model Projekt2.ViewModels.AuthenticationVM.LoginVM
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="margin:10px">
+    @using (Html.BeginForm())
+    {
+        <h3>Development times</h3>
+        <br />
+        <h5 align="center">Log In</h5>
+        <br />
+        <table class="table">
+
+            <tr>
+                <th style="text-align:right">
+                    @Html.DisplayNameFor(model => Model.username)
+                </th>
+                <td>
+                    @Html.EditorFor(model => Model.username)
+
+                    @Html.ValidationMessageFor(model => model.username)
+                </td>
+            </tr>
+            <tr>
+                <th style=" text-align:right">
+                    @Html.DisplayNameFor(model => Model.password)
+                </th>
+                <td>
+                    @Html.PasswordFor(model => Model.password)
+                    @Html.ValidationMessageFor(model => model.password)
+                </td>
+            </tr>
+
+        </table>
+        <p style="color:red">
+            @Html.ValidationMessage("CredentialError")
+        </p>
+        <div>
+            <div align="center">
+                <button type="submit" class=" btn btn-primary mb-0">Submit</button>
+            </div>
+        </div>
+        <div align="center">
+            <br />
+            Don't have account?
+            @Html.ActionLink("Register", "Register", null, new { @class = "Link" })
+        </div>
+        <br />
+        <div>
+            <div align="center">
+                @Html.ActionLink("Back to list", "Index", "Entry")
+            </div>
+        </div>
+    }
+
+
+</body>
+</html>
