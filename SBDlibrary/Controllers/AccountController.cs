@@ -117,18 +117,7 @@ namespace SBDlibrary.Controllers
                     await _userManager.AddToRoleAsync(user, "Klient");
 
 
-                    SmtpClient client = new SmtpClient("mysmtpserver");
-                    client.UseDefaultCredentials = false;
-                    client.Credentials = new NetworkCredential("username", "password");
-
-                    MailMessage mailMessage = new MailMessage();
-                    mailMessage.From = new MailAddress("whoever@me.com");
-                    mailMessage.To.Add("szorc.michal@gmail.com");
-                    mailMessage.Body = "body";
-                    mailMessage.Subject = "subject";
-                    client.Send(mailMessage);
-
-
+                  
                     return RedirectToAction("Index", "Home");
                 }
 

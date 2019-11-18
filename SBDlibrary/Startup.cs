@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SBDlibrary.Models;
 using SBDlibrary.Authentication;
+using System.Web.Mvc;
 
 namespace SBDlibrary
 {
@@ -84,7 +85,18 @@ namespace SBDlibrary
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
             });
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "Default",
+                    template: "{controller}/{action}/{id}",
+                    defaults: new { controller = "Book", action = "Index", id = UrlParameter.Optional }
+                );
+
+            });
+
         }
     }
 }
