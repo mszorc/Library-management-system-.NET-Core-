@@ -15,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SBDlibrary.Models;
 using SBDlibrary.Authentication;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using SBDlibrary.Services;
 
 namespace SBDlibrary
 {
@@ -54,6 +56,9 @@ namespace SBDlibrary
                 options.LoginPath = "/Login";
                 options.LogoutPath = "/Logout";
             });
+
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
