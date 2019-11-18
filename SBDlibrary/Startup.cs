@@ -14,6 +14,7 @@ using SBDlibrary.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SBDlibrary.Models;
+using SBDlibrary.Authentication;
 
 namespace SBDlibrary
 {
@@ -36,15 +37,23 @@ namespace SBDlibrary
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            /*services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnection")));*/
             services.AddDbContext<LibraryDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<Uzytkownicy, Uzytkownicy_role>()
+                .AddDefaultTokenProviders();
+            services.AddTransient<IUserStore<Uzytkownicy>, UserStore>();
+            services.AddTransient<IRoleStore<Uzytkownicy_role>, RoleStore>();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.LoginPath = "/Login";
+                options.LogoutPath = "/Logout";
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
