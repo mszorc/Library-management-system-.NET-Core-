@@ -15,7 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SBDlibrary.Models;
 using SBDlibrary.Authentication;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using SBDlibrary.Services;
 
 namespace SBDlibrary
 {
@@ -56,6 +57,9 @@ namespace SBDlibrary
                 options.LogoutPath = "/Logout";
             });
 
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -85,18 +89,7 @@ namespace SBDlibrary
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-
             });
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "Default",
-                    template: "{controller}/{action}/{id}",
-                    defaults: new { controller = "Book", action = "Index", id = UrlParameter.Optional }
-                );
-
-            });
-
         }
     }
 }
