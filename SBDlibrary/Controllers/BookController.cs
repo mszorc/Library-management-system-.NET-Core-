@@ -56,9 +56,12 @@ namespace SBDlibrary.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind("tytuł, data_wydania, Wydawnictwa")]Ksiazki ksiazka)
+        public async Task<ActionResult> Create([Bind("tytuł, data_wydania")]Ksiazki ksiazka)
         {
-            ksiazka.Wydawnictwa = await _context.Wydawnictwa.FindAsync(1);
+           ksiazka.Wydawnictwa = await _context.Wydawnictwa.FindAsync(1);
+
+
+            // ksiazka.Wydawnictwa =await _context.Wydawnictwa.FindAsync(1);
             try
             {
                 if (ModelState.IsValid)
@@ -73,7 +76,8 @@ namespace SBDlibrary.Controllers
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
-            return View(ksiazka);
+           
+            return RedirectToAction("Index", "Home");
         }
         public async Task<ActionResult> Create()
         {

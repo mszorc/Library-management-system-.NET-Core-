@@ -47,7 +47,6 @@ C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SB
 C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\bin\Debug\netcoreapp2.2\SBDlibrary.pdb
 C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\bin\Debug\netcoreapp2.2\SBDlibrary.Views.dll
 C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\bin\Debug\netcoreapp2.2\SBDlibrary.Views.pdb
-C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\SBDlibrary.csprojAssemblyReference.cache
 C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\SBDlibrary.RazorAssemblyInfo.cache
 C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\SBDlibrary.RazorAssemblyInfo.cs
 C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\SBDlibrary.AssemblyInfoInputs.cache
@@ -82,3 +81,4 @@ C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SB
 C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Wydawnictwa\Index.cshtml.g.cs
 C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Wydawnictwa\Create.cshtml.g.cs
 C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Wydawnictwa\Details.cshtml.g.cs
+C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\SBDlibrary.csprojAssemblyReference.cache
