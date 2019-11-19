@@ -14,6 +14,14 @@ namespace SBDlibrary.Models
         public int id_wypozyczenia { get; set; }
 
         [Required]
+        [Column(Order = 1)]
+        public int id_uzytkownika { get; set; }
+        
+        [Required]
+        [Column(Order = 2)]
+        public int id_egzemplarza { get; set; }
+
+        [Required]
         [Column(Order = 3)]
         public DateTime data_wypozyczenia { get; set; }
 
@@ -21,13 +29,11 @@ namespace SBDlibrary.Models
         [Column(Order = 4)]
         public DateTime data_zwrotu { get; set; }
 
-        [Required]
-        [Column(Order = 1)]
-        public virtual Uzytkownicy id_uzytkownika { get; set; }
+        [ForeignKey("id_uzytkownika")]
+        public virtual Uzytkownicy Uzytkownicy { get; set; }
 
-        [Required]
-        [Column(Order = 2)]
-        public virtual Egzemplarze id_egzemplarza { get; set; }
+        [ForeignKey("id_egzemplarza")]
+        public virtual Egzemplarze Egzemplarze { get; set; }
 
        // public Zwroty Zwroty { get; set; }
     }

@@ -12,15 +12,21 @@ namespace SBDlibrary.Models
         [Key]
         [Column(Order = 0)]
         public int id_logu { get; set; }
+        
+        [Required]
+        [Column(Order = 1)]
+        public int id_uzytkownika { get; set; }
+        
         [Required]
         [StringLength(15)]
         [Column(Order = 2)]
         public string ip_urzadzenia { get; set; }
+        
         [Required]
         [StringLength(50)]
         [Column(Order = 3)]
         public string komunikat { get; set; }
-        [Column(Order = 1)]
+
         [ForeignKey("id_uzytkownika")]
         public virtual Uzytkownicy Uzytkownicy { get; set; }
 

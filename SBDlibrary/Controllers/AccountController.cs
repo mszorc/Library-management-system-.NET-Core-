@@ -110,7 +110,6 @@ namespace SBDlibrary.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Bibliotekarz")]
         public IActionResult Register()
         {
             return View();

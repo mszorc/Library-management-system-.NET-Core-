@@ -68,6 +68,7 @@ namespace SBDlibrary.Migrations
                 {
                     id_uzytkownika = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    email = table.Column<string>(maxLength: 50, nullable: false),
                     haslo = table.Column<string>(maxLength: 20, nullable: false),
                     imie = table.Column<string>(maxLength: 20, nullable: false),
                     nazwisko = table.Column<string>(maxLength: 20, nullable: false),
@@ -97,19 +98,19 @@ namespace SBDlibrary.Migrations
                 {
                     id_zamowienia = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    id_dostawcy = table.Column<int>(nullable: false),
                     data_zamowienia = table.Column<DateTime>(nullable: false),
-                    status_zamowienia = table.Column<int>(nullable: false),
-                    id_dostawcy = table.Column<int>(nullable: true)
+                    status_zamowienia = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Zamowienia", x => x.id_zamowienia);
                     table.ForeignKey(
-                        name: "FK_Zamowienia_Dostawcy",
+                        name: "FK_Zamowienia_Dostawcy_id_dostawcy",
                         column: x => x.id_dostawcy,
                         principalTable: "Dostawcy",
                         principalColumn: "id_dostawcy",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,19 +119,19 @@ namespace SBDlibrary.Migrations
                 {
                     id_logu = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    id_uzytkownika = table.Column<int>(nullable: false),
                     ip_urzadzenia = table.Column<string>(maxLength: 15, nullable: false),
-                    komunikat = table.Column<string>(maxLength: 50, nullable: false),
-                    id_uzytkownika = table.Column<int>(nullable: true)
+                    komunikat = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Logi", x => x.id_logu);
                     table.ForeignKey(
-                        name: "FK_Logi_Uzytkownicy",
+                        name: "FK_Logi_Uzytkownicy_id_uzytkownika",
                         column: x => x.id_uzytkownika,
                         principalTable: "Uzytkownicy",
                         principalColumn: "id_uzytkownika",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,13 +146,13 @@ namespace SBDlibrary.Migrations
                     table.PrimaryKey("PK_Uzytkownicy_role", x => new { x.id_uzytkownika, x.id_roli });
                     table.UniqueConstraint("AK_Uzytkownicy_role_id_roli_id_uzytkownika", x => new { x.id_roli, x.id_uzytkownika });
                     table.ForeignKey(
-                        name: "FK_Uzytkownicy_Role",
+                        name: "FK_Uzytkownicy_role_Role_id_roli",
                         column: x => x.id_roli,
                         principalTable: "Role",
                         principalColumn: "id_roli",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Uzytkownicy_Role_2",
+                        name: "FK_Uzytkownicy_role_Uzytkownicy_id_uzytkownika",
                         column: x => x.id_uzytkownika,
                         principalTable: "Uzytkownicy",
                         principalColumn: "id_uzytkownika",
@@ -172,7 +173,7 @@ namespace SBDlibrary.Migrations
                 {
                     table.PrimaryKey("PK_Ksiazki", x => x.id_ksiazki);
                     table.ForeignKey(
-                        name: "FK_Ksiazki_Wydawnictwa_Wydawnictwaid_wydawnictwa",
+                        name: "FK_Ksiazki_Wydawnictwa_id_wydawnictwa",
                         column: x => x.id_wydawnictwa,
                         principalTable: "Wydawnictwa",
                         principalColumn: "id_wydawnictwa",
@@ -190,13 +191,13 @@ namespace SBDlibrary.Migrations
                 {
                     table.PrimaryKey("PK_Autorzy_Ksiazki", x => new { x.id_autora, x.id_ksiazki });
                     table.ForeignKey(
-                        name: "FK_Autorzy_Ksiazki",
+                        name: "FK_Autorzy_Ksiazki_Autor_id_autora",
                         column: x => x.id_autora,
                         principalTable: "Autor",
                         principalColumn: "id_autor",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Autorzy_Ksiazki_2",
+                        name: "FK_Autorzy_Ksiazki_Ksiazki_id_ksiazki",
                         column: x => x.id_ksiazki,
                         principalTable: "Ksiazki",
                         principalColumn: "id_ksiazki",
@@ -215,7 +216,7 @@ namespace SBDlibrary.Migrations
                 {
                     table.PrimaryKey("PK_Egzemplarze", x => x.id_egzemplarza);
                     table.ForeignKey(
-                        name: "FK_Egzemplarze_Ksiazki",
+                        name: "FK_Egzemplarze_Ksiazki_id_ksiazki",
                         column: x => x.id_ksiazki,
                         principalTable: "Ksiazki",
                         principalColumn: "id_ksiazki",
@@ -233,13 +234,13 @@ namespace SBDlibrary.Migrations
                 {
                     table.PrimaryKey("PK_Kategorie_Ksiazki", x => new { x.id_kategorii, x.id_ksiazki });
                     table.ForeignKey(
-                        name: "FK_Kategorie_Ksiazki",
+                        name: "FK_Kategorie_Ksiazki_Ksiazki_id_kategorii",
                         column: x => x.id_kategorii,
                         principalTable: "Ksiazki",
                         principalColumn: "id_ksiazki",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Kategorie_Ksiazki_2",
+                        name: "FK_Kategorie_Ksiazki_Kategorie_id_ksiazki",
                         column: x => x.id_ksiazki,
                         principalTable: "Kategorie",
                         principalColumn: "id_kategorii",
@@ -259,13 +260,13 @@ namespace SBDlibrary.Migrations
                     table.PrimaryKey("PK_Zamowienie_ksiazki", x => new { x.id_zamowienia, x.id_ksiazki });
                     table.UniqueConstraint("AK_Zamowienie_ksiazki_id_ksiazki_id_zamowienia", x => new { x.id_ksiazki, x.id_zamowienia });
                     table.ForeignKey(
-                        name: "FK_Zamowienie_ksiazki",
+                        name: "FK_Zamowienie_ksiazki_Ksiazki_id_ksiazki",
                         column: x => x.id_ksiazki,
                         principalTable: "Ksiazki",
                         principalColumn: "id_ksiazki",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Zamowienie_ksiazki_2",
+                        name: "FK_Zamowienie_ksiazki_Zamowienia_id_zamowienia",
                         column: x => x.id_zamowienia,
                         principalTable: "Zamowienia",
                         principalColumn: "id_zamowienia",
@@ -278,22 +279,22 @@ namespace SBDlibrary.Migrations
                 {
                     id_rezerwacji = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    data_rezerwacji = table.Column<DateTime>(nullable: false),
-                    status_rezerwacji = table.Column<int>(nullable: false),
                     id_uzytkownika = table.Column<int>(nullable: false),
-                    id_egzemplarza = table.Column<int>(nullable: false)
+                    id_egzemplarza = table.Column<int>(nullable: false),
+                    data_rezerwacji = table.Column<DateTime>(nullable: false),
+                    status_rezerwacji = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rezerwacje", x => x.id_rezerwacji);
                     table.ForeignKey(
-                        name: "FK_Rezerwacje_Egzemplarze",
+                        name: "FK_Rezerwacje_Egzemplarze_id_egzemplarza",
                         column: x => x.id_egzemplarza,
                         principalTable: "Egzemplarze",
                         principalColumn: "id_egzemplarza",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Rezerwacje_Uzytkownicy_2",
+                        name: "FK_Rezerwacje_Uzytkownicy_id_uzytkownika",
                         column: x => x.id_uzytkownika,
                         principalTable: "Uzytkownicy",
                         principalColumn: "id_uzytkownika",
@@ -306,22 +307,22 @@ namespace SBDlibrary.Migrations
                 {
                     id_wypozyczenia = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    data_wypozyczenia = table.Column<DateTime>(nullable: false),
-                    data_zwrotu = table.Column<DateTime>(nullable: false),
                     id_uzytkownika = table.Column<int>(nullable: false),
-                    id_egzemplarza = table.Column<int>(nullable: false)
+                    id_egzemplarza = table.Column<int>(nullable: false),
+                    data_wypozyczenia = table.Column<DateTime>(nullable: false),
+                    data_zwrotu = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Wypozyczenia", x => x.id_wypozyczenia);
                     table.ForeignKey(
-                        name: "FK_Wypozyczenia_Egzemplarze",
+                        name: "FK_Wypozyczenia_Egzemplarze_id_egzemplarza",
                         column: x => x.id_egzemplarza,
                         principalTable: "Egzemplarze",
                         principalColumn: "id_egzemplarza",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Wypozyczenia_Uzytkownicy_2",
+                        name: "FK_Wypozyczenia_Uzytkownicy_id_uzytkownika",
                         column: x => x.id_uzytkownika,
                         principalTable: "Uzytkownicy",
                         principalColumn: "id_uzytkownika",
@@ -334,19 +335,19 @@ namespace SBDlibrary.Migrations
                 {
                     id_zwrotu = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    id_wypozyczenia = table.Column<int>(nullable: false),
                     data_zwrotu = table.Column<DateTime>(nullable: false),
-                    kara = table.Column<float>(nullable: false),
-                    id_wypozyczenia = table.Column<int>(nullable: true)
+                    kara = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Zwroty", x => x.id_zwrotu);
                     table.ForeignKey(
-                        name: "FK_Zwroty_Wypozyczenia",
+                        name: "FK_Zwroty_Wypozyczenia_id_wypozyczenia",
                         column: x => x.id_wypozyczenia,
                         principalTable: "Wypozyczenia",
                         principalColumn: "id_wypozyczenia",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -365,7 +366,7 @@ namespace SBDlibrary.Migrations
                 column: "id_ksiazki");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ksiazki_Wydawnictwaid_wydawnictwa",
+                name: "IX_Ksiazki_id_wydawnictwa",
                 table: "Ksiazki",
                 column: "id_wydawnictwa");
 
@@ -375,32 +376,32 @@ namespace SBDlibrary.Migrations
                 column: "id_uzytkownika");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rezerwacje_id_egzemplarza1",
+                name: "IX_Rezerwacje_id_egzemplarza",
                 table: "Rezerwacje",
                 column: "id_egzemplarza");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rezerwacje_id_uzytkownika1",
+                name: "IX_Rezerwacje_id_uzytkownika",
                 table: "Rezerwacje",
                 column: "id_uzytkownika");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Wypozyczenia_id_egzemplarza1",
+                name: "IX_Wypozyczenia_id_egzemplarza",
                 table: "Wypozyczenia",
                 column: "id_egzemplarza");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Wypozyczenia_id_uzytkownika1",
+                name: "IX_Wypozyczenia_id_uzytkownika",
                 table: "Wypozyczenia",
                 column: "id_uzytkownika");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Zamowienia_dostawcyid_dostawcy",
+                name: "IX_Zamowienia_id_dostawcy",
                 table: "Zamowienia",
                 column: "id_dostawcy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Zwroty_id_wypozyczenia1",
+                name: "IX_Zwroty_id_wypozyczenia",
                 table: "Zwroty",
                 column: "id_wypozyczenia");
         }
@@ -460,4 +461,3 @@ namespace SBDlibrary.Migrations
         }
     }
 }
-
