@@ -27,7 +27,7 @@
                 @Html.DisplayNameFor(model => model.data_wydania)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Wydawnictwa.nazwa)
+                @Html.DisplayNameFor(model => model.Wydawnictwa)
             </th>
         </tr>
     </thead>
@@ -45,7 +45,7 @@
                     @Html.DisplayFor(modelItem => item.data_wydania)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Wydawnictwa.nazwa)
+                    @Html.DisplayFor(modelItem => item.id_wydawnictwa)
                 </td>
             </tr>
         }

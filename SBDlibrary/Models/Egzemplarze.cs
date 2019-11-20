@@ -10,8 +10,8 @@ namespace SBDlibrary.Models
     public class Egzemplarze
     {
         [Key]
-        [Column(Order = 0)]
-        public int id_egzemplarza { get; set; }
+        [Column(Order = 0)] 
+        public int id_egzemplarza { get; set; }       
         [Required]
         [Column(Order = 1)]
         [ForeignKey("id_ksiazki")]

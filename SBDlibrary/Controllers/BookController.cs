@@ -58,10 +58,12 @@ namespace SBDlibrary.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind("tytuł, data_wydania")]Ksiazki ksiazka)
         {
-           ksiazka.Wydawnictwa = await _context.Wydawnictwa.FindAsync(1);
+            var wydawnictwo = await _context.Wydawnictwa
+                .FirstOrDefaultAsync(m => m.id_wydawnictwa == 2);
+            ksiazka.Wydawnictwa = wydawnictwo;
 
 
-            // ksiazka.Wydawnictwa =await _context.Wydawnictwa.FindAsync(1);
+             //ksiazka.Wydawnictwa =await _context.Wydawnictwa.FindAsync(1);
             try
             {
                 if (ModelState.IsValid)
@@ -77,7 +79,7 @@ namespace SBDlibrary.Controllers
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
            
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
         public async Task<ActionResult> Create()
         {
