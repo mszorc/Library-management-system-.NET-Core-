@@ -19,4 +19,11 @@ namespace SBDlibrary.Models
         public ICollection<Wypozyczenia> Wypozyczenia { get; set; }
         public ICollection<Rezerwacje> Rezerwacje { get; set; }
     }
+
+    public class SimpleCreateModel
+    {
+       
+        [Display(Name = "id_ksiazki")]
+        public int id_ksiazki;
+    }
 }

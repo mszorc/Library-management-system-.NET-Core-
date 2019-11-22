@@ -90,3 +90,12 @@ C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SB
 C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Dostawcy\Index.cshtml.g.cs
 C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Dostawcy\Create.cshtml.g.cs
 C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Dostawcy\Details.cshtml.g.cs
+C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Egzemplarze\Create.cshtml.g.cs
+C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Egzemplarze\Details.cshtml.g.cs
+C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Egzemplarze\Index.cshtml.g.cs
+C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Kategorie\Index.cshtml.g.cs
+C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Kategorie\Details.cshtml.g.cs
+C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Kategorie\Create.cshtml.g.cs
+C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Kategorie_Ksiazki\Index.cshtml.g.cs
+C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Kategorie_Ksiazki\Create.cshtml.g.cs
+C:\Users\kacpe\OneDrive\Documents\GitHub\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Kategorie_Ksiazki\Details.cshtml.g.cs

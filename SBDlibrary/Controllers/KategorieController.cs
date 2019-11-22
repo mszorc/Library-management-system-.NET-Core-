@@ -9,19 +9,19 @@ using SBDlibrary.Models;
 
 namespace SBDlibrary.Controllers
 {
-    public class DostawcyController : Controller
+    public class KategorieController : Controller
     {
         private readonly LibraryDbContext _context;
 
-        public DostawcyController (LibraryDbContext context)
+        public KategorieController(LibraryDbContext context)
         {
             _context = context;
         }
 
-        public async  Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
-            return View(await _context.Dostawcy.ToListAsync());
-           // return View();
+            return View(await _context.Kategorie.ToListAsync());
+            // return View();
         }
 
         public async Task<ActionResult> Details(int? id)
@@ -29,27 +29,27 @@ namespace SBDlibrary.Controllers
 
             if (id == null)
             {
-                ModelState.AddModelError(string.Empty, "Dostawca does not exist.");
+                ModelState.AddModelError(string.Empty, "Kategoria does not exist.");
                 return View();
             }
 
-            var dostawca = _context.Dostawcy.FirstOrDefault(m => m.id_dostawcy == id);
+            var kategoria = _context.Kategorie.FirstOrDefault(m => m.id_kategorii == id);
 
-        
-            return View(dostawca);
 
-      
+            return View(kategoria);
+
+
         }
         [HttpPost]
-       // [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind("nazwa, adres")]Dostawcy dostawca)
+        // [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind("nazwa")]Kategorie kategoria)
         {
 
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _context.Dostawcy.Add(dostawca);
+                    _context.Kategorie.Add(kategoria);
                     _context.SaveChanges();
                     return RedirectToAction("Index");
                 }

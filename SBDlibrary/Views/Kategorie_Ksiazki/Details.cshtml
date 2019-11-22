@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Egzemplarze";
+}
+@*//@model SBDlibrary.Models.Kategorie_Ksiazki*@
+
+<h1>Details</h1>
+<h1>ksiazki</h1>
+
+@model IEnumerable<SBDlibrary.Models.Kategorie_Ksiazki>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ksiazki.tytuł)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kategorie.nazwa)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ksiazki.tytuł)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kategorie.nazwa)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

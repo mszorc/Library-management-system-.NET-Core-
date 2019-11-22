@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,19 +10,17 @@ using SBDlibrary.Models;
 
 namespace SBDlibrary.Controllers
 {
-    public class DostawcyController : Controller
+    public class EgzemplarzeController : Controller
     {
         private readonly LibraryDbContext _context;
 
-        public DostawcyController (LibraryDbContext context)
+        public EgzemplarzeController(LibraryDbContext context)
         {
             _context = context;
         }
-
-        public async  Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
-            return View(await _context.Dostawcy.ToListAsync());
-           // return View();
+            return View(await _context.Egzemplarze.ToListAsync());
         }
 
         public async Task<ActionResult> Details(int? id)
@@ -29,27 +28,33 @@ namespace SBDlibrary.Controllers
 
             if (id == null)
             {
-                ModelState.AddModelError(string.Empty, "Dostawca does not exist.");
+                ModelState.AddModelError(string.Empty, "Egzemplarz does not exist.");
                 return View();
             }
 
-            var dostawca = _context.Dostawcy.FirstOrDefault(m => m.id_dostawcy == id);
+            var egzemplarz = _context.Egzemplarze.FirstOrDefault(m => m.id_egzemplarza == id);
 
-        
-            return View(dostawca);
 
-      
+            return View(egzemplarz);
+
+
         }
         [HttpPost]
-       // [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind("nazwa, adres")]Dostawcy dostawca)
+        // [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(string id_ksiazki)
         {
+            int idKsiazki = Convert.ToInt32(id_ksiazki);
+            Egzemplarze egzemplarz = new Egzemplarze();
+            var ksiazka = await _context.Ksiazki
+                .FirstOrDefaultAsync(m => m.id_ksiazki == idKsiazki);
+         //   Debug.WriteLine("My debug string here" + idKsiazki);
+            egzemplarz.Ksiazki = ksiazka;
 
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _context.Dostawcy.Add(dostawca);
+                    _context.Egzemplarze.Add(egzemplarz);
                     _context.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -64,7 +69,9 @@ namespace SBDlibrary.Controllers
         }
         public async Task<ActionResult> Create()
         {
-            return View();
+           
+            return View(new SimpleCreateModel());
         }
+
     }
 }
