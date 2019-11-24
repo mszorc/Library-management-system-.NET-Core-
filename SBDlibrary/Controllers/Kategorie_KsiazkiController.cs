@@ -31,12 +31,46 @@ namespace SBDlibrary.Controllers
                 ModelState.AddModelError(string.Empty, "Kategorie ksiazki does not exist.");
                 return View();
             }
-            var kategrie = from t in _context.Kategorie_Ksiazki
-                          select t;
+             
+
+            var ksiazka = await _context.Ksiazki
+               .FirstOrDefaultAsync(m => m.id_ksiazki == id);
+            // int idKategorii = Convert.ToInt32(id_kategorii);
+
+            var ka = from t in _context.Kategorie_Ksiazki
+                     select t;
+            ka = ka.Where(t => t.id_ksiazki.Equals(id));
+
+            var kaka = from z in ka select z.Kategorie.nazwa;
+
+          
+            KatModel katmodel = new KatModel();
+          //  katmodel.ksiazka = ksiazka;
+            katmodel.kategorie = kaka;
+            katmodel.tytul = ksiazka.tytuł;
+
+
+
+
+         //   var kategoria = await _context.Kategorie_Ksiazki
+          //      .(m => m.id_kategorii == id);
+
+        //    var kat = await _context.Kategorie
+           //     .AllAsync(m => m.id_kategorii == kategoria.id_kategorii);
+
+        //    Kategorie_Ksiazki kategorie_Ksiazki = new Kategorie_Ksiazki();
+
+        //    kategorie_Ksiazki.id_ksiazki = (int)id;
+       //     kategorie_Ksiazki.id_kategorii = kategoria.id_kategorii;
+       //     kategorie_Ksiazki.Kategorie = kat;
+      //      kategorie_Ksiazki.Ksiazki = ksiazka;
+
+          //  var kategrie = from t in _context.Kategorie_Ksiazki
+                    //      select t;
 
             // var kategrie = _context.Kategorie_Ksiazki.All(m => m.id_ksiazki == id);
 
-            kategrie = kategrie.Where(t => t.id_ksiazki.Equals(id));
+           // kategrie = kategrie.Where(t => t.id_ksiazki.Equals(id));
 
             //  kategrie = from t in kategrie select t.Kategorie;
            // kat.kategorie = from z in kategrie select z.Kategorie.nazwa;
@@ -47,27 +81,30 @@ namespace SBDlibrary.Controllers
 
             
             
-            return View(await kategrie.ToListAsync());
+            return View(katmodel);
 
 
         }
         [HttpPost]
         // [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(string id_ksiazki, string id_kategorii)
+        public async Task<ActionResult> Create( string id_kategorii, string id_ksiazki)
         {
             Kategorie_Ksiazki kategorie_Ksiazki = new Kategorie_Ksiazki();
-            int idKsiazki = Convert.ToInt32(id_ksiazki);
-            var ksiazka = await _context.Ksiazki
-                .FirstOrDefaultAsync(m => m.id_ksiazki == idKsiazki);
             int idKategorii = Convert.ToInt32(id_kategorii);
-            
-            var kategoria = await _context.Kategorie
-                .FirstOrDefaultAsync(m => m.id_kategorii == idKategorii);
+           // var kategoria = await _context.Kategorie
+          //      .FirstOrDefaultAsync(m => m.id_kategorii == idKategorii);
+            int idKsiazki = Convert.ToInt32(id_ksiazki);
+          //  var ksiazka = await _context.Ksiazki
+         //       .FirstOrDefaultAsync(m => m.id_ksiazki == idKsiazki);
             //   Debug.WriteLine("My debug string here" + idKsiazki);
-            kategorie_Ksiazki.Ksiazki = ksiazka;
-            kategorie_Ksiazki.Kategorie = kategoria;
-            kategorie_Ksiazki.id_ksiazki = idKsiazki;
-            kategorie_Ksiazki.id_kategorii = idKategorii;
+           // kategorie_Ksiazki.id_kategorii = idKategorii;
+            kategorie_Ksiazki.Ksiazki = await _context.Ksiazki
+               .FirstOrDefaultAsync(p => p.id_ksiazki == idKsiazki);
+          //  kategorie_Ksiazki.id_ksiazki = idKsiazki;
+           kategorie_Ksiazki.Kategorie =  await _context.Kategorie
+                .FirstOrDefaultAsync(m => m.id_kategorii == idKategorii);
+
+
 
 
             try

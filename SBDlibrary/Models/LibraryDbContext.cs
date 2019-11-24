@@ -66,12 +66,12 @@ namespace SBDlibrary.Models
             {
                 b.HasOne("SBDlibrary.Models.Ksiazki", "Ksiazki")
                     .WithMany()
-                    .HasForeignKey("id_kategorii")
+                    .HasForeignKey("id_ksiazki")
                     .OnDelete(DeleteBehavior.Restrict);
 
                 b.HasOne("SBDlibrary.Models.Kategorie", "Kategorie")
                     .WithMany()
-                    .HasForeignKey("id_ksiazki")
+                    .HasForeignKey("id_kategorii")
                     .OnDelete(DeleteBehavior.Restrict);
             });
 

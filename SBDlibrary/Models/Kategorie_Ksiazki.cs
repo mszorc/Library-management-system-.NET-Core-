@@ -23,8 +23,8 @@ namespace SBDlibrary.Models
     }
     public class KatModel
     {
-        public string nazwa;
-
+        // public Ksiazki ksiazka;
+        public string tytul;
         public IEnumerable<string> kategorie { get; set; }
     }
 }

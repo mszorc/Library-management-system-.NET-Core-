@@ -29,4 +29,10 @@ namespace SBDlibrary.Models
         [ForeignKey("id_wydawnictwa")]
         public virtual Wydawnictwa Wydawnictwa { get; set; }
     }
+    public class SimpleCreateModelWydawnictwo
+    {
+
+        [Display(Name = "idKategorii")]
+        public int id_ksiazki;
+    }
 }

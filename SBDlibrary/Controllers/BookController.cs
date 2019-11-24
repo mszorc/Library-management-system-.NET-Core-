@@ -58,10 +58,16 @@ namespace SBDlibrary.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind("tytuł, data_wydania")]Ksiazki ksiazka)
         {
-            var wydawnictwo = await _context.Wydawnictwa
-                .FirstOrDefaultAsync(m => m.id_wydawnictwa == 2);
-            ksiazka.Wydawnictwa = wydawnictwo;
-
+           
+           // var kategoria = await _context.Kategorie
+           //    .FirstOrDefaultAsync(m => m.id_kategorii == 4);
+            ksiazka.Wydawnictwa = await _context.Wydawnictwa
+                .FirstOrDefaultAsync(m => m.id_wydawnictwa == ksiazka.id_wydawnictwa); 
+         //   Kategorie_Ksiazki kategorie_Ksiazki = new Kategorie_Ksiazki();
+            //kategorie_Ksiazki.id_ksiazki = ksiazka.id_ksiazki;
+          //  kategorie_Ksiazki.Ksiazki = ksiazka;
+            //kategorie_Ksiazki.id_kategorii = 4;
+         //  kategorie_Ksiazki.Kategorie = kategoria;
 
              //ksiazka.Wydawnictwa =await _context.Wydawnictwa.FindAsync(1);
             try
@@ -69,6 +75,7 @@ namespace SBDlibrary.Controllers
                 if (ModelState.IsValid)
                 {
                     _context.Ksiazki.Add(ksiazka);
+                 //   _context.Kategorie_Ksiazki.Add(kategorie_Ksiazki);
                     _context.SaveChanges();
                     return RedirectToAction("Index");
                 }
