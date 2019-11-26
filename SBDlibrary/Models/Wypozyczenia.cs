@@ -37,4 +37,10 @@ namespace SBDlibrary.Models
 
        // public Zwroty Zwroty { get; set; }
     }
+    public class SimpleModel
+    {
+
+        [Display(Name = "id_ksiazki")]
+        public int id_ksiazki;
+    }
 }

@@ -33,6 +33,9 @@ namespace SBDlibrary.Controllers
             }
 
             var egzemplarz = _context.Egzemplarze.FirstOrDefault(m => m.id_egzemplarza == id);
+         //   egzemplarz.Ksiazki.id_ksiazki = a
+            
+            egzemplarz.Ksiazki = _context.Ksiazki.FirstOrDefault(m => m.id_ksiazki == egzemplarz.id_ksiazki);
 
 
             return View(egzemplarz);
@@ -49,6 +52,7 @@ namespace SBDlibrary.Controllers
                 .FirstOrDefaultAsync(m => m.id_ksiazki == idKsiazki);
          //   Debug.WriteLine("My debug string here" + idKsiazki);
             egzemplarz.Ksiazki = ksiazka;
+            egzemplarz.status = "dostepny";
 
             try
             {
