@@ -10,6 +10,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -25,14 +26,18 @@ namespace SBDlibrary.Controllers
         private readonly SignInManager<Uzytkownicy> _signInManager;
         private readonly IEmailSender _emailSender;
 
+        private IHttpContextAccessor _accessor;
+
+       
         public AccountController(LibraryDbContext libraryDbContext, 
             UserManager<Uzytkownicy> userManager, SignInManager<Uzytkownicy> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender, IHttpContextAccessor accessor)
         {
             _context = libraryDbContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _accessor = accessor;
         }
 
         [HttpGet]
@@ -135,22 +140,36 @@ namespace SBDlibrary.Controllers
         [HttpPost]
         public async Task<IActionResult> LogIn([Bind("Email,Password")] InputModelLogin model)
         {
+            Logi log = new Logi();
             var user = await _userManager.FindByEmailAsync(model.Email);
+            log.Uzytkownicy = user;
+            var ip = _accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            log.ip_urzadzenia = ip;
             if (ModelState.IsValid)
             {
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    log.Uzytkownicy = await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.email == "niezidentyfikowany");
+                    log.komunikat = "logowanie niepomyślne, nieodnaleziono uzytkownika";
+                    _context.Logi.Add(log);
+                    _context.SaveChanges();
                     return View();
                 }
 
                 var result = await _signInManager.PasswordSignInAsync(user.id_uzytkownika.ToString(), model.Password, false, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
+                    log.komunikat = "logowanie pomyslne";
+                    _context.Logi.Add(log);
+                    _context.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
+                    log.komunikat = "logowanie niepomyślne, błędne hasło";
+                    _context.Logi.Add(log);
+                    _context.SaveChanges();
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 }
             }         
@@ -266,6 +285,7 @@ namespace SBDlibrary.Controllers
             var token = (string)TempData["Token"];
             if (ModelState.IsValid)
             {
+                
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
@@ -282,6 +302,11 @@ namespace SBDlibrary.Controllers
                 //TempData["Token"] = null;
                 if (result.Succeeded)
                 {
+                    Logi log = new Logi();
+                    var ip = _accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+                    log.Uzytkownicy = user;
+                    log.ip_urzadzenia = ip;
+                    log.komunikat = "zmieniono hasło";
                     return RedirectToAction("Index", "Home");
                 }
             }

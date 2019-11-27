@@ -15,7 +15,7 @@ namespace SBDlibrary.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -77,6 +77,8 @@ namespace SBDlibrary.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("id_ksiazki");
+
+                    b.Property<string>("status");
 
                     b.HasKey("id_egzemplarza");
 
@@ -353,12 +355,12 @@ namespace SBDlibrary.Migrations
 
             modelBuilder.Entity("SBDlibrary.Models.Kategorie_Ksiazki", b =>
                 {
-                    b.HasOne("SBDlibrary.Models.Ksiazki", "Ksiazki")
+                    b.HasOne("SBDlibrary.Models.Kategorie", "Kategorie")
                         .WithMany()
                         .HasForeignKey("id_kategorii")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("SBDlibrary.Models.Kategorie", "Kategorie")
+                    b.HasOne("SBDlibrary.Models.Ksiazki", "Ksiazki")
                         .WithMany()
                         .HasForeignKey("id_ksiazki")
                         .OnDelete(DeleteBehavior.Restrict);

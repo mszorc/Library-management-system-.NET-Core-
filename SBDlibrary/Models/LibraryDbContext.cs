@@ -37,7 +37,11 @@ namespace SBDlibrary.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Dostawcy>().ToTable("Dostawcy");
+            modelBuilder.Entity<Dostawcy>()
+                .HasMany<Zamowienia>(g => g.Zamowienia)
+                .WithOne(s => s.dostawcy);
+                
+
             modelBuilder.Entity<Zamowienia>().ToTable("Zamowienia");
             //modelBuilder.Entity<Zamowienie_ksiazki>().ToTable("Zamowienie_ksiazki");
             modelBuilder.Entity<Zamowienie_ksiazki>().HasKey(c => new { c.id_zamowienia, c.id_ksiazki });
@@ -62,12 +66,12 @@ namespace SBDlibrary.Models
             {
                 b.HasOne("SBDlibrary.Models.Ksiazki", "Ksiazki")
                     .WithMany()
-                    .HasForeignKey("id_kategorii")
+                    .HasForeignKey("id_ksiazki")
                     .OnDelete(DeleteBehavior.Restrict);
 
                 b.HasOne("SBDlibrary.Models.Kategorie", "Kategorie")
                     .WithMany()
-                    .HasForeignKey("id_ksiazki")
+                    .HasForeignKey("id_kategorii")
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
