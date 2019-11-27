@@ -13,7 +13,7 @@ namespace SBDlibrary.Models
         [Column(Order = 0)]
         public int id_logu { get; set; }
         
-        [Required]
+       // [Required]
         [Column(Order = 1)]
         public int id_uzytkownika { get; set; }
         
