@@ -38,3 +38,5 @@ C:\Users\szorc\Desktop\Semestr V\SBD\Library-management-system-.NET-Core-\SBDlib
 C:\Users\szorc\Desktop\Semestr V\SBD\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Account\Manage.cshtml.g.cs
 C:\Users\szorc\Desktop\Semestr V\SBD\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Account\ForgotPassword.cshtml.g.cs
 C:\Users\szorc\Desktop\Semestr V\SBD\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Account\ResetPassword.cshtml.g.cs
+C:\Users\szorc\Desktop\Semestr V\SBD\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Account\ChangeRole.cshtml.g.cs
+C:\Users\szorc\Desktop\Semestr V\SBD\Library-management-system-.NET-Core-\SBDlibrary\obj\Debug\netcoreapp2.2\Razor\Views\Account\ChangePassword.cshtml.g.cs

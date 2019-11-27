@@ -129,20 +129,34 @@ namespace SBDlibrary.Authentication
         public async Task AddToRoleAsync(Uzytkownicy user, string roleName, CancellationToken cancellationToken)
         {
             var role = _libraryDbContext.Role.FirstOrDefault(m => m.nazwa == roleName);
-
-            var user_role = new Uzytkownicy_role()
+            if (role != null)
             {
-                id_uzytkownika = user.id_uzytkownika,
-                id_roli = role.id_roli
-            };
+                var user_role = new Uzytkownicy_role()
+                {
+                    id_uzytkownika = user.id_uzytkownika,
+                    id_roli = role.id_roli
+                };
 
-            _libraryDbContext.Add(user_role);
-            await _libraryDbContext.SaveChangesAsync(cancellationToken);
+                _libraryDbContext.Add(user_role);
+                await _libraryDbContext.SaveChangesAsync(cancellationToken);
+            }          
         }
 
-        public Task RemoveFromRoleAsync(Uzytkownicy user, string roleName, CancellationToken cancellationToken)
+        public async Task RemoveFromRoleAsync(Uzytkownicy user, string roleName, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var role = _libraryDbContext.Role.FirstOrDefault(m => m.nazwa == roleName);
+
+            if (role == null)
+            {
+                return;
+            }
+            var user_role = _libraryDbContext.Uzytkownicy_role.FirstOrDefaultAsync(m => m.id_uzytkownika == user.id_uzytkownika && m.id_roli == role.id_roli);
+            if (user_role == null)
+            {
+                return;
+            }
+            _libraryDbContext.Remove(user_role);
+            await _libraryDbContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<IList<string>> GetRolesAsync(Uzytkownicy user, CancellationToken cancellationToken)

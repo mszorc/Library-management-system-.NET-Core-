@@ -36,6 +36,66 @@ namespace SBDlibrary.Controllers
         }
 
         [HttpGet]
+        public IActionResult ChangeRole()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> ChangeRole([Bind("email")] Uzytkownicy model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.email);
+            if (await _userManager.IsInRoleAsync(user, "Klient"))
+            {
+                ViewBag.Klient = "checked";
+            }
+            if (await _userManager.IsInRoleAsync(user, "Bibliotekarz"))
+            {
+                ViewBag.Bibliotekarz = "checked";
+            }
+            if (await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                ViewBag.Admin = "checked";
+            }
+
+            return View(user);
+        }
+        
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword([Bind("Password,NewPassword,ConfirmNewPassword")] InputModelChangePassword model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.Password, model.NewPassword);
+            if (!changePasswordResult.Succeeded)
+            {
+                foreach (var error in changePasswordResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return RedirectToAction("Manage", "Account");
+            }
+            await _signInManager.RefreshSignInAsync(user);
+            return View();
+
+        }
+
+        [HttpGet]
         public IActionResult ForgotPassword()
         {
             return View();
@@ -104,12 +164,41 @@ namespace SBDlibrary.Controllers
             return View();
         }
 
-        public IActionResult Manage()
+        public async Task<IActionResult> Manage()
         {
+            var user = await _userManager.GetUserAsync(User);
+            var Input = new InputModelChangePersonalData
+            {
+                FirstName = user.imie,
+                LastName = user.nazwisko,
+                Address = user.adres_zamieszkania
+            };
+
+
+            return View(Input);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Manage([Bind("FirstName,LastName,Address")]InputModelChangePersonalData model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                user.imie = model.FirstName;
+                user.nazwisko = model.LastName;
+                user.adres_zamieszkania = model.Address;
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    
+                    return RedirectToAction("Manage", "Account");
+                }
+
+            }
             return View();
         }
 
         [HttpGet]
+        [Authorize(Roles = "Bibliotekarz,Admin")]
         public IActionResult Register()
         {
             return View();
@@ -164,29 +253,39 @@ namespace SBDlibrary.Controllers
                     Code = code
                 };
             }*/
+            if (TempData["Error"] != null)
+            {
+                ModelState.AddModelError(string.Empty, (string)TempData["Error"]);
+            }
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> ResetPassword([Bind("Email,Password,ConfirmPassword")] InputModelResetPassword model)
         {
+            var token = (string)TempData["Token"];
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
-                    return View();
+                    return RedirectToAction("ResetPassword", "Account", new { code = token });
                 }
-                var result = await _userManager.ResetPasswordAsync(user, (string)TempData["Token"], model.Password);
-                TempData["Model"] = null;
+                var passwordValidator = new PasswordValidator<Uzytkownicy>();
+                var result = await passwordValidator.ValidateAsync(_userManager, null, model.Password);
+                if (!result.Succeeded)
+                {
+                    TempData["Error"] = "Password must contain at least 1 upper case letter, 1 lower case letter, 1 numeric character and 1 special character";
+                    return RedirectToAction("ResetPassword", "Account", new { code = token });
+                }
+                result = await _userManager.ResetPasswordAsync(user, token, model.Password);
+                //TempData["Token"] = null;
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
                 }
-
             }
-
-            return View();
+            return RedirectToAction("ResetPassword", "Account", new { code = token });
         }
 
         public class InputModelLogin
@@ -206,37 +305,26 @@ namespace SBDlibrary.Controllers
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "Email*")]
+            [Display(Name = "Email")]
             public string Email { get; set; }
 
             [Required]
             [DataType(DataType.Text)]
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [Display(Name = "First name*")]
+            [Display(Name = "First name")]
             public string FirstName { get; set; }
 
             [Required]
             [DataType(DataType.Text)]
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [Display(Name = "Last name*")]
+            [Display(Name = "Last name")]
             public string LastName { get; set; }
 
             [Required]
             [DataType(DataType.Text)]
             [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [Display(Name = "Address*")]
-            public string Address { get; set; }/*
-
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password*")]
-            public string Password { get; set; }
-
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm password*")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }*/
+            [Display(Name = "Address")]
+            public string Address { get; set; }
         }
 
         public class InputModelForgotPassword
@@ -255,18 +343,56 @@ namespace SBDlibrary.Controllers
             public string Email { get; set; }
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password*")]
+            [DataType(DataType.Password, ErrorMessage = "dsada")]
+            [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password*")]
+            [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }
         }
 
+        public class InputModelChangePersonalData
+        {
+            [Required]
+            [DataType(DataType.Text)]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [Display(Name = "First name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [Display(Name = "Last name")]
+            public string LastName { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [Display(Name = "Address")]
+            public string Address { get; set; }
+        }
+
+        public class InputModelChangePassword
+        {
+            [Required]
+            [DataType(DataType.Password)]
+            [Display(Name = "Current password")]
+            public string  Password { get; set; }
+            [Required]
+            [DataType(DataType.Password)]
+            [Display(Name = "New password")]
+            public string NewPassword { get; set; }
+
+            [DataType(DataType.Password)]
+            [Display(Name = "Confirm new password")]
+            [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
+            public string ConfirmNewPassword { get; set; }
+
+        }
 
         private int RandomNumber(int min, int max)
         {
