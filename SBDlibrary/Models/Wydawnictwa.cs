@@ -16,5 +16,7 @@ namespace SBDlibrary.Models
         [StringLength(20)]
         [Column(Order = 1)]
         public string nazwa { get; set; }
+
+        public ICollection<Ksiazki> Ksiazki { get; set; }
     }
 }

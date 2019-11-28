@@ -18,7 +18,7 @@ namespace SBDlibrary.Models
         public string imie { get; set; }
         [Required]
         [StringLength(20)]
-        [Column(Order = 1)]
+        [Column(Order = 2)]
         public string nazwisko { get; set; }
     }
 }

@@ -17,12 +17,15 @@ namespace SBDlibrary.Models
         [Column(Order = 0)]
         public int id_zamowienia { get; set; }
         [Required]
+        [Column(Order = 1)]
+        public int id_dostawcy { get; set; }
+        [Required]
         [Column(Order = 2)]
         public DateTime data_zamowienia { get; set; }
         [Required]
         [Column(Order = 3)]
         public Status? status_zamowienia { get; set; }
-        [Column(Order = 1)]
+        [ForeignKey("id_dostawcy")]
         public virtual Dostawcy dostawcy { get; set; }
         public ICollection<Zamowienie_ksiazki> Zamowienie_ksiazki { get; set; }
     }

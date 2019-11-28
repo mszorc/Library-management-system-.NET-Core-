@@ -1,0 +1,31 @@
+﻿@model SBDlibrary.Models.Ksiazki
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<form class="form" method="post" novalidate>
+    <h2 class="form-heading">add new book</h2>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="id_ksiazki"></label>
+            <input asp-for="id_ksiazki" class="form-control" />
+            <span asp-validation-for="id_ksiazki" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="tytuł"></label>
+            <input asp-for="tytuł" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="data_wydania"></label>
+            <input asp-for="data_wydania" class="form-control" />
+            <span asp-validation-for="data_wydania" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Wydawnictwa.id_wydawnictwa"></label>
+            <input asp-for="Wydawnictwa.id_wydawnictwa" class="form-control" />
+        </div>
+       
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Dodaj</button>
+    </div>
+</form>

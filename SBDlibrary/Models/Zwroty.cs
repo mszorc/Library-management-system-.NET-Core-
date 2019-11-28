@@ -12,6 +12,10 @@ namespace SBDlibrary.Models
         [Key]
         [Column(Order = 0)]
         public int id_zwrotu { get; set; }
+        [Required]
+        [Column(Order = 1)]
+        public int id_wypozyczenia { get; set; }
+
 
         [Required]
         [Column(Order = 2)]
@@ -21,8 +25,8 @@ namespace SBDlibrary.Models
         [Column(Order = 3)]
         public float kara { get; set; }
 
-        [Column(Order = 1)]
-        public virtual Wypozyczenia id_wypozyczenia { get; set; }
+        [ForeignKey("id_wypozyczenia")]
+        public virtual Wypozyczenia Wypozyczenia { get; set; }
 
     }
 }

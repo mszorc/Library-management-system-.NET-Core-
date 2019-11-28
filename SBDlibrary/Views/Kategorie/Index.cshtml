@@ -1,0 +1,42 @@
+﻿<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+<style>
+    h1 {
+        font-family: 'Lato', monospace;
+    }
+</style>
+@model IEnumerable<SBDlibrary.Models.Kategorie>
+
+@{
+    ViewData["Title"] = "Kategorie";
+}
+
+
+<h1>Kategorie</h1>
+
+<div>
+    <a asp-action="Create">Dodaj</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nazwa)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nazwa)
+                </td>
+                <td>
+                    @Html.ActionLink("Szczegóły", "Details", "Kategorie", new { id = item.id_kategorii })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

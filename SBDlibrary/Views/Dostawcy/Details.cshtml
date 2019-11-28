@@ -1,0 +1,26 @@
+﻿@model SBDlibrary.Models.Dostawcy
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<h1>Szczegóły</h1>
+
+<div>
+    <h2>Dostawca</h2>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.nazwa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.nazwa)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.adres)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.adres)
+        </dd>
+    </dl>
+</div>

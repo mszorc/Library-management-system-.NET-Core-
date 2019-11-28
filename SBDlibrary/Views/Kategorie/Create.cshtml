@@ -1,0 +1,17 @@
+﻿@model SBDlibrary.Models.Kategorie
+@{
+    ViewData["Title"] = "Kategoria";
+}
+
+<form class="form" method="post" novalidate>
+    <h2 class="form-heading">Dodaj</h2>
+    <div class="col-md-4">
+       
+        <div class="form-group">
+            <label asp-for="nazwa"></label>
+            <input asp-for="nazwa" class="form-control" />
+        </div>        
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Dodaj</button>
+    </div>
+</form>
