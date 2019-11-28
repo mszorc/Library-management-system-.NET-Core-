@@ -150,11 +150,13 @@ namespace SBDlibrary.Authentication
             {
                 return;
             }
+
             var user_role = _libraryDbContext.Uzytkownicy_role.FirstOrDefaultAsync(m => m.id_uzytkownika == user.id_uzytkownika && m.id_roli == role.id_roli);
             if (user_role == null)
             {
                 return;
             }
+
             _libraryDbContext.Remove(user_role);
             await _libraryDbContext.SaveChangesAsync(cancellationToken);
         }

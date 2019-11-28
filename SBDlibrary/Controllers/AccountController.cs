@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SBDlibrary.Models;
+using SBDlibrary.ViewModel;
+using SBDlibrary.ViewModels.AccountViewModels;
 
 namespace SBDlibrary.Controllers
 {
@@ -25,6 +27,10 @@ namespace SBDlibrary.Controllers
         private readonly UserManager<Uzytkownicy> _userManager;
         private readonly SignInManager<Uzytkownicy> _signInManager;
         private readonly IEmailSender _emailSender;
+
+        [TempData]
+        public string StatusMessage { get; set; }
+
 
         private IHttpContextAccessor _accessor;
 
@@ -40,26 +46,22 @@ namespace SBDlibrary.Controllers
             _accessor = accessor;
         }
 
+
         [HttpGet]
-        public IActionResult ChangeRole()
+        [Authorize(Roles="Admin")]
+        public IActionResult FindUser()
         {
             return View();
         }
 
-        public async Task<IActionResult> ChangeRole([Bind("email")] Uzytkownicy model)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> FindUser([Bind("email")] Uzytkownicy model)
         {
             var user = await _userManager.FindByEmailAsync(model.email);
-            if (await _userManager.IsInRoleAsync(user, "Klient"))
+            
+            if (user == null)
             {
-                ViewBag.Klient = "checked";
-            }
-            if (await _userManager.IsInRoleAsync(user, "Bibliotekarz"))
-            {
-                ViewBag.Bibliotekarz = "checked";
-            }
-            if (await _userManager.IsInRoleAsync(user, "Admin"))
-            {
-                ViewBag.Admin = "checked";
+                return NotFound();
             }
 
             return View(user);
@@ -67,12 +69,14 @@ namespace SBDlibrary.Controllers
         
 
         [HttpGet]
+        [Authorize]
         public IActionResult ChangePassword()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> ChangePassword([Bind("Password,NewPassword,ConfirmNewPassword")] InputModelChangePassword model)
         {
             if (!ModelState.IsValid)
@@ -83,20 +87,18 @@ namespace SBDlibrary.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound();
             }
 
             var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.Password, model.NewPassword);
             if (!changePasswordResult.Succeeded)
             {
-                foreach (var error in changePasswordResult.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-                return RedirectToAction("Manage", "Account");
+                ModelState.AddModelError(string.Empty, "Zmiana hasła nie przebiegła pomyślnie");
+                return View();
             }
+            model.StatusMessage = "Zmiana hasła przebiegła pomyślnie";
             await _signInManager.RefreshSignInAsync(user);
-            return View();
+            return View(model);
 
         }
 
@@ -140,16 +142,19 @@ namespace SBDlibrary.Controllers
         [HttpPost]
         public async Task<IActionResult> LogIn([Bind("Email,Password")] InputModelLogin model)
         {
-            Logi log = new Logi();
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            log.Uzytkownicy = user;
-            var ip = _accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            log.ip_urzadzenia = ip;
             if (ModelState.IsValid)
             {
+
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                Logi log = new Logi();
+                log.Uzytkownicy = user;
+                var ip = _accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+                log.ip_urzadzenia = ip;
+
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Logowanie przebiegło niepomyślnie.");
                     log.Uzytkownicy = await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.email == "niezidentyfikowany");
                     log.komunikat = "logowanie niepomyślne, nieodnaleziono uzytkownika";
                     _context.Logi.Add(log);
@@ -170,13 +175,14 @@ namespace SBDlibrary.Controllers
                     log.komunikat = "logowanie niepomyślne, błędne hasło";
                     _context.Logi.Add(log);
                     _context.SaveChanges();
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Logowanie przebiegło niepomyślnie");
                 }
             }         
 
             return View();
         }
 
+        [Authorize]
         public IActionResult LogOut()
         {
             _signInManager.SignOutAsync();
@@ -185,6 +191,7 @@ namespace SBDlibrary.Controllers
 
         public async Task<IActionResult> Manage()
         {
+
             var user = await _userManager.GetUserAsync(User);
             var Input = new InputModelChangePersonalData
             {
@@ -192,13 +199,14 @@ namespace SBDlibrary.Controllers
                 LastName = user.nazwisko,
                 Address = user.adres_zamieszkania
             };
-
+            Input.StatusMessage = null;
 
             return View(Input);
         }
         [HttpPost]
         public async Task<IActionResult> Manage([Bind("FirstName,LastName,Address")]InputModelChangePersonalData model)
         {
+
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
@@ -208,8 +216,8 @@ namespace SBDlibrary.Controllers
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
-                    
-                    return RedirectToAction("Manage", "Account");
+                    model.StatusMessage = (string)"Profil został zaktualizowany";
+                    return View(model);
                 }
 
             }
@@ -224,6 +232,7 @@ namespace SBDlibrary.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Bibliotekarz,Admin")]
         public async Task<IActionResult> Register([Bind("Email,FirstName,LastName,Address")]InputModelRegister model)
         {
             if (ModelState.IsValid)
@@ -231,7 +240,7 @@ namespace SBDlibrary.Controllers
                 var check = await _userManager.FindByEmailAsync(model.Email);
                 if (check != null)
                 {
-                    ModelState.AddModelError(string.Empty, "User with given email address already exists");
+                    ModelState.AddModelError(string.Empty, "Użytkownik z podanym adresem email już istnieje.");
                     return View();
                 }
 
@@ -246,11 +255,12 @@ namespace SBDlibrary.Controllers
                 var result = await _userManager.CreateAsync(user, password);
                 if (result.Succeeded)
                 {
+                    model.StatusMessage = "Rejestracja przebiegła pomyślnie";
                     user = await _userManager.FindByEmailAsync(model.Email);
                     await _userManager.AddToRoleAsync(user, "Klient");
                     await _emailSender.SendEmailAsync(model.Email, 
-                        "Your SBDlibrary account has been created.", "Login: " + model.Email + "Password: " + password);
-                    return RedirectToAction("Index", "Home");
+                        "Twoje konto w aplikacji SBDlibrary zostało utworzone. ", "Login: " + model.Email + " Hasło: " + password);
+                    return View(model);
                 }
 
             }
@@ -295,7 +305,7 @@ namespace SBDlibrary.Controllers
                 var result = await passwordValidator.ValidateAsync(_userManager, null, model.Password);
                 if (!result.Succeeded)
                 {
-                    TempData["Error"] = "Password must contain at least 1 upper case letter, 1 lower case letter, 1 numeric character and 1 special character";
+                    TempData["Error"] = "Hasło musi zawierać małe i duże litery, cyfry oraz znaki specjalne.";
                     return RedirectToAction("ResetPassword", "Account", new { code = token });
                 }
                 result = await _userManager.ResetPasswordAsync(user, token, model.Password);
@@ -313,110 +323,138 @@ namespace SBDlibrary.Controllers
             return RedirectToAction("ResetPassword", "Account", new { code = token });
         }
 
-        public class InputModelLogin
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> SetRoles(int? id)
         {
-            [Required]
-            [DataType(DataType.EmailAddress)]
-            [Display(Name = "Email")]
-            public string Email { get; set; }
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            [Required]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password")]
-            public string Password { get; set; }
+            var user = await _userManager.FindByIdAsync(id.ToString());
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var Input = new InputModelSetRoles
+            {
+                Id = (int) id,
+                Email = user.email,
+                StatusMessage = null
+            };
+
+            if (await _userManager.IsInRoleAsync(user, "Klient"))
+            {
+                ViewBag.Klient = "checked";
+            }
+            if (await _userManager.IsInRoleAsync(user, "Bibliotekarz"))
+            {
+                ViewBag.Bibliotekarz = "checked";
+            }
+            if (await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                ViewBag.Admin = "checked";
+            }
+
+            return View(Input);
         }
 
-        public class InputModelRegister
+        [HttpPost]
+        [Authorize(Roles="Admin")]
+        public async Task<IActionResult> SetRoles(int id, IFormCollection formCollection)
         {
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
-            public string Email { get; set; }
+            bool KlientCheckbox = false, BibliotekarzCheckbox = false, AdminCheckbox = false;
+            string KlientCheckboxValue = "";
+            string BibliotekarzCheckboxValue = "";
+            string AdminCheckboxValue = "";
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-            [Required]
-            [DataType(DataType.Text)]
-            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [Display(Name = "First name")]
-            public string FirstName { get; set; }
+            if (!string.IsNullOrEmpty(formCollection["KlientCheckbox"])) { KlientCheckbox = true; }
+            if (!string.IsNullOrEmpty(formCollection["BibliotekarzCheckbox"])) { BibliotekarzCheckbox = true; }
+            if (!string.IsNullOrEmpty(formCollection["AdminCheckbox"])) { AdminCheckbox = true; }
 
-            [Required]
-            [DataType(DataType.Text)]
-            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [Display(Name = "Last name")]
-            public string LastName { get; set; }
+            if (KlientCheckbox) { KlientCheckboxValue = formCollection["KlientCheckbox"]; }
+            if (BibliotekarzCheckbox) { BibliotekarzCheckboxValue = formCollection["BibliotekarzCheckbox"]; }
+            if (AdminCheckbox) { AdminCheckboxValue = formCollection["AdminCheckbox"]; }
 
-            [Required]
-            [DataType(DataType.Text)]
-            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [Display(Name = "Address")]
-            public string Address { get; set; }
-        }
+            bool IsKlient = await _userManager.IsInRoleAsync(user, "Klient");
+            bool IsBibliotekarz = await _userManager.IsInRoleAsync(user, "Bibliotekarz");
+            bool IsAdmin = await _userManager.IsInRoleAsync(user, "Admin");
 
-        public class InputModelForgotPassword
-        {
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
-            public string Email { get; set; }
-        }
+            var KlientRoleId = await _context.Role.FirstOrDefaultAsync(m => m.nazwa == "Klient");
+            var BibliotekarzRoleId = await _context.Role.FirstOrDefaultAsync(m => m.nazwa == "Bibliotekarz");
+            var AdminRoleId = await _context.Role.FirstOrDefaultAsync(m => m.nazwa == "Admin");
 
-        public class InputModelResetPassword
-        {
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
-            public string Email { get; set; }
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password, ErrorMessage = "dsada")]
-            [Display(Name = "Password")]
-            public string Password { get; set; }
 
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
+            if (KlientCheckbox != IsKlient)
+            {
+                if (IsKlient)
+                {
+                    var user_role = await _context.Uzytkownicy_role.FirstOrDefaultAsync(m => m.id_uzytkownika == user.id_uzytkownika
+                                                                                    && m.id_roli == KlientRoleId.id_roli);
+                    _context.Remove(user_role);
+                    await _context.SaveChangesAsync();
+                    ViewBag.Klient = "";
+                }
+                else
+                {
+                    await _userManager.AddToRoleAsync(user, "Klient");
+                    await _context.SaveChangesAsync();
+                    ViewBag.Klient = "checked";
+                }
+            }
 
-            public string Code { get; set; }
-        }
+            if (BibliotekarzCheckbox != IsBibliotekarz)
+            {
+                if (IsBibliotekarz)
+                {
+                    var user_role = await _context.Uzytkownicy_role.FirstOrDefaultAsync(m => m.id_uzytkownika == user.id_uzytkownika
+                                                                                    && m.id_roli == BibliotekarzRoleId.id_roli);
+                    _context.Remove(user_role);
+                    await _context.SaveChangesAsync();
+                    ViewBag.Bibliotekarz = "";
+                }
+                else
+                {
+                    await _userManager.AddToRoleAsync(user, "Bibliotekarz");
+                    await _context.SaveChangesAsync();
+                    ViewBag.Bibliotekarz = "checked";
+                }
+            }
 
-        public class InputModelChangePersonalData
-        {
-            [Required]
-            [DataType(DataType.Text)]
-            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [Display(Name = "First name")]
-            public string FirstName { get; set; }
+            if (AdminCheckbox != IsAdmin)
+            {
+                if (IsAdmin)
+                {
+                    var user_role = await _context.Uzytkownicy_role.FirstOrDefaultAsync(m => m.id_uzytkownika == user.id_uzytkownika
+                                                                                    && m.id_roli == AdminRoleId.id_roli);
+                    _context.Remove(user_role);
+                    await _context.SaveChangesAsync();
+                    ViewBag.Admin = "";
+                }
+                else
+                {
+                    await _userManager.AddToRoleAsync(user, "Admin");
+                    await _context.SaveChangesAsync();
+                    ViewBag.Admin = "checked";
+                }
+            }
 
-            [Required]
-            [DataType(DataType.Text)]
-            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [Display(Name = "Last name")]
-            public string LastName { get; set; }
+            var Input = new InputModelSetRoles
+            {
+                Id = (int)id,
+                Email = user.email,
+                StatusMessage = "Zmiana ról przebiegła pomyślnie"
+            };
 
-            [Required]
-            [DataType(DataType.Text)]
-            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            [Display(Name = "Address")]
-            public string Address { get; set; }
-        }
-
-        public class InputModelChangePassword
-        {
-            [Required]
-            [DataType(DataType.Password)]
-            [Display(Name = "Current password")]
-            public string  Password { get; set; }
-            [Required]
-            [DataType(DataType.Password)]
-            [Display(Name = "New password")]
-            public string NewPassword { get; set; }
-
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmNewPassword { get; set; }
-
+            return View(Input);
         }
 
         private int RandomNumber(int min, int max)
