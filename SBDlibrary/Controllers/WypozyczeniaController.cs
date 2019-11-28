@@ -26,15 +26,26 @@ namespace SBDlibrary.Controllers
 
             if (id == null)
             {
-                ModelState.AddModelError(string.Empty, "autor does not exist.");
-                return View();
+                return NotFound();
             }
 
             var wypozyczenia = _context.Wypozyczenia.FirstOrDefault(m => m.id_wypozyczenia == id);
+
+            if (wypozyczenia == null)
+            {
+                return NotFound();
+            }
             wypozyczenia.Egzemplarze = _context.Egzemplarze.FirstOrDefault(m => m.id_egzemplarza == wypozyczenia.id_egzemplarza);
             wypozyczenia.Egzemplarze.Ksiazki = _context.Ksiazki.FirstOrDefault(m => m.id_ksiazki == wypozyczenia.Egzemplarze.id_ksiazki);
             return View(wypozyczenia);
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View(new SimpleModel());
+        }
+
         [HttpPost]
         public async Task<ActionResult> Create(string id_ksiazki)
         {
@@ -47,8 +58,14 @@ namespace SBDlibrary.Controllers
             var Ksiazka = await _context.Ksiazki
                 .FirstOrDefaultAsync(m => m.id_ksiazki == idKsiazki);
 
+            if (Ksiazka == null)
+            {
+                return NotFound();
+            }
+
             var egzemplarze = from t in _context.Egzemplarze where t.Ksiazki.id_ksiazki == Ksiazka.id_ksiazki
                      select t;
+
 
 
             Egzemplarze dostepnyEgzemplarz = null;
@@ -89,11 +106,6 @@ namespace SBDlibrary.Controllers
             }
 
             return RedirectToAction("Index");
-        }
-        public async Task<ActionResult> Create()
-        {
-
-            return View(new SimpleModel());
         }
 
     }

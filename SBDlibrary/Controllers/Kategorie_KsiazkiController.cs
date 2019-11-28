@@ -28,14 +28,18 @@ namespace SBDlibrary.Controllers
             //KatModel kat = new KatModel();
             if (id == null)
             {
-                ModelState.AddModelError(string.Empty, "Kategorie ksiazki does not exist.");
-                return View();
+                return NotFound();
             }
              
 
             var ksiazka = await _context.Ksiazki
                .FirstOrDefaultAsync(m => m.id_ksiazki == id);
             // int idKategorii = Convert.ToInt32(id_kategorii);
+
+            if (ksiazka == null)
+            {
+                return NotFound();
+            }
 
             var ka = from t in _context.Kategorie_Ksiazki
                      select t;

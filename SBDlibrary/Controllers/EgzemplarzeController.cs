@@ -28,20 +28,31 @@ namespace SBDlibrary.Controllers
 
             if (id == null)
             {
-                ModelState.AddModelError(string.Empty, "Egzemplarz does not exist.");
-                return View();
+                return NotFound();
             }
 
-            var egzemplarz = _context.Egzemplarze.FirstOrDefault(m => m.id_egzemplarza == id);
+            var egzemplarz = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == id);
          //   egzemplarz.Ksiazki.id_ksiazki = a
             
-            egzemplarz.Ksiazki = _context.Ksiazki.FirstOrDefault(m => m.id_ksiazki == egzemplarz.id_ksiazki);
+            egzemplarz.Ksiazki = await _context.Ksiazki.FirstOrDefaultAsync(m => m.id_ksiazki == egzemplarz.id_ksiazki);
 
+            if (egzemplarz == null)
+            {
+                return NotFound();
+            }
 
             return View(egzemplarz);
 
 
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+
+            return View(new SimpleCreateModel());
+        }
+
         [HttpPost]
         // [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(string id_ksiazki)
@@ -71,11 +82,7 @@ namespace SBDlibrary.Controllers
 
             return RedirectToAction("Index");
         }
-        public async Task<ActionResult> Create()
-        {
-           
-            return View(new SimpleCreateModel());
-        }
+        
 
     }
 }

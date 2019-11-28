@@ -25,31 +25,36 @@ namespace SBDlibrary.Controllers
 
             if (id == null)
             {
-                ModelState.AddModelError(string.Empty, "book does not exist.");
-                return View();
+                return NotFound();
             }
 
             var Wydawnictwo = _context.Wydawnictwa.FirstOrDefault(m => m.id_wydawnictwa == id);
 
             if (Wydawnictwo == null)
             {
-               ModelState.AddModelError(string.Empty, "Nie ma!.");
-               return View();
+               return NotFound();
             }
             return View(Wydawnictwo);
 
             // return View();
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("nazwa")]Wydawnictwa wydawnictwo)
+        public async Task<ActionResult> Create([Bind("nazwa")]Wydawnictwa wydawnictwo)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     _context.Wydawnictwa.Add(wydawnictwo);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
             }
@@ -59,10 +64,6 @@ namespace SBDlibrary.Controllers
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
             return View(wydawnictwo);
-        }
-        public async Task<ActionResult> Create()
-        {
-            return View();
         }
 
     }

@@ -39,11 +39,15 @@ namespace SBDlibrary.Controllers
             
             if (id == null)
             {
-                ModelState.AddModelError(string.Empty, "book does not exist.");
-                return View();
+                return NotFound();
             }
 
-            var ksiazka = _context.Ksiazki.FirstOrDefault(m => m.id_ksiazki == id);
+            var ksiazka = await _context.Ksiazki.FirstOrDefaultAsync(m => m.id_ksiazki == id);
+
+            if (ksiazka == null)
+            {
+                return NotFound();
+            }
 
             //if (ksiazka == null)
             //{
@@ -54,6 +58,13 @@ namespace SBDlibrary.Controllers
 
            // return View();
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind("tytuł, data_wydania")]Ksiazki ksiazka)
@@ -87,10 +98,6 @@ namespace SBDlibrary.Controllers
             }
            
             return RedirectToAction("Index");
-        }
-        public async Task<ActionResult> Create()
-        {
-          return View();
         }
         
     }
