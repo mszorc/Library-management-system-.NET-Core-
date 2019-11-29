@@ -11,7 +11,7 @@ namespace SBDlibrary.Models
     {
         public enum Status
         {
-            A, B, C
+            Zamówione, Odebrane
         }
         [Key]
         [Column(Order = 0)]

@@ -62,7 +62,7 @@ namespace SBDlibrary.Controllers
                 if (ModelState.IsValid)
                 {
                     _context.Autor.Add(autor);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
             }

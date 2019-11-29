@@ -21,7 +21,7 @@ namespace SBDlibrary.Controllers
         {
             return View(await _context.Wypozyczenia.ToListAsync());
         }
-        public async Task<ActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
 
             if (id == null)

@@ -24,7 +24,7 @@ namespace SBDlibrary.Controllers
             // return View();
         }
 
-        public async Task<ActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
 
             if (id == null)
