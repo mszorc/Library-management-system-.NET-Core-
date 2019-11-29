@@ -9,33 +9,44 @@ using SBDlibrary.Models;
 
 namespace SBDlibrary.Controllers
 {
-    public class AutorController : Controller
+    public class AuthorController : Controller
     {
 
         private readonly LibraryDbContext _context;
 
-        public AutorController (LibraryDbContext context)
+        public AuthorController (LibraryDbContext context)
         {
             _context = context;
         }
-
 
         public async Task<IActionResult> Index()
         {
             return View(await _context.Autor.ToListAsync());
         }
+
         public async Task<ActionResult> Details(int? id)
-        {
-            
+        {           
             if (id == null)
             {
-                ModelState.AddModelError(string.Empty, "autor does not exist.");
-                return View();
+                return NotFound();
             }
 
-            var autor = _context.Autor.FirstOrDefault(m => m.id_autor == id);
-            return View(autor);
+            var author = await _context.Autor.FirstOrDefaultAsync(m => m.id_autor == id);
+
+            if (author == null)
+            {
+                return NotFound();
+            }
+
+            return View(author);
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind("imie, nazwisko")]Autor autor)
@@ -58,15 +69,12 @@ namespace SBDlibrary.Controllers
             catch (DataException /* dex */)
             {
                 //Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+                ModelState.AddModelError("", "Nie udało się dodać autora. Spróbuj ponownie.");
             }
 
             return RedirectToAction("Index", "Autor");
         }
-        public async Task<ActionResult> Create()
-        {
-            return View();
-        }
+       
     }
 
 }

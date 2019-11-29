@@ -1,15 +1,19 @@
-﻿@model SBDlibrary.Controllers.AccountController.InputModelChangePersonalData
+﻿@model SBDlibrary.ViewModel.InputModelChangePersonalData
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<Uzytkownicy> UserManager
+
 @{
     ViewData["Title"] = "Manage";
 }
 
-<h1>Manage</h1>
-
-<a asp-area="" asp-controller="Account" asp-action="ChangeRole">Change role</a>
-<a asp-area="" asp-controller="Account" asp-action="ChangePassword">Change password</a>
-
+<partial name="_StatusMessage" for="StatusMessage" />
+@if (this.User.IsInRole("Admin"))
+{
+    <a asp-area="" asp-controller="Account" asp-action="FindUser">Znajdź użytkowników</a>
+}
+<a asp-area="" asp-controller="Account" asp-action="ChangePassword">Zmień hasło</a>
 <form class="form" method="post" novalidate>
-    <h2 class="form-heading">Change your personal data</h2>
+    <h2 class="form-heading">Zmień dane osobowe</h2>
     <div class="col-md-4">
         <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group">
@@ -27,10 +31,10 @@
             <input asp-for="Address" class="form-control" />
             <span asp-validation-for="Address" class="text-danger"></span>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Save changes</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Zapisz zmiany</button>
     </div>
 </form>
 
-
-
-
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

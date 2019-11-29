@@ -48,8 +48,8 @@ namespace SBDlibrary.Models
             modelBuilder.Entity<Egzemplarze>().ToTable("Egzemplarze");
             modelBuilder.Entity<Logi>().ToTable("Logi");
             modelBuilder.Entity<Uzytkownicy>().ToTable("Uzytkownicy");
-            //modelBuilder.Entity<Uzytkownicy_role>().ToTable("Uzytkownicy_role");
             modelBuilder.Entity<Uzytkownicy_role>().HasKey(c => new { c.id_uzytkownika, c.id_roli });
+            modelBuilder.Entity<Uzytkownicy_role>().ToTable("Uzytkownicy_role");
             modelBuilder.Entity<Role>().ToTable("Role");
 
             modelBuilder.Entity<Autor>().ToTable("Autor");

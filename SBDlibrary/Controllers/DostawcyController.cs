@@ -24,27 +24,35 @@ namespace SBDlibrary.Controllers
            // return View();
         }
 
-
-
-        public IActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
 
             if (id == null)
             {
-                ModelState.AddModelError(string.Empty, "Dostawca does not exist.");
-                return View();
+                return NotFound();
             }
 
-            var dostawca = _context.Dostawcy.FirstOrDefault(m => m.id_dostawcy == id);
+            var dostawca = await _context.Dostawcy.FirstOrDefaultAsync(m => m.id_dostawcy == id);
+
+            if (dostawca == null)
+            {
+                return NotFound();
+            }
 
         
             return View(dostawca);
 
       
         }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
-        // [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("nazwa, adres")]Dostawcy dostawca)
+       // [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind("nazwa, adres")]Dostawcy dostawca)
         {
 
             try
@@ -52,7 +60,7 @@ namespace SBDlibrary.Controllers
                 if (ModelState.IsValid)
                 {
                     _context.Dostawcy.Add(dostawca);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
             }
@@ -64,9 +72,6 @@ namespace SBDlibrary.Controllers
 
             return RedirectToAction("Index");
         }
-        public IActionResult Create()
-        {
-            return View();
-        }
+        
     }
 }

@@ -21,22 +21,35 @@ namespace SBDlibrary.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Kategorie.ToListAsync());
+            // return View();
         }
 
-        public IActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
+
             if (id == null)
             {
-                ModelState.AddModelError(string.Empty, "Kategoria does not exist.");
-                return View();
+                return NotFound();
             }
 
             var kategoria = _context.Kategorie.FirstOrDefault(m => m.id_kategorii == id);
+
+            if (kategoria == null)
+            {
+                return NotFound();
+            }
 
             return View(kategoria);
 
 
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
         // [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind("nazwa")]Kategorie kategoria)
@@ -47,7 +60,7 @@ namespace SBDlibrary.Controllers
                 if (ModelState.IsValid)
                 {
                     _context.Kategorie.Add(kategoria);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
             }
@@ -58,10 +71,6 @@ namespace SBDlibrary.Controllers
             }
 
             return RedirectToAction("Index");
-        }
-        public async Task<ActionResult> Create()
-        {
-            return View();
         }
     }
 }

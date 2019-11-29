@@ -1,19 +1,17 @@
 ﻿@inject Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider schemeProvider
-@model SBDlibrary.Controllers.AccountController.InputModelRegister
+@model SBDlibrary.ViewModel.InputModelRegister
 @{
     ViewData["Title"] = "Register";
 }
-
-<h1>Register</h1>
-
 
 @if (!ViewData.ModelState.IsValid)
 {
     <div asp-validation-summary="All" class="alert alert-danger"></div>
 }
 
+<partial name="_StatusMessage" for="StatusMessage" />
 <form class="form" method="post" novalidate>
-    <h2 class="form-heading">Please register</h2>
+    <h2 class="form-heading">Wprowadź dane osobowe konieczne do rejestracji.</h2>
     <div class="col-md-4">
         <div class="form-group">
             <label asp-for="Email"></label>
@@ -35,8 +33,8 @@
             <input asp-for="Address" class="form-control" />
             <span asp-validation-for="Address" class="text-danger"></span>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Make changes</button>
-    </div>     
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Zarejestruj</button>
+    </div>
 </form>
 
 <hr />
