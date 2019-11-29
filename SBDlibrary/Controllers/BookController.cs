@@ -10,8 +10,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SBDlibrary.Models;
+using SBDlibrary.ViewModels.BookViewModels;
+
 namespace SBDlibrary.Controllers
 {
     public class BookController : Controller
@@ -31,7 +34,7 @@ namespace SBDlibrary.Controllers
             {
                 k.Wydawnictwa = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == k.id_wydawnictwa);
             }
-
+            
             // if (!HttpContext.User.IsInRole(""))
             // {
 
@@ -66,33 +69,40 @@ namespace SBDlibrary.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            List<Kategorie> kategorieList = await _context.Kategorie.ToListAsync();
+            IQueryable<string> kategorieQuery = from k in _context.Kategorie orderby k.nazwa select k.nazwa;
+
+            var kategorieVM = new KsiazkaViewModel
+            {
+                kategorieListVM = kategorieList,
+                kategorie = new SelectList(await kategorieQuery.Distinct().ToListAsync())
+            };
+            return View(kategorieVM);
         }
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind("tytuł, data_wydania")]Ksiazki ksiazka)
+        public async Task<ActionResult> Create([Bind("tytuł, data_wydania")]KsiazkaViewModel ksiazkaVM)
         {
-           
-           // var kategoria = await _context.Kategorie
-           //    .FirstOrDefaultAsync(m => m.id_kategorii == 4);
-            ksiazka.Wydawnictwa = await _context.Wydawnictwa
-                .FirstOrDefaultAsync(m => m.id_wydawnictwa == ksiazka.id_wydawnictwa); 
-         //   Kategorie_Ksiazki kategorie_Ksiazki = new Kategorie_Ksiazki();
-            //kategorie_Ksiazki.id_ksiazki = ksiazka.id_ksiazki;
-          //  kategorie_Ksiazki.Ksiazki = ksiazka;
-            //kategorie_Ksiazki.id_kategorii = 4;
-         //  kategorie_Ksiazki.Kategorie = kategoria;
-
-             //ksiazka.Wydawnictwa =await _context.Wydawnictwa.FindAsync(1);
+            ksiazkaVM.Wydawnictwa = await _context.Wydawnictwa
+                .FirstOrDefaultAsync(m => m.id_wydawnictwa == ksiazkaVM.id_wydawnictwa);
+            Ksiazki ksiazka = new Ksiazki
+            {
+                id_ksiazki=ksiazkaVM.id_ksiazki,
+                data_wydania=ksiazkaVM.data_wydania,
+                tytuł=ksiazkaVM.tytuł,
+                id_wydawnictwa=ksiazkaVM.id_wydawnictwa
+            };
             try
             {
                 if (ModelState.IsValid)
                 {
                     _context.Ksiazki.Add(ksiazka);
-                 //   _context.Kategorie_Ksiazki.Add(kategorie_Ksiazki);
                     _context.SaveChanges();
                     return RedirectToAction("Index");
                 }

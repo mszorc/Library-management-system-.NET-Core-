@@ -5,13 +5,28 @@
     <ul class="navbar-nav">
         @if (SignInManager.IsSignedIn(User))
         {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Manage">Hello @User.Identity.Name!</a>
+            <
+                <a class="btn btn-outline-secondary" asp-area="" asp-controller="Account" asp-action="Manage">Hello @User.Identity.Name!</a>
             </li>
             @if (this.User.IsInRole("Bibliotekarz") || this.User.IsInRole("Admin"))
             {
+                    <a class="btn btn-outline-secondary" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                </li>
+
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                    <div class="dropdown mr-1">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                            Zarz¹dzaj
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" asp-controller="Book" asp-action="Index">Ksiazki</a>
+                            <a class="dropdown-item" asp-controller="Author" asp-action="Index">Autorzy</a>
+                            <a class="dropdown-item" asp-controller="Kategorie" asp-action="Index">Kategorie</a>
+                            <a class="dropdown-item" asp-controller="Dostawcy" asp-action="Index">Dostawcy</a>
+                            <a class="dropdown-item" asp-controller="Wydawnictwa" asp-action="Index">Wydawnictwa</a>
+                            <a class="dropdown-item" asp-controller="" asp-action=""></a>
+                        </div>
+                    </div>
                 </li>
             }
             <li class="nav-item">
@@ -22,7 +37,6 @@
         }
         else
         {
-            
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
             </li>

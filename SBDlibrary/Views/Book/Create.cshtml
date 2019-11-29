@@ -1,12 +1,18 @@
-﻿@model SBDlibrary.Models.Ksiazki
+﻿@model SBDlibrary.ViewModels.BookViewModels.KsiazkaViewModel
 
 @{
     ViewData["Title"] = "Register";
 }
 
-<form class="form" method="post" novalidate>
+<form asp-controller="Book" asp-action="Create" method="get">
     <h2 class="form-heading">add new book</h2>
-    <div class="col-md-4">
+    
+    <div class="col-md-5">
+        <div class="form-group">
+            <select asp-for="kategorie" asp-items="Model.kategorie">
+                <option value="">All</option>
+            </select>
+        </div>
         <div class="form-group">
             <label asp-for="id_ksiazki"></label>
             <input asp-for="id_ksiazki" class="form-control" />
@@ -25,7 +31,6 @@
             <label asp-for="Wydawnictwa.id_wydawnictwa"></label>
             <input asp-for="Wydawnictwa.id_wydawnictwa" class="form-control" />
         </div>
-       
         <button class="btn btn-lg btn-primary btn-block" type="submit">Dodaj</button>
     </div>
 </form>

@@ -6,6 +6,7 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+<<<<<<< HEAD
   <ItemGroup>
     <None Include="wwwroot\Images\indeks.jpg" />
     <None Include="wwwroot\Images\Logo.png" />
@@ -14,15 +15,22 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+=======
+
+  <ItemGroup>
+>>>>>>> Piotr2
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
     <PackageReference Include="Sendgrid" Version="9.12.0" />
   </ItemGroup>
 
+<<<<<<< HEAD
 
   <ItemGroup>
     <Folder Include="Content\" />
   </ItemGroup>
 
+=======
+>>>>>>> Piotr2
 </Project>

@@ -19,8 +19,7 @@ namespace SBDlibrary.Controllers
         }
         public async Task<IActionResult> Index()
         {
-
-            var wypozyczenia = from a in _context.Wypozyczenia select a;
+           var wypozyczenia = from a in _context.Wypozyczenia select a;
            foreach(Wypozyczenia x in wypozyczenia)
             {
                 x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);

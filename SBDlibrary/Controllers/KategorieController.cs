@@ -23,7 +23,7 @@ namespace SBDlibrary.Controllers
             return View(await _context.Kategorie.ToListAsync());
             // return View();
         }
-
+        
         public IActionResult Details(int? id)
         {
 

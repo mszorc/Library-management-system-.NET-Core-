@@ -3,12 +3,18 @@
 }
 @model SBDlibrary.Models.Autor
 
-<h1>Details</h1>
+<h1>Szczegóły</h1>
 
 <div>
-    <h2>Wydawnictwo</h2>
+    <h2>Autor</h2>
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.id_autor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.id_autor)
+        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.imie)
         </dt>

@@ -7,13 +7,15 @@
 @model IEnumerable<SBDlibrary.Models.Autor>
 
 @{
-    ViewData["Title"] = "Autor";
+    ViewData["Title"] = "Autorzy";
 }
 
 
-<h1>ksiazki</h1>
+<h1>Autorzy</h1>
 
-
+<div>
+    <a asp-action="Create">Dodaj</a>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -23,7 +25,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.nazwisko)
             </th>
-
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +37,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.nazwisko)
+                </td>
+                <td>
+                    @Html.ActionLink("Szczegóły", "Details", "Autor", new { id = item.id_autor })
                 </td>
             </tr>
         }

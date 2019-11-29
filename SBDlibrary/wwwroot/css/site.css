@@ -5,12 +5,15 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+<<<<<<< HEAD:SBDlibrary/wwwroot/css/site.css
   /*background-color: #dcdcdc;*/
 
 }
 
 header{
     background-color: #dcdcdc;
+=======
+>>>>>>> Piotr2:SBDlibrary/SBDlibrary/wwwroot/css/site.css
 }
 
 /* Sticky footer styles
@@ -60,6 +63,7 @@ body {
     background-color: #f9eebf;
 }
 .footer {
+<<<<<<< HEAD:SBDlibrary/wwwroot/css/site.css
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -73,6 +77,15 @@ body {
     background-color: black;
     border: 3px dashed red;
     font-size: 1.4em;
+=======
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+>>>>>>> Piotr2:SBDlibrary/SBDlibrary/wwwroot/css/site.css
 }
 #men {
     float: left;

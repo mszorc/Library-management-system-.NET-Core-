@@ -7,23 +7,26 @@
 @model IEnumerable<SBDlibrary.Models.Dostawcy>
 
 @{
-    ViewData["Title"] = "Wydawnictwa";
+    ViewData["Title"] = "Dostawcy";
 }
 
 
-<h1>ksiazki</h1>
+<h1>Dostawcy</h1>
 
+<div>
+    <a asp-action="Create">Dodaj</a>
+</div>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.nazwa)
+                @Html.DisplayNameFor(model => model.id_dostawcy)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.adres)
+                @Html.DisplayNameFor(model => model.nazwa)
             </th>
-
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -31,10 +34,13 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.id_dostawcy)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.nazwa)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.adres)
+                    @Html.ActionLink("Details", "Details", "Dostawcy", new { id = item.id_dostawcy }, null)
                 </td>
             </tr>
         }
