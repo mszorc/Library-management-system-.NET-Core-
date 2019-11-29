@@ -19,7 +19,16 @@ namespace SBDlibrary.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Wypozyczenia.ToListAsync());
+
+            var wypozyczenia = from a in _context.Wypozyczenia select a;
+           foreach(Wypozyczenia x in wypozyczenia)
+            {
+                x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);
+                x.Egzemplarze.Ksiazki = await _context.Ksiazki.FirstOrDefaultAsync(n => n.id_ksiazki == x.Egzemplarze.id_ksiazki);
+                x.Uzytkownicy = await _context.Uzytkownicy.FirstOrDefaultAsync(l => l.id_uzytkownika == x.id_uzytkownika);
+
+            }
+            return View(wypozyczenia);
         }
         public async Task<ActionResult> Details(int? id)
         {
