@@ -5,11 +5,12 @@
     <ul class="navbar-nav">
         @if (SignInManager.IsSignedIn(User))
         {
-            <
+            <li>
                 <a class="btn btn-outline-secondary" asp-area="" asp-controller="Account" asp-action="Manage">Hello @User.Identity.Name!</a>
             </li>
             @if (this.User.IsInRole("Bibliotekarz") || this.User.IsInRole("Admin"))
             {
+                <li>
                     <a class="btn btn-outline-secondary" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
                 </li>
 
