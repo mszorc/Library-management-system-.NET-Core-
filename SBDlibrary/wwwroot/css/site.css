@@ -56,6 +56,12 @@ html {
 
     
 }
+#kurwa {
+    float: right;
+    width: 300px;
+    display: block;
+}
+
 
 body {
     /* Margin bottom by footer height */
