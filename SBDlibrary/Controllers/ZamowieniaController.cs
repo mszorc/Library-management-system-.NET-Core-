@@ -23,6 +23,7 @@ namespace SBDlibrary.Controllers
 
         public async Task<IActionResult> Index()
         {
+            //dodac sortowanie
             var zamowienia = _context.Zamowienia.Include(z => z.dostawcy);
             
             return View(await zamowienia.ToListAsync());
@@ -84,8 +85,14 @@ namespace SBDlibrary.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Detale(int id, [Bind("id_zamowienia,id_ksiazki,tytul,ilosc")] ZamowienieKsiazkiViewModel zamowienie_ksiazki)
         {
+            if (zamowienie_ksiazki.ilosc > 1000 || zamowienie_ksiazki.ilosc < 1)
+            {
+                ModelState.AddModelError("", "Ilość książek musi mieścić się w przedziale 1-1000");
+                return RedirectToAction("Detale", "Zamowienia", id);
+            }
             if (ModelState.IsValid)
             {
+                
                 var temp = new Zamowienie_ksiazki();
                 temp.id_zamowienia = id;
                 temp.id_ksiazki = zamowienie_ksiazki.id_ksiazki;
