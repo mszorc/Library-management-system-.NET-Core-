@@ -35,4 +35,9 @@ namespace SBDlibrary.Models
         [Display(Name = "idKategorii")]
         public int id_ksiazki;
     }
+    public class WyswietlanieKsiazekModel
+    {
+        public Ksiazki ksiazka;
+        public string dostepneEgzemplarze;
+    }
 }
