@@ -16,12 +16,16 @@
 <div>
     <a asp-action="Stworz">Dodaj</a>
 </div>
+<<<<<<< HEAD:SBDlibrary/Views/Autorzy/Index.cshtml
 <form asp-action="Index">
     <p>
         Nazwisko: <input type="text" name="nazwisko">
         <input type="submit" value="Filtruj" />
     </p>
 </form>
+=======
+<br />
+>>>>>>> Piotr2:SBDlibrary/Views/Autor/Index.cshtml
 <table class="table">
     <thead>
         <tr>
@@ -32,11 +36,14 @@
                 @Html.DisplayNameFor(model => model.nazwisko)
             </th>
             <th></th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
+<<<<<<< HEAD:SBDlibrary/Views/Autorzy/Index.cshtml
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.imie)
@@ -49,6 +56,25 @@
                     @Html.ActionLink("Usuń", "Usun", new { id=item.id_autor })
                 </td>
             </tr>
+=======
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nazwisko)
+            </td>
+            <td>
+                @Html.ActionLink("Szczegóły", "Details", "Autor", new { id = item.id_autor })
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edytuj", "Autor", new { id = item.id_autor })
+            </td>
+            <td>
+                @Html.ActionLink("Usuń", "Usun", "Autor", new { id = item.id_autor })
+            </td>
+        </tr>
+>>>>>>> Piotr2:SBDlibrary/Views/Autor/Index.cshtml
         }
     </tbody>
 </table>
