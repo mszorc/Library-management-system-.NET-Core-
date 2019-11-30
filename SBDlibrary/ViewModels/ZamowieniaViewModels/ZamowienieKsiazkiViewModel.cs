@@ -12,7 +12,9 @@ namespace SBDlibrary.ViewModels.ZamowieniaViewModels
         public int id_ksiazki { get; set; }
         [Display(Name = "Tytuł")]
         public string tytul { get; set; }
+        [Required(ErrorMessage = "Pole 'Ilość' jest wymagane.")]
         [Display(Name = "Ilość")]
+        [Range(1, 1000)]
         public int ilosc { get; set; }
 
         public ZamowienieKsiazkiViewModel()
