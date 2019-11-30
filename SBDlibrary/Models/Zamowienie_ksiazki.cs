@@ -15,8 +15,10 @@ namespace SBDlibrary.Models
         [Key]
         [Column(Order = 1)]
         public int id_ksiazki { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Pole 'Ilość' jest wymagane.")]
         [Column(Order = 2)]
+        [Display(Name = "Ilość")]
+        [Range(1, 1000)]
         public int ilosc { get; set; }
         [ForeignKey("id_zamowienia")]
         public virtual Zamowienia Zamowienia { get; set; }

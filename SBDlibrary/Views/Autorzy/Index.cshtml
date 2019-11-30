@@ -14,8 +14,14 @@
 <h1>Autorzy</h1>
 
 <div>
-    <a asp-action="Create">Dodaj</a>
+    <a asp-action="Stworz">Dodaj</a>
 </div>
+<form asp-action="Index">
+    <p>
+        Nazwisko: <input type="text" name="nazwisko">
+        <input type="submit" value="Filtruj" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -39,7 +45,8 @@
                     @Html.DisplayFor(modelItem => item.nazwisko)
                 </td>
                 <td>
-                    @Html.ActionLink("Szczegóły", "Details", "Autor", new { id = item.id_autor })
+                    @Html.ActionLink("Edytuj", "Edytuj", new { id=item.id_autor }) |
+                    @Html.ActionLink("Usuń", "Usun", new { id=item.id_autor })
                 </td>
             </tr>
         }

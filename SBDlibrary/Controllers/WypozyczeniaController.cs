@@ -82,7 +82,7 @@ namespace SBDlibrary.Controllers
             foreach (Egzemplarze x in egzemplarze)
             {
 
-                if (x.status == "dostepny")
+                if (x.status == Egzemplarze.Status.Dostępny)
                 {
                      dostepnyEgzemplarz = x;
                      break;
@@ -101,7 +101,7 @@ namespace SBDlibrary.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    wypozyczenie.Egzemplarze.status = "wypozyczony";
+                    wypozyczenie.Egzemplarze.status = Egzemplarze.Status.Niedostępny;
                     _context.Wypozyczenia.Add(wypozyczenie);
                     _context.SaveChanges();
                     return RedirectToAction("Index");

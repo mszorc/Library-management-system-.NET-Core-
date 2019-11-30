@@ -11,29 +11,28 @@ using SBDlibrary.Models;
 namespace SBDlibrary.Controllers
 {
     [Authorize(Roles = "Bibliotekarz,Admin")]
-    public class KategorieController : Controller
+    public class AutorzyController : Controller
     {
         private readonly LibraryDbContext _context;
 
-        public KategorieController(LibraryDbContext context)
+        public AutorzyController (LibraryDbContext context)
         {
             _context = context;
         }
 
-        public IActionResult Index(string nazwa)
+        public IActionResult Index(string nazwisko)
         {
-            var kategorie = from m in _context.Kategorie
-                          select m;
+            var autorzy = from m in _context.Autor
+                         select m;
 
-            if (!String.IsNullOrEmpty(nazwa))
+            if (!String.IsNullOrEmpty(nazwisko))
             {
-                kategorie = kategorie.Where(s => s.nazwa.Contains(nazwa));
+                autorzy = autorzy.Where(s => s.nazwisko.Contains(nazwisko));
             }
 
-            return View(kategorie);
+            return View(autorzy);
         }
 
-        [HttpGet]
         public IActionResult Stworz()
         {
             return View();
@@ -41,23 +40,23 @@ namespace SBDlibrary.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Stworz([Bind("nazwa")]Kategorie kategoria)
+        public async Task<ActionResult> Stworz([Bind("id_autor,imie,nazwisko")]Autor autor)
         {
             if (ModelState.IsValid)
             {
-                var check = await _context.Kategorie.FirstOrDefaultAsync(m => m.nazwa == kategoria.nazwa);
+                var check = await _context.Autor.FirstOrDefaultAsync(m => m.imie.ToUpper() == autor.imie.ToUpper() 
+                                                                    && m.nazwisko.ToUpper() == autor.nazwisko.ToUpper());
                 if (check != null)
                 {
-                    ModelState.AddModelError("", "Kategoria o podanej nazwie istnieje w bazie");
-                    return View(kategoria);
+                    ModelState.AddModelError("", "Autor o podanym imieniu i nazwisku istnieje w bazie");
+                    return View(autor);
                 }
-
-                _context.Kategorie.Add(kategoria);
+                _context.Autor.Add(autor);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Autorzy");
             }
 
-            return View(kategoria);
+            return View(autor);
         }
 
         public async Task<IActionResult> Edytuj(int? id)
@@ -67,42 +66,43 @@ namespace SBDlibrary.Controllers
                 return NotFound();
             }
 
-            var kategoria = await _context.Kategorie.FirstOrDefaultAsync(m => m.id_kategorii == id);
+            var autor = await _context.Autor.FirstOrDefaultAsync(m => m.id_autor == id);
 
-            if (kategoria == null)
+            if (autor == null)
             {
                 return NotFound();
             }
 
-            return View(kategoria);
-        }
+            return View(autor);
+        }  
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edytuj(int id, [Bind("id_kategorii,nazwa")]Kategorie kategoria)
+        public async Task<IActionResult> Edytuj(int id, [Bind("id_autor,imie,nazwisko")]Autor autor)
         {
-            if (id != kategoria.id_kategorii)
+            if (id != autor.id_autor)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                var check = await _context.Kategorie.FirstOrDefaultAsync(m => m.nazwa.ToUpper() == kategoria.nazwa.ToUpper());
+                var check = await _context.Autor.FirstOrDefaultAsync(m => m.imie.ToUpper() == autor.imie.ToUpper()
+                                                                    && m.nazwisko.ToUpper() == autor.nazwisko.ToUpper());
                 if (check != null)
                 {
-                    ModelState.AddModelError("", "Kategoria o podanej nazwie istnieje w bazie");
-                    return View(kategoria);
+                    ModelState.AddModelError("", "Autor o podanym imieniu i nazwisku istnieje w bazie");
+                    return View(autor);
                 }
 
                 try
                 {
-                    _context.Update(kategoria);
+                    _context.Update(autor);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!KategoriaExists(kategoria.id_kategorii))
+                    if (!AutorExists(autor.id_autor))
                     {
                         return NotFound();
                     }
@@ -114,7 +114,7 @@ namespace SBDlibrary.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(kategoria);
+            return View(autor);
         }
 
         public async Task<IActionResult> Usun(int? id)
@@ -124,29 +124,29 @@ namespace SBDlibrary.Controllers
                 return NotFound();
             }
 
-            var kategoria = await _context.Kategorie.FirstOrDefaultAsync(m => m.id_kategorii == id);
-
-            if (kategoria == null)
+            var autor = await _context.Autor.FirstOrDefaultAsync(m => m.id_autor == id);
+            
+            if (autor == null)
             {
                 return NotFound();
             }
 
-            return View(kategoria);
+            return View(autor);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Usun(int id)
         {
-            var kategoria = await _context.Kategorie.FindAsync(id);
-            _context.Kategorie.Remove(kategoria);
+            var autor = await _context.Autor.FindAsync(id);
+            _context.Autor.Remove(autor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool KategoriaExists(int id)
+        private bool AutorExists(int id)
         {
-            return _context.Kategorie.Any(e => e.id_kategorii == id);
+            return _context.Autor.Any(e => e.id_autor == id);
         }
     }
 }

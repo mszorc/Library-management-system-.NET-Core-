@@ -10,6 +10,11 @@ namespace SBDlibrary.Models
 {
     public class Egzemplarze
     {
+        public enum Status
+        {
+            Niedostępny, Dostępny
+        }
+
         [Key]
         [Column(Order = 0)] 
         public int id_egzemplarza { get; set; }
@@ -19,8 +24,8 @@ namespace SBDlibrary.Models
         [Column(Order = 2)]
         [ForeignKey("id_ksiazki")]
         public virtual Ksiazki Ksiazki { get; set; }
-        [DefaultValue("dostepny")]
-        public string status { get; set; }
+        //DefaultValue("dostepny")]
+        public Status? status { get; set; }
         public ICollection<Wypozyczenia> Wypozyczenia { get; set; }
         public ICollection<Rezerwacje> Rezerwacje { get; set; }
     }

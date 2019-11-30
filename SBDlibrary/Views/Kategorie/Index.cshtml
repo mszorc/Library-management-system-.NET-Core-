@@ -14,9 +14,14 @@
 <h1>Kategorie</h1>
 
 <div>
-    <a asp-action="Create">Dodaj</a>
+    <a asp-action="Stworz">Dodaj</a>
 </div>
-
+<form asp-action="Index">
+    <p>
+        Nazwa: <input type="text" name="nazwa">
+        <input type="submit" value="Filtruj" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -34,7 +39,8 @@
                     @Html.DisplayFor(modelItem => item.nazwa)
                 </td>
                 <td>
-                    @Html.ActionLink("Szczegóły", "Details", "Kategorie", new { id = item.id_kategorii })
+                    @Html.ActionLink("Edytuj", "Edytuj", new { id=item.id_kategorii }) |
+                    @Html.ActionLink("Usuń", "Usun", new { id=item.id_kategorii })
                 </td>
             </tr>
         }

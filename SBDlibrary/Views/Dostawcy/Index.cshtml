@@ -14,17 +14,22 @@
 <h1>Dostawcy</h1>
 
 <div>
-    <a asp-action="Create">Dodaj</a>
+    <a asp-action="Stworz">Dodaj</a>
 </div>
-
+<form asp-action="Index">
+    <p>
+        Nazwa: <input type="text" name="nazwa">
+        <input type="submit" value="Filtruj" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.id_dostawcy)
+                @Html.DisplayNameFor(model => model.nazwa)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.nazwa)
+                @Html.DisplayNameFor(model => model.adres)
             </th>
             <th></th>
         </tr>
@@ -34,13 +39,14 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.id_dostawcy)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.nazwa)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", "Dostawcy", new { id = item.id_dostawcy }, null)
+                    @Html.DisplayFor(modelItem => item.adres)
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "Edytuj", new { id=item.id_dostawcy }) |
+                    @Html.ActionLink("Usuń", "Usun", new { id=item.id_dostawcy })
                 </td>
             </tr>
         }
