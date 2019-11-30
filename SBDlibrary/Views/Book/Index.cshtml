@@ -4,7 +4,7 @@
         font-family: 'Lato', monospace;
     }
 </style>
-@model IEnumerable<SBDlibrary.Models.Ksiazki>
+@model IEnumerable<WyswietlanieKsiazekModel>
 
 @{
     ViewData["Title"] = "Ksiazki";
@@ -23,13 +23,19 @@
                 Miniatura
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.tytuł)
+                @Html.DisplayNameFor(model => model.ksiazka)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.data_wydania)
+                wydawnictwo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Wydawnictwa)
+
+            </th>
+            <th>
+                
+            </th>
+            <th>
+                status
             </th>
             <th></th>
         </tr>
@@ -37,22 +43,28 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    <img src="https://via.placeholder.com/150"/>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.tytuł)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.data_wydania)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Wydawnictwa.nazwa)
-                <td>
-                    @Html.ActionLink("Szczegóły", "Details", "Book", new { id = item.id_ksiazki })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                <img src="https://via.placeholder.com/150" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ksiazka.tytuł)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ksiazka.Wydawnictwa.nazwa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ksiazka.data_wydania)
+            <td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dostepneEgzemplarze)
+            <td>
+                @Html.ActionLink("Szczegóły", "Details", "Book", new { id = item.ksiazka.id_ksiazki })
+            </td>
+            <td>
+                @Html.ActionLink("Wypożycz", "Wypozycz", "Book", new { id = item.ksiazka.id_ksiazki })
+            </td>
+        </tr>
         }
     </tbody>
 </table>
