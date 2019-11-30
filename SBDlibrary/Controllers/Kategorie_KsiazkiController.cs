@@ -128,7 +128,7 @@ namespace SBDlibrary.Controllers
 
             return RedirectToAction("Index");
         }
-        public async Task<ActionResult> Create()
+        public IActionResult Create()
         {
 
             return View();

@@ -24,19 +24,23 @@
                 @Html.DisplayNameFor(model => model.nazwa)
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nazwa)
-                </td>
-                <td>
-                    @Html.ActionLink("Szczegóły", "Details", "Kategorie", new { id = item.id_kategorii })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nazwa)
+            </td>
+            <td>
+                @Html.ActionLink("Szczegóły", "Details", "Kategorie", new { id = item.id_kategorii })
+            </td>
+            <td>
+                @Html.ActionLink("Usun", "Usun", "Kategorie", new { id = item.id_kategorii })
+            </td>
+        </tr>
         }
     </tbody>
 </table>

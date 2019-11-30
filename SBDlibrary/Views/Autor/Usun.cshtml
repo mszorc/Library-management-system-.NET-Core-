@@ -1,0 +1,38 @@
+﻿@model SBDlibrary.Models.Autor
+@{
+    ViewData["Title"] = "Usuń";
+}
+
+<h1>Usuń</h1>
+
+<h3>Czy na pewno chcesz usunąć tego autora?</h3>
+<div>
+    
+    <hr />
+    <d1 class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.id_autor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.id_autor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.imie)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.imie)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.nazwisko)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.nazwisko)
+        </dd >
+    </d1> 
+    <br />
+    <form asp-action="Usun">
+        <input type="hidden" asp-for="id_autor" />
+        <input type="submit" value="Usun" class="btn btn-outline-danger" />
+        <a asp-action="Index">Powrót na listę</a>
+    </form>
+</div>

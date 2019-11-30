@@ -28,7 +28,13 @@ namespace SBDlibrary.Controllers
         }
         public async Task<IActionResult> Index()
         {
-           
+            var Ksiazki = from t in _context.Ksiazki
+                     select t;
+            foreach (Ksiazki k in Ksiazki)
+            {
+                k.Wydawnictwa = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == k.id_wydawnictwa);
+            }
+            
             // if (!HttpContext.User.IsInRole(""))
             // {
 
@@ -46,7 +52,7 @@ namespace SBDlibrary.Controllers
             }
 
             var ksiazka = await _context.Ksiazki.FirstOrDefaultAsync(m => m.id_ksiazki == id);
-
+            ksiazka.Wydawnictwa = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == ksiazka.id_wydawnictwa);
             if (ksiazka == null)
             {
                 return NotFound();
@@ -60,6 +66,55 @@ namespace SBDlibrary.Controllers
             return View(ksiazka);
 
            // return View();
+        }
+
+        public async Task<IActionResult> Edytuj(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var ksiazka = await _context.Ksiazki
+               .FirstOrDefaultAsync(a => a.id_ksiazki == id);
+            if (ksiazka == null)
+            {
+                return NotFound();
+            }
+            return View(ksiazka);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edytuj(int id, Ksiazki ksiazka)
+        {
+            if (id != ksiazka.id_ksiazki)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(ksiazka);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!KsiazkaExists(ksiazka.id_ksiazki))
+                    {
+                        return NotFound();
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(ksiazka);
+        }
+
+        private bool KsiazkaExists(int id)
+        {
+            return _context.Ksiazki.Any(k => k.id_ksiazki == id);
         }
 
         [HttpGet]

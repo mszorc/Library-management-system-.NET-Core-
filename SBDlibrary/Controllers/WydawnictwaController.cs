@@ -20,7 +20,7 @@ namespace SBDlibrary.Controllers
         {
             return View(await _context.Wydawnictwa.ToListAsync());
         }
-        public async Task<ActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
 
             if (id == null)

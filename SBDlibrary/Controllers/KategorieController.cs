@@ -23,8 +23,8 @@ namespace SBDlibrary.Controllers
             return View(await _context.Kategorie.ToListAsync());
             // return View();
         }
-
-        public async Task<ActionResult> Details(int? id)
+        
+        public IActionResult Details(int? id)
         {
 
             if (id == null)
@@ -42,6 +42,34 @@ namespace SBDlibrary.Controllers
             return View(kategoria);
 
 
+        }
+
+        public async Task<IActionResult> Usun(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var kategoria = await _context.Kategorie
+                .FirstOrDefaultAsync(a => a.id_kategorii == id);
+            if (kategoria == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(kategoria);
+        }
+
+        [HttpPost, ActionName("Usun")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UsunConfirm(int id)
+        {
+            var kategoria = await _context.Kategorie.FindAsync(id);
+            _context.Kategorie.Remove(kategoria);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
