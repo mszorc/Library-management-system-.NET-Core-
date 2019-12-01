@@ -24,7 +24,7 @@
         <dd class="col-sm-10">
             @foreach (var item in Model.autorzyLista)
             {
-                @Html.DisplayText(item)
+                <li>@item</li>
             }
         </dd>
 
@@ -34,7 +34,7 @@
         <dd class="col-sm-10">
             @foreach (string item in Model.kategorieLista)
             {
-                @Html.DisplayText(item)
+                <li>@item</li>
             }
         </dd>
         <dt class="col-sm-2">

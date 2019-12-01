@@ -164,15 +164,9 @@ namespace SBDlibrary.Controllers
         
         public IActionResult Create()
         {
-            //ViewData["kategorie"] = new MultiSelectList(_context.Kategorie, "nazwa", "nazwa");
+            
             ViewData["wydawnictwa"] = new SelectList(_context.Wydawnictwa, "id_wydawnictwa", "nazwa");
-            //List<Autor> autorzy = _context.Autor.Distinct().ToList();
-            //List<string> autorzyImionaNazwiska = new List<string>();
-            //foreach(Autor a in autorzy)
-            //{
-            //    autorzyImionaNazwiska.Add(a.imie + " " + a.nazwisko);
-            //}
-            //ViewData["autorzy"] = new SelectList(autorzyImionaNazwiska);
+            
             
             return View();
         }
@@ -197,11 +191,12 @@ namespace SBDlibrary.Controllers
                 ksiazka.Wydawnictwa = wydawnictwo;
             
             //kategorie_ksiazki
-            Kategorie_Ksiazki kategorie_ksiazki = new Kategorie_Ksiazki();
+            
             string[] splitKategorie = ksiazkaVM.kategorie.Split(new Char[] { ',' });
             Kategorie kategoria = new Kategorie();
             foreach(string k in splitKategorie)
             {
+                Kategorie_Ksiazki kategorie_ksiazki = new Kategorie_Ksiazki();
                 kategoria = await _context.Kategorie.FirstOrDefaultAsync(m => m.nazwa == k);
                 kategorie_ksiazki.id_kategorii = kategoria.id_kategorii;
                 kategorie_ksiazki.id_ksiazki = ksiazkaVM.id_ksiazki;
@@ -211,12 +206,13 @@ namespace SBDlibrary.Controllers
             }
 
             //autorzy_ksiazki
-            Autorzy_Ksiazki autorzy_ksiazki = new Autorzy_Ksiazki();
+            
             string[] splitAutorzy = ksiazkaVM.autorzy.Split(new Char[] { ',' });
             Autor autor = new Autor();
             string[] splitWewn;
             foreach (string a in splitAutorzy)
             {
+                Autorzy_Ksiazki autorzy_ksiazki = new Autorzy_Ksiazki();
                 splitWewn = a.Split(new Char[] { ' ' });
                 autor = await _context.Autor.FirstOrDefaultAsync(m => m.nazwisko == splitWewn[1] && m.imie==splitWewn[0]);
                 autorzy_ksiazki.id_autora = autor.id_autor;
