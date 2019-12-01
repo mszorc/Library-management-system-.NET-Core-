@@ -1,26 +1,63 @@
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<Uzytkownicy> SignInManager
+@inject UserManager<Uzytkownicy> UserManager
 
-<ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
-</ul>
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li>
+                <a class="btn btn-outline-secondary" asp-area="" asp-controller="Account" asp-action="Manage">Hello @User.Identity.Name!</a>
+            </li>
+            @if (this.User.IsInRole("Bibliotekarz") || this.User.IsInRole("Admin"))
+            {
+                <li>
+                    <a class="btn btn-outline-secondary" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                </li>
+
+                <li class="nav-item">
+                    <div class="dropdown mr-1">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                            Zarz¹dzaj
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" asp-controller="Book" asp-action="Index">Ksiazki</a>
+                            <a class="dropdown-item" asp-controller="Autorzy" asp-action="Index">Autorzy</a>
+                            <a class="dropdown-item" asp-controller="Kategorie" asp-action="Index">Kategorie</a>
+                            <a class="dropdown-item" asp-controller="Dostawcy" asp-action="Index">Dostawcy</a>
+                            <a class="dropdown-item" asp-controller="Wydawnictwa" asp-action="Index">Wydawnictwa</a>
+                            <a class="dropdown-item" asp-controller="Zamowienia" asp-action="Index">Zamówienia</a>
+                            <a class="dropdown-item" asp-controller="Rezerwacje" asp-action="Index">Rezewacje</a>
+                            <a class="dropdown-item" asp-controller="" asp-action=""></a>
+                        </div>
+                    </div>
+                </li>
+            }
+            @if (this.User.IsInRole("Klient"))
+            {
+                
+                <li class="nav-item">
+                    <div class="dropdown mr-1">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                            Moje
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" asp-controller="Account" asp-action="KsiazkiKlienta">Ksiazki</a>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="RezerwacjeKlienta">Rezerwacje</a>
+                            <a class="dropdown-item" asp-controller="" asp-action=""></a>
+                        </div>
+                    </div>
+                </li>
+            }
+            <li class="nav-item">
+                <form class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+            </li>
+        }
+    </ul>

@@ -1,0 +1,75 @@
+﻿<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+<style>
+    h1 {
+        font-family: 'Lato', monospace;
+    }
+</style>
+@model IEnumerable<SBDlibrary.Models.Rezerwacje>
+
+@{
+    ViewData["Title"] = "Egzemplarze";
+}
+
+
+<h1>Egzemplarze</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Uzytkownicy.imie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Uzytkownicy.nazwisko)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data_rezerwacji)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data_odbioru)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Egzemplarze.Ksiazki.tytuł)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status_rezerwacji)
+            </th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uzytkownicy.imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uzytkownicy.nazwisko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.data_rezerwacji)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.data_odbioru)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Egzemplarze.Ksiazki.tytuł)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status_rezerwacji)
+            </td>
+            <td>
+                @if (item.status_rezerwacji == Rezerwacje.Status.aktualna)
+                {
+                    @Html.ActionLink("Anuluj rezerwacje", "AnulujRezerwacje", "Rezerwacje", new { id_rezerwacji = item.id_rezerwacji })
+                }
+
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>

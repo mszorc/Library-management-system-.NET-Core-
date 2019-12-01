@@ -15,7 +15,7 @@ namespace SBDlibrary.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -78,6 +78,8 @@ namespace SBDlibrary.Migrations
 
                     b.Property<int>("id_ksiazki");
 
+                    b.Property<int?>("status");
+
                     b.HasKey("id_egzemplarza");
 
                     b.HasIndex("id_ksiazki");
@@ -119,9 +121,9 @@ namespace SBDlibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Wydawnictwaid_wydawnictwa");
-
                     b.Property<DateTime>("data_wydania");
+
+                    b.Property<int>("id_wydawnictwa");
 
                     b.Property<string>("tytuł")
                         .IsRequired()
@@ -129,7 +131,7 @@ namespace SBDlibrary.Migrations
 
                     b.HasKey("id_ksiazki");
 
-                    b.HasIndex("Wydawnictwaid_wydawnictwa");
+                    b.HasIndex("id_wydawnictwa");
 
                     b.ToTable("Ksiazki");
                 });
@@ -140,7 +142,7 @@ namespace SBDlibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("id_uzytkownika");
+                    b.Property<int>("id_uzytkownika");
 
                     b.Property<string>("ip_urzadzenia")
                         .IsRequired()
@@ -163,19 +165,21 @@ namespace SBDlibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("data_odbioru");
+
                     b.Property<DateTime>("data_rezerwacji");
 
-                    b.Property<int>("id_egzemplarza1");
+                    b.Property<int>("id_egzemplarza");
 
-                    b.Property<int>("id_uzytkownika1");
+                    b.Property<int>("id_uzytkownika");
 
                     b.Property<int>("status_rezerwacji");
 
                     b.HasKey("id_rezerwacji");
 
-                    b.HasIndex("id_egzemplarza1");
+                    b.HasIndex("id_egzemplarza");
 
-                    b.HasIndex("id_uzytkownika1");
+                    b.HasIndex("id_uzytkownika");
 
                     b.ToTable("Rezerwacje");
                 });
@@ -202,6 +206,10 @@ namespace SBDlibrary.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("adres_zamieszkania")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("email")
                         .IsRequired()
                         .HasMaxLength(50);
 
@@ -260,15 +268,15 @@ namespace SBDlibrary.Migrations
 
                     b.Property<DateTime>("data_zwrotu");
 
-                    b.Property<int>("id_egzemplarza1");
+                    b.Property<int>("id_egzemplarza");
 
-                    b.Property<int>("id_uzytkownika1");
+                    b.Property<int>("id_uzytkownika");
 
                     b.HasKey("id_wypozyczenia");
 
-                    b.HasIndex("id_egzemplarza1");
+                    b.HasIndex("id_egzemplarza");
 
-                    b.HasIndex("id_uzytkownika1");
+                    b.HasIndex("id_uzytkownika");
 
                     b.ToTable("Wypozyczenia");
                 });
@@ -281,13 +289,13 @@ namespace SBDlibrary.Migrations
 
                     b.Property<DateTime>("data_zamowienia");
 
-                    b.Property<int?>("dostawcyid_dostawcy");
+                    b.Property<int>("id_dostawcy");
 
                     b.Property<int>("status_zamowienia");
 
                     b.HasKey("id_zamowienia");
 
-                    b.HasIndex("dostawcyid_dostawcy");
+                    b.HasIndex("id_dostawcy");
 
                     b.ToTable("Zamowienia");
                 });
@@ -315,13 +323,13 @@ namespace SBDlibrary.Migrations
 
                     b.Property<DateTime>("data_zwrotu");
 
-                    b.Property<int?>("id_wypozyczenia1");
+                    b.Property<int>("id_wypozyczenia");
 
                     b.Property<float>("kara");
 
                     b.HasKey("id_zwrotu");
 
-                    b.HasIndex("id_wypozyczenia1");
+                    b.HasIndex("id_wypozyczenia");
 
                     b.ToTable("Zwroty");
                 });
@@ -349,12 +357,12 @@ namespace SBDlibrary.Migrations
 
             modelBuilder.Entity("SBDlibrary.Models.Kategorie_Ksiazki", b =>
                 {
-                    b.HasOne("SBDlibrary.Models.Ksiazki", "Ksiazki")
+                    b.HasOne("SBDlibrary.Models.Kategorie", "Kategorie")
                         .WithMany()
                         .HasForeignKey("id_kategorii")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("SBDlibrary.Models.Kategorie", "Kategorie")
+                    b.HasOne("SBDlibrary.Models.Ksiazki", "Ksiazki")
                         .WithMany()
                         .HasForeignKey("id_ksiazki")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -363,8 +371,8 @@ namespace SBDlibrary.Migrations
             modelBuilder.Entity("SBDlibrary.Models.Ksiazki", b =>
                 {
                     b.HasOne("SBDlibrary.Models.Wydawnictwa", "Wydawnictwa")
-                        .WithMany()
-                        .HasForeignKey("Wydawnictwaid_wydawnictwa")
+                        .WithMany("Ksiazki")
+                        .HasForeignKey("id_wydawnictwa")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -372,19 +380,20 @@ namespace SBDlibrary.Migrations
                 {
                     b.HasOne("SBDlibrary.Models.Uzytkownicy", "Uzytkownicy")
                         .WithMany("Logi")
-                        .HasForeignKey("id_uzytkownika");
+                        .HasForeignKey("id_uzytkownika")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SBDlibrary.Models.Rezerwacje", b =>
                 {
-                    b.HasOne("SBDlibrary.Models.Egzemplarze", "id_egzemplarza")
+                    b.HasOne("SBDlibrary.Models.Egzemplarze", "Egzemplarze")
                         .WithMany("Rezerwacje")
-                        .HasForeignKey("id_egzemplarza1")
+                        .HasForeignKey("id_egzemplarza")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SBDlibrary.Models.Uzytkownicy", "id_uzytkownika")
+                    b.HasOne("SBDlibrary.Models.Uzytkownicy", "Uzytkownicy")
                         .WithMany()
-                        .HasForeignKey("id_uzytkownika1")
+                        .HasForeignKey("id_uzytkownika")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -403,14 +412,14 @@ namespace SBDlibrary.Migrations
 
             modelBuilder.Entity("SBDlibrary.Models.Wypozyczenia", b =>
                 {
-                    b.HasOne("SBDlibrary.Models.Egzemplarze", "id_egzemplarza")
+                    b.HasOne("SBDlibrary.Models.Egzemplarze", "Egzemplarze")
                         .WithMany("Wypozyczenia")
-                        .HasForeignKey("id_egzemplarza1")
+                        .HasForeignKey("id_egzemplarza")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SBDlibrary.Models.Uzytkownicy", "id_uzytkownika")
+                    b.HasOne("SBDlibrary.Models.Uzytkownicy", "Uzytkownicy")
                         .WithMany()
-                        .HasForeignKey("id_uzytkownika1")
+                        .HasForeignKey("id_uzytkownika")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -418,7 +427,8 @@ namespace SBDlibrary.Migrations
                 {
                     b.HasOne("SBDlibrary.Models.Dostawcy", "dostawcy")
                         .WithMany("Zamowienia")
-                        .HasForeignKey("dostawcyid_dostawcy");
+                        .HasForeignKey("id_dostawcy")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SBDlibrary.Models.Zamowienie_ksiazki", b =>
@@ -436,9 +446,10 @@ namespace SBDlibrary.Migrations
 
             modelBuilder.Entity("SBDlibrary.Models.Zwroty", b =>
                 {
-                    b.HasOne("SBDlibrary.Models.Wypozyczenia", "id_wypozyczenia")
+                    b.HasOne("SBDlibrary.Models.Wypozyczenia", "Wypozyczenia")
                         .WithMany()
-                        .HasForeignKey("id_wypozyczenia1");
+                        .HasForeignKey("id_wypozyczenia")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,55 @@
+﻿<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+<style>
+    h1 {
+        font-family: 'Lato', monospace;
+    }
+</style>
+@model IEnumerable<SBDlibrary.Models.Dostawcy>
+
+@{
+    ViewData["Title"] = "Dostawcy";
+}
+
+
+<h1>Dostawcy</h1>
+
+<div>
+    <a asp-action="Stworz">Dodaj</a>
+</div>
+<form asp-action="Index">
+    <p>
+        Nazwa: <input type="text" name="nazwa">
+        <input type="submit" value="Filtruj" />
+        @Html.ActionLink("Wyłącz filtry", "Index")
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nazwa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.adres)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nazwa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.adres)
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "Edytuj", new { id=item.id_dostawcy }) |
+                    @Html.ActionLink("Usuń", "Usun", new { id=item.id_dostawcy })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

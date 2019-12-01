@@ -21,4 +21,10 @@ namespace SBDlibrary.Models
         [ForeignKey("id_ksiazki")]
         public virtual Kategorie Kategorie { get; set; }
     }
+    public class KatModel
+    {
+        // public Ksiazki ksiazka;
+        public string tytul;
+        public IEnumerable<string> kategorie { get; set; }
+    }
 }
