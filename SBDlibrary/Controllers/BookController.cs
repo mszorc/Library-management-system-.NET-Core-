@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -181,6 +182,17 @@ namespace SBDlibrary.Controllers
            
             return RedirectToAction("Index");
         }
-        
+        [Authorize(Roles = "Klient")]
+        public async Task<IActionResult> KsiazkiKlienta(int? id)
+        {
+            // if(id==0)
+            var user = await _userManager.GetUserAsync(User);
+
+            var wypozyczenia = _context.Wypozyczenia.Where(m => m.id_uzytkownika == user.id_uzytkownika);
+            var egzemplarze = from b in wypozyczenia from c in _context.Egzemplarze.Where(c => b.id_egzemplarza == c.id_egzemplarza) select c;
+            var Ksiazki = from c in egzemplarze from d in _context.Ksiazki.Where(d => c.id_ksiazki == d.id_ksiazki) select d;
+            return View(Ksiazki);
+        }
+
     }
 }

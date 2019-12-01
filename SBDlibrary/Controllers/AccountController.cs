@@ -457,17 +457,7 @@ namespace SBDlibrary.Controllers
             return View(Input);
         }
         
-        [Authorize(Roles = "Klient")]
-        public async Task<IActionResult> KsiazkiKlienta (int ?id)
-        {
-          // if(id==0)
-            var user = await _userManager.GetUserAsync(User);
-
-            var wypozyczenia =  _context.Wypozyczenia.Where(m => m.id_uzytkownika == user.id_uzytkownika);
-            var egzemplarze = from b in wypozyczenia from c in _context.Egzemplarze.Where(c => b.id_egzemplarza == c.id_egzemplarza) select c;
-            var Ksiazki = from c in egzemplarze from d in _context.Ksiazki.Where(d => c.id_ksiazki == d.id_ksiazki) select d;
-            return View(Ksiazki);
-        }
+        
 
         [Authorize(Roles = "Klient")]
         public async Task<IActionResult> RezerwacjeKlienta(int? id)
