@@ -75,7 +75,6 @@ namespace SBDlibrary.Controllers
                 return NotFound();
             }
 
-            //    return View();
             KsiazkaViewModel ksiazkaVM = new KsiazkaViewModel();
                 ksiazkaVM.id_ksiazki = ksiazka.id_ksiazki;
                 ksiazkaVM.id_wydawnictwo = ksiazka.id_wydawnictwa;
