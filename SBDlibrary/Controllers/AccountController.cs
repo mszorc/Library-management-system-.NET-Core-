@@ -458,7 +458,7 @@ namespace SBDlibrary.Controllers
         }
         
         [Authorize(Roles = "Klient")]
-        public async Task<IActionResult> CustomerBooks (int ?id)
+        public async Task<IActionResult> KsiazkiKlienta (int ?id)
         {
           // if(id==0)
             var user = await _userManager.GetUserAsync(User);
@@ -466,13 +466,24 @@ namespace SBDlibrary.Controllers
             var wypozyczenia =  _context.Wypozyczenia.Where(m => m.id_uzytkownika == user.id_uzytkownika);
             var egzemplarze = from b in wypozyczenia from c in _context.Egzemplarze.Where(c => b.id_egzemplarza == c.id_egzemplarza) select c;
             var Ksiazki = from c in egzemplarze from d in _context.Ksiazki.Where(d => c.id_ksiazki == d.id_ksiazki) select d;
-
-
-
-
-
             return View(Ksiazki);
         }
+
+        [Authorize(Roles = "Klient")]
+        public async Task<IActionResult> RezerwacjeKlienta(int? id)
+        {
+            // if(id==0)
+            var user = await _userManager.GetUserAsync(User);
+
+            var rezerwacje = _context.Rezerwacje.Where(m => m.id_uzytkownika == user.id_uzytkownika);
+           foreach(Rezerwacje x in rezerwacje)
+            {
+                x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);
+                x.Uzytkownicy= await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.id_uzytkownika == x.id_uzytkownika);
+            }
+            return View(rezerwacje);
+        }
+
 
         private int RandomNumber(int min, int max)
         {

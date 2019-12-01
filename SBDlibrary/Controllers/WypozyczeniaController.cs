@@ -54,8 +54,8 @@ namespace SBDlibrary.Controllers
             return View(new SimpleModel());
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Create(string id_ksiazki)
+       
+        public async Task<ActionResult> Wypozycz(int? id_ksiazki)
         {
             int idKsiazki = Convert.ToInt32(id_ksiazki);
            // int idUzytkownika = Convert.ToInt32(id_uzytkownika);
@@ -94,14 +94,15 @@ namespace SBDlibrary.Controllers
             wypozyczenie.Egzemplarze = dostepnyEgzemplarz;
             wypozyczenie.data_wypozyczenia = new DateTime();
             wypozyczenie.data_zwrotu = wypozyczenie.data_wypozyczenia.AddMonths(1);
-            wypozyczenie.id_uzytkownika = 5;
-   
+            wypozyczenie.id_uzytkownika = Convert.ToInt32(HttpContext.User.Identity.Name);
             
+
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                    wypozyczenie.Egzemplarze.status = Egzemplarze.Status.Niedostępny;
+                    wypozyczenie.Egzemplarze.status = Egzemplarze.Status.Wypozyczony;
                     _context.Wypozyczenia.Add(wypozyczenie);
                     _context.SaveChanges();
                     return RedirectToAction("Index");

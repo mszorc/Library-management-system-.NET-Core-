@@ -62,7 +62,18 @@
                 @Html.ActionLink("Szczegóły", "Details", "Book", new { id = item.ksiazka.id_ksiazki })
             </td>
             <td>
-                @Html.ActionLink("Wypożycz", "Wypozycz", "Book", new { id = item.ksiazka.id_ksiazki })
+                @if (item.dostepneEgzemplarze == "dostepne")
+                {
+                    @Html.ActionLink("Wypożycz", "Wypozycz", "Wypozyczenia", new { id_ksiazki = item.ksiazka.id_ksiazki })
+                }
+
+            </td>
+            <td>
+                @if (item.dostepneEgzemplarze == "dostepne")
+                {
+                    @Html.ActionLink("Rezerwuj", "Zarezerwuj", "Rezerwacje", new { id_ksiazki = item.ksiazka.id_ksiazki })
+                }
+
             </td>
         </tr>
         }
