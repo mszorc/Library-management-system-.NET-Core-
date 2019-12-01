@@ -102,7 +102,6 @@ namespace SBDlibrary.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    wypozyczenie.Egzemplarze.status = Egzemplarze.Status.Niedostępny;
                     wypozyczenie.Egzemplarze.status = Egzemplarze.Status.Wypozyczony;
                     _context.Wypozyczenia.Add(wypozyczenie);
                     _context.SaveChanges();
