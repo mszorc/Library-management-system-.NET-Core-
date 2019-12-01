@@ -75,12 +75,40 @@ namespace SBDlibrary.Controllers
                 return NotFound();
             }
 
-            //if (ksiazka == null)
-            //{
-            //    ModelState.AddModelError(string.Empty, "Nie ma!.");
             //    return View();
-            //}
-            return View(ksiazka);
+            KsiazkaViewModel ksiazkaVM = new KsiazkaViewModel();
+                ksiazkaVM.id_ksiazki = ksiazka.id_ksiazki;
+                ksiazkaVM.id_wydawnictwo = ksiazka.id_wydawnictwa;
+                ksiazkaVM.tytuł = ksiazka.tytuł;
+                ksiazkaVM.data_wydania = ksiazka.data_wydania;
+
+            ksiazkaVM.Wydawnictwa = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == ksiazka.id_wydawnictwa);
+
+            //kategorie
+            var kategorie_ksiazki = await _context.Kategorie_Ksiazki.Where(m => m.id_ksiazki == ksiazka.id_ksiazki).ToListAsync();
+            Kategorie kategoria = new Kategorie();
+            List<string> listaKategorii = new List<string>();
+            foreach(Kategorie_Ksiazki k in kategorie_ksiazki)
+            {
+                kategoria =await _context.Kategorie.FirstOrDefaultAsync(m => m.id_kategorii == k.id_kategorii);
+                listaKategorii.Add(kategoria.nazwa);
+            }
+            ksiazkaVM.kategorieLista = listaKategorii;
+
+            //autorzy
+            var autorzy_ksiazki = await _context.Autorzy_Ksiazki.Where(m => m.id_ksiazki == ksiazka.id_ksiazki).ToListAsync();
+            Autor autor = new Autor();
+            List<string> listaAutorow = new List<string>();
+            string autorRecord;
+            foreach(Autorzy_Ksiazki a in autorzy_ksiazki)
+            {
+                autor = await _context.Autor.FirstOrDefaultAsync(m => m.id_autor == a.id_autora);
+                autorRecord = autor.imie + " " + autor.nazwisko;
+                listaAutorow.Add(autorRecord);
+            }
+            ksiazkaVM.autorzyLista = listaAutorow;
+
+            return View(ksiazkaVM);
 
            // return View();
         }
@@ -137,15 +165,15 @@ namespace SBDlibrary.Controllers
         
         public IActionResult Create()
         {
-            ViewData["kategorie"] = new SelectList(_context.Kategorie, "id_kategorii", "nazwa");
+            //ViewData["kategorie"] = new MultiSelectList(_context.Kategorie, "nazwa", "nazwa");
             ViewData["wydawnictwa"] = new SelectList(_context.Wydawnictwa, "id_wydawnictwa", "nazwa");
-            List<Autor> autorzy = _context.Autor.Distinct().ToList();
-            List<string> autorzyImionaNazwiska = new List<string>();
-            foreach(Autor a in autorzy)
-            {
-                autorzyImionaNazwiska.Add(a.imie + " " + a.nazwisko);
-            }
-            ViewData["autorzy"] = new SelectList(autorzyImionaNazwiska);
+            //List<Autor> autorzy = _context.Autor.Distinct().ToList();
+            //List<string> autorzyImionaNazwiska = new List<string>();
+            //foreach(Autor a in autorzy)
+            //{
+            //    autorzyImionaNazwiska.Add(a.imie + " " + a.nazwisko);
+            //}
+            //ViewData["autorzy"] = new SelectList(autorzyImionaNazwiska);
             
             return View();
         }
@@ -157,27 +185,51 @@ namespace SBDlibrary.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(KsiazkaViewModel ksiazkaVM)
         {
-            string[] split = ksiazkaVM.autor.Split(new Char[] { ' ' });
-
-            //ksiazkaVM.Wydawnictwa = await _context.Wydawnictwa
-            //    .FirstOrDefaultAsync(m => m.nazwa == ksiazkaVM.wydawnictwo);
-
-            //nie wiem troche co to ma robić ^
-
-            var wydawnictwo = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.nazwa == ksiazkaVM.wydawnictwo);
-
             
-            
-            try
-            {
-                Ksiazki ksiazka = new Ksiazki();
+            var wydawnictwo = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == ksiazkaVM.id_wydawnictwo);
+
+            Ksiazki ksiazka = new Ksiazki();
 
                 ksiazka.id_ksiazki = ksiazkaVM.id_ksiazki;
                 ksiazka.id_wydawnictwa = wydawnictwo.id_wydawnictwa;
-                //ksiazka.id_wydawnictwa = 33;
                 ksiazka.tytuł = ksiazkaVM.tytuł;
                 ksiazka.data_wydania = ksiazkaVM.data_wydania;
-                //ksiazka.Wydawnictwa = ksiazkaVM.Wydawnictwa;
+
+                ksiazka.Wydawnictwa = wydawnictwo;
+            
+            //kategorie_ksiazki
+            Kategorie_Ksiazki kategorie_ksiazki = new Kategorie_Ksiazki();
+            string[] splitKategorie = ksiazkaVM.kategorie.Split(new Char[] { ',' });
+            Kategorie kategoria = new Kategorie();
+            foreach(string k in splitKategorie)
+            {
+                kategoria = await _context.Kategorie.FirstOrDefaultAsync(m => m.nazwa == k);
+                kategorie_ksiazki.id_kategorii = kategoria.id_kategorii;
+                kategorie_ksiazki.id_ksiazki = ksiazkaVM.id_ksiazki;
+                kategorie_ksiazki.Ksiazki = ksiazka;
+                kategorie_ksiazki.Kategorie = kategoria;
+                _context.Kategorie_Ksiazki.Add(kategorie_ksiazki);
+            }
+
+            //autorzy_ksiazki
+            Autorzy_Ksiazki autorzy_ksiazki = new Autorzy_Ksiazki();
+            string[] splitAutorzy = ksiazkaVM.autorzy.Split(new Char[] { ',' });
+            Autor autor = new Autor();
+            string[] splitWewn;
+            foreach (string a in splitAutorzy)
+            {
+                splitWewn = a.Split(new Char[] { ' ' });
+                autor = await _context.Autor.FirstOrDefaultAsync(m => m.nazwisko == splitWewn[1] && m.imie==splitWewn[0]);
+                autorzy_ksiazki.id_autora = autor.id_autor;
+                autorzy_ksiazki.id_ksiazki = ksiazka.id_ksiazki;
+                autorzy_ksiazki.Autor = autor;
+                autorzy_ksiazki.Ksiazki = ksiazka;
+                _context.Autorzy_Ksiazki.Add(autorzy_ksiazki);
+            }
+
+            try
+            {
+                                
                 if (ModelState.IsValid)
                 {
                     _context.Ksiazki.Add(ksiazka);
