@@ -31,9 +31,6 @@ namespace SBDlibrary.Controllers
             var number = new List<int>();
             var models = new List<WyswietlanieKsiazekModel>();
 
-           
-
-
             var Ksiazki = from t in _context.Ksiazki
                      select t;
             foreach (Ksiazki k in Ksiazki)

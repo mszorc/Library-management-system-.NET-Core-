@@ -12,7 +12,7 @@ namespace SBDlibrary.Models
     {
         public enum Status
         {
-            Niedostępny, Dostępny
+            Niedostepny, Dostępny, Zarezerwowany, Wypozyczony
         }
 
         [Key]

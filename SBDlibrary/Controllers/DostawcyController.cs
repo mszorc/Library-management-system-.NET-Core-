@@ -88,12 +88,12 @@ namespace SBDlibrary.Controllers
 
             if (ModelState.IsValid)
             {
-                //var check = await _context.Dostawcy.FirstOrDefaultAsync(m => m.nazwa.ToUpper() == dostawca.nazwa.ToUpper());
-                //if (check != null)
-                //{
-                //    ModelState.AddModelError("", "Dostawca o podanej nazwie istnieje w bazie");
-                //    return View(dostawca);
-                //}
+                var check = await _context.Dostawcy.FirstOrDefaultAsync(m => m.nazwa.ToUpper() == dostawca.nazwa.ToUpper());
+                if (check != null)
+                {
+                    ModelState.AddModelError("", "Dostawca o podanej nazwie istnieje w bazie");
+                    return View(dostawca);
+                }
 
                 try
                 {

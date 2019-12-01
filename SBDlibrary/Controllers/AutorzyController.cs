@@ -87,13 +87,13 @@ namespace SBDlibrary.Controllers
 
             if (ModelState.IsValid)
             {
-                //var check = await _context.Autor.FirstOrDefaultAsync(m => m.imie.ToUpper() == autor.imie.ToUpper()
-                //                                                    && m.nazwisko.ToUpper() == autor.nazwisko.ToUpper());
-                //if (check != null)
-                //{
-                //    ModelState.AddModelError("", "Autor o podanym imieniu i nazwisku istnieje w bazie");
-                //    return View(autor);
-                //}
+                var check = await _context.Autor.FirstOrDefaultAsync(m => m.imie.ToUpper() == autor.imie.ToUpper()
+                                                                    && m.nazwisko.ToUpper() == autor.nazwisko.ToUpper());
+                if (check != null)
+                {
+                    ModelState.AddModelError("", "Autor o podanym imieniu i nazwisku istnieje w bazie");
+                    return View(autor);
+                }
 
                 try
                 {

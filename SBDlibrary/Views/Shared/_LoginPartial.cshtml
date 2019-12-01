@@ -26,6 +26,23 @@
                             <a class="dropdown-item" asp-controller="Dostawcy" asp-action="Index">Dostawcy</a>
                             <a class="dropdown-item" asp-controller="Wydawnictwa" asp-action="Index">Wydawnictwa</a>
                             <a class="dropdown-item" asp-controller="Zamowienia" asp-action="Index">Zamówienia</a>
+                            <a class="dropdown-item" asp-controller="Rezerwacje" asp-action="Index">Rezewacje</a>
+                            <a class="dropdown-item" asp-controller="" asp-action=""></a>
+                        </div>
+                    </div>
+                </li>
+            }
+            @if (this.User.IsInRole("Klient"))
+            {
+                
+                <li class="nav-item">
+                    <div class="dropdown mr-1">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                            Moje
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" asp-controller="Account" asp-action="KsiazkiKlienta">Ksiazki</a>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="RezerwacjeKlienta">Rezerwacje</a>
                             <a class="dropdown-item" asp-controller="" asp-action=""></a>
                         </div>
                     </div>
