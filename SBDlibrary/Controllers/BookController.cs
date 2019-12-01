@@ -28,18 +28,38 @@ namespace SBDlibrary.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            var number = new List<int>();
+            var models = new List<WyswietlanieKsiazekModel>();
+
+           
+
+
             var Ksiazki = from t in _context.Ksiazki
                      select t;
             foreach (Ksiazki k in Ksiazki)
             {
+                
+                WyswietlanieKsiazekModel pom = new WyswietlanieKsiazekModel();
                 k.Wydawnictwa = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == k.id_wydawnictwa);
+                pom.ksiazka = k;
+               IQueryable<Egzemplarze> xd = from x in _context.Egzemplarze where (x.id_ksiazki == k.id_ksiazki) where (x.status == Egzemplarze.Status.Dostępny) select x;
+                
+                if (xd.Count()>0)
+                    pom.dostepneEgzemplarze = "dostepne";
+                else
+                    pom.dostepneEgzemplarze = "niedostepne";
+               models.Add(pom);
+                xd = null;
             }
-            
+
             // if (!HttpContext.User.IsInRole(""))
             // {
 
             //  }
-            return View(await _context.Ksiazki.ToListAsync());
+           
+
+           
+            return View(models);
             //return View();
         }
 

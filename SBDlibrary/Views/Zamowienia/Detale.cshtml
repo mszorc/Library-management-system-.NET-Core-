@@ -1,16 +1,16 @@
-﻿@model IEnumerable<SBDlibrary.Models.Zamowienie_ksiazki>
+﻿@model IEnumerable<SBDlibrary.ViewModels.ZamowieniaViewModels.ZamowienieKsiazkiViewModel>
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Zamówienie";
 }
 
-<h1>Details</h1>
+<h1>Detale</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Ksiazki.tytuł)
+                @Html.DisplayNameFor(model => model.tytul)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ilosc)
@@ -23,15 +23,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.id_ksiazki)
+                    @Html.DisplayFor(modelItem => item.tytul)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ilosc)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @if (ViewBag.Status == Zamowienia.Status.Zamówione)
+                    {
+                        @Html.ActionLink("Usuń", "UsunKsiazki", new { id_zamowienia = item.id_zamowienia, id_ksiazki = item.id_ksiazki }, null)
+                    }
                 </td>
             </tr>
         }
@@ -39,10 +40,9 @@
 </table>
 @if (ViewBag.Status == Zamowienia.Status.Zamówione)
 {
-
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="Create" asp-controller="Zamowienie_ksiazki">
+            <form asp-action="Detale">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="@Model.FirstOrDefault().id_ksiazki" class="control-label"></label>
@@ -50,11 +50,11 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.FirstOrDefault().ilosc" class="control-label"></label>
-                    <input asp-for="@Model.FirstOrDefault().ilosc" class="form-control" />
+                    <input asp-for="@Model.FirstOrDefault().ilosc" class="form-control" min="1" max="1000" />
                     <span asp-validation-for="@Model.FirstOrDefault().ilosc" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Add" class="btn btn-primary" />
+                    <input type="submit" value="Dodaj" class="btn btn-primary" />
                 </div>
             </form>
         </div>

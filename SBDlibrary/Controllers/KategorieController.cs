@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SBDlibrary.Models;
 
 namespace SBDlibrary.Controllers
 {
+    [Authorize(Roles = "Bibliotekarz,Admin")]
     public class KategorieController : Controller
     {
         private readonly LibraryDbContext _context;
@@ -18,22 +20,54 @@ namespace SBDlibrary.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index(string nazwa)
         {
-            return View(await _context.Kategorie.ToListAsync());
-            // return View();
+            var kategorie = from m in _context.Kategorie
+                          select m;
+
+            if (!String.IsNullOrEmpty(nazwa))
+            {
+                kategorie = kategorie.Where(s => s.nazwa.Contains(nazwa));
+            }
+
+            return View(kategorie);
         }
 
-      
-        public IActionResult Details(int? id)
+        [HttpGet]
+        public IActionResult Stworz()
         {
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Stworz([Bind("nazwa")]Kategorie kategoria)
+        {
+            if (ModelState.IsValid)
+            {
+                var check = await _context.Kategorie.FirstOrDefaultAsync(m => m.nazwa == kategoria.nazwa);
+                if (check != null)
+                {
+                    ModelState.AddModelError("", "Kategoria o podanej nazwie istnieje w bazie");
+                    return View(kategoria);
+                }
+
+                _context.Kategorie.Add(kategoria);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(kategoria);
+        }
+
+        public async Task<IActionResult> Edytuj(int? id)
+        {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var kategoria = _context.Kategorie.FirstOrDefault(m => m.id_kategorii == id);
+            var kategoria = await _context.Kategorie.FirstOrDefaultAsync(m => m.id_kategorii == id);
 
             if (kategoria == null)
             {
@@ -41,8 +75,46 @@ namespace SBDlibrary.Controllers
             }
 
             return View(kategoria);
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edytuj(int id, [Bind("id_kategorii,nazwa")]Kategorie kategoria)
+        {
+            if (id != kategoria.id_kategorii)
+            {
+                return NotFound();
+            }
 
+            if (ModelState.IsValid)
+            {
+                var check = await _context.Kategorie.FirstOrDefaultAsync(m => m.nazwa.ToUpper() == kategoria.nazwa.ToUpper());
+                if (check != null)
+                {
+                    ModelState.AddModelError("", "Kategoria o podanej nazwie istnieje w bazie");
+                    return View(kategoria);
+                }
+
+                try
+                {
+                    _context.Update(kategoria);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!KategoriaExists(kategoria.id_kategorii))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(kategoria);
         }
 
         public async Task<IActionResult> Usun(int? id)
@@ -52,20 +124,19 @@ namespace SBDlibrary.Controllers
                 return NotFound();
             }
 
-            var kategoria = await _context.Kategorie
-                .FirstOrDefaultAsync(a => a.id_kategorii == id);
+            var kategoria = await _context.Kategorie.FirstOrDefaultAsync(m => m.id_kategorii == id);
+
             if (kategoria == null)
             {
                 return NotFound();
             }
 
-
             return View(kategoria);
         }
 
-        [HttpPost, ActionName("Usun")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UsunConfirm(int id)
+        public async Task<IActionResult> Usun(int id)
         {
             var kategoria = await _context.Kategorie.FindAsync(id);
             _context.Kategorie.Remove(kategoria);
@@ -73,33 +144,9 @@ namespace SBDlibrary.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
-        public IActionResult Create()
+        private bool KategoriaExists(int id)
         {
-            return View();
-        }
-
-        [HttpPost]
-        // [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind("nazwa")]Kategorie kategoria)
-        {
-
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    _context.Kategorie.Add(kategoria);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (DataException /* dex */)
-            {
-                //Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-            }
-
-            return RedirectToAction("Index");
+            return _context.Kategorie.Any(e => e.id_kategorii == id);
         }
     }
 }

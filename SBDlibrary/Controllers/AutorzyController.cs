@@ -11,29 +11,28 @@ using SBDlibrary.Models;
 namespace SBDlibrary.Controllers
 {
     [Authorize(Roles = "Bibliotekarz,Admin")]
-    public class DostawcyController : Controller
+    public class AutorzyController : Controller
     {
         private readonly LibraryDbContext _context;
 
-        public DostawcyController (LibraryDbContext context)
+        public AutorzyController (LibraryDbContext context)
         {
             _context = context;
         }
 
-        public IActionResult Index(string nazwa)
+        public IActionResult Index(string nazwisko)
         {
-            var dostawcy = from m in _context.Dostawcy
-                          select m;
+            var autorzy = from m in _context.Autor
+                         select m;
 
-            if (!String.IsNullOrEmpty(nazwa))
+            if (!String.IsNullOrEmpty(nazwisko))
             {
-                dostawcy = dostawcy.Where(s => s.nazwa.Contains(nazwa));
+                autorzy = autorzy.Where(s => s.nazwisko.Contains(nazwisko));
             }
 
-            return View(dostawcy);
+            return View(autorzy);
         }
 
-        [HttpGet]
         public IActionResult Stworz()
         {
             return View();
@@ -41,23 +40,23 @@ namespace SBDlibrary.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Stworz([Bind("nazwa, adres")]Dostawcy dostawca)
+        public async Task<ActionResult> Stworz([Bind("id_autor,imie,nazwisko")]Autor autor)
         {
             if (ModelState.IsValid)
             {
-                var check = await _context.Dostawcy.FirstOrDefaultAsync(m => m.nazwa.ToUpper() == dostawca.nazwa.ToUpper());
+                var check = await _context.Autor.FirstOrDefaultAsync(m => m.imie.ToUpper() == autor.imie.ToUpper() 
+                                                                    && m.nazwisko.ToUpper() == autor.nazwisko.ToUpper());
                 if (check != null)
                 {
-                    ModelState.AddModelError("", "Dostawca o podanej nazwie istnieje w bazie");
-                    return View(dostawca);
+                    ModelState.AddModelError("", "Autor o podanym imieniu i nazwisku istnieje w bazie");
+                    return View(autor);
                 }
-
-                _context.Dostawcy.Add(dostawca);
+                _context.Autor.Add(autor);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Autorzy");
             }
-            
-            return View(dostawca);
+
+            return View(autor);
         }
 
         public async Task<IActionResult> Edytuj(int? id)
@@ -67,42 +66,43 @@ namespace SBDlibrary.Controllers
                 return NotFound();
             }
 
-            var dostawca = await _context.Dostawcy.FirstOrDefaultAsync(m => m.id_dostawcy == id);
+            var autor = await _context.Autor.FirstOrDefaultAsync(m => m.id_autor == id);
 
-            if (dostawca == null)
+            if (autor == null)
             {
                 return NotFound();
             }
 
-            return View(dostawca);
-        }
+            return View(autor);
+        }  
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edytuj(int id, [Bind("id_dostawcy,nazwa,adres")]Dostawcy dostawca)
+        public async Task<IActionResult> Edytuj(int id, [Bind("id_autor,imie,nazwisko")]Autor autor)
         {
-            if (id != dostawca.id_dostawcy)
+            if (id != autor.id_autor)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                //var check = await _context.Dostawcy.FirstOrDefaultAsync(m => m.nazwa.ToUpper() == dostawca.nazwa.ToUpper());
+                //var check = await _context.Autor.FirstOrDefaultAsync(m => m.imie.ToUpper() == autor.imie.ToUpper()
+                //                                                    && m.nazwisko.ToUpper() == autor.nazwisko.ToUpper());
                 //if (check != null)
                 //{
-                //    ModelState.AddModelError("", "Dostawca o podanej nazwie istnieje w bazie");
-                //    return View(dostawca);
+                //    ModelState.AddModelError("", "Autor o podanym imieniu i nazwisku istnieje w bazie");
+                //    return View(autor);
                 //}
 
                 try
                 {
-                    _context.Update(dostawca);
+                    _context.Update(autor);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DostawcaExists(dostawca.id_dostawcy))
+                    if (!AutorExists(autor.id_autor))
                     {
                         return NotFound();
                     }
@@ -114,7 +114,7 @@ namespace SBDlibrary.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(dostawca);
+            return View(autor);
         }
 
         public async Task<IActionResult> Usun(int? id)
@@ -124,30 +124,29 @@ namespace SBDlibrary.Controllers
                 return NotFound();
             }
 
-            var dostawca = await _context.Dostawcy.FirstOrDefaultAsync(m => m.id_dostawcy == id);
-
-            if (dostawca == null)
+            var autor = await _context.Autor.FirstOrDefaultAsync(m => m.id_autor == id);
+            
+            if (autor == null)
             {
                 return NotFound();
             }
 
-            return View(dostawca);
+            return View(autor);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Usun(int id)
         {
-            var dostawca = await _context.Dostawcy.FindAsync(id);
-            _context.Dostawcy.Remove(dostawca);
+            var autor = await _context.Autor.FindAsync(id);
+            _context.Autor.Remove(autor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DostawcaExists(int id)
+        private bool AutorExists(int id)
         {
-            return _context.Dostawcy.Any(e => e.id_dostawcy == id);
+            return _context.Autor.Any(e => e.id_autor == id);
         }
-
     }
 }

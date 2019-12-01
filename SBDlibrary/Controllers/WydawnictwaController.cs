@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SBDlibrary.Models;
 
 namespace SBDlibrary.Controllers
 {
+    [Authorize(Roles = "Bibliotekarz,Admin")]
     public class WydawnictwaController : Controller
     {
         private readonly LibraryDbContext _context;
@@ -16,54 +18,132 @@ namespace SBDlibrary.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index(string nazwa)
         {
-            return View(await _context.Wydawnictwa.ToListAsync());
-        }
-        public IActionResult Details(int? id)
-        {
+            var wydawnictwa = from m in _context.Wydawnictwa
+                          select m;
 
-            if (id == null)
+            if (!String.IsNullOrEmpty(nazwa))
             {
-                return NotFound();
+                wydawnictwa = wydawnictwa.Where(s => s.nazwa.Contains(nazwa));
             }
 
-            var Wydawnictwo = _context.Wydawnictwa.FirstOrDefault(m => m.id_wydawnictwa == id);
-
-            if (Wydawnictwo == null)
-            {
-               return NotFound();
-            }
-            return View(Wydawnictwo);
-
-            // return View();
+            return View(wydawnictwa);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Stworz()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind("nazwa")]Wydawnictwa wydawnictwo)
+        public async Task<ActionResult> Stworz([Bind("id_wydawnictwa,nazwa")]Wydawnictwa wydawnictwo)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var check = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.nazwa.ToUpper() == wydawnictwo.nazwa.ToUpper());
+                if (check != null)
                 {
-                    _context.Wydawnictwa.Add(wydawnictwo);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Index");
+                    ModelState.AddModelError("", "Wydawnictwo o podanej nazwie istnieje w bazie");
+                    return View(wydawnictwo);
                 }
+                _context.Wydawnictwa.Add(wydawnictwo);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            catch (DataException /* dex */)
-            {
-                //Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-            }
+
             return View(wydawnictwo);
+        }
+
+        public async Task<IActionResult> Edytuj(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var wydawnictwo = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == id);
+
+            if (wydawnictwo == null)
+            {
+                return NotFound();
+            }
+
+            return View(wydawnictwo);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edytuj(int id, [Bind("id_wydawnictwa,nazwa")]Wydawnictwa wydawnictwo)
+        {
+            if (id != wydawnictwo.id_wydawnictwa)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var check = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.nazwa.ToUpper() == wydawnictwo.nazwa.ToUpper());
+                if (check != null)
+                {
+                    ModelState.AddModelError("", "Wydawnictwo o podanej nazwie istnieje w bazie");
+                    return View(wydawnictwo);
+                }
+
+                try
+                {
+                    _context.Update(wydawnictwo);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!WydawnictwoExists(wydawnictwo.id_wydawnictwa))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(wydawnictwo);
+        }
+
+        public async Task<IActionResult> Usun(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var wydawnictwo = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == id);
+
+            if (wydawnictwo == null)
+            {
+                return NotFound();
+            }
+
+            return View(wydawnictwo);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Usun(int id)
+        {
+            var wydawnictwo = await _context.Wydawnictwa.FindAsync(id);
+            _context.Wydawnictwa.Remove(wydawnictwo);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool WydawnictwoExists(int id)
+        {
+            return _context.Wydawnictwa.Any(e => e.id_wydawnictwa == id);
         }
 
     }

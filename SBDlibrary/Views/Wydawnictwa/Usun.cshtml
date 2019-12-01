@@ -1,15 +1,14 @@
-﻿@model SBDlibrary.Models.Kategorie
+﻿@model SBDlibrary.Models.Wydawnictwa
 
 @{
-    ViewData["Title"] = "Kategorie";
-
+    ViewData["Title"] = "Wydawnictwa";
 }
 
 <h1>Usuń</h1>
 
 <h3>Jesteś pewny, że chcesz to usunąć?</h3>
 <div>
-    <h4>Kategoria</h4>
+    <h4>Wydawnictwo</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -21,7 +20,7 @@
     </dl>
     
     <form asp-action="Usun">
-        <input type="hidden" asp-for="id_kategorii" />
+        <input type="hidden" asp-for="id_wydawnictwa" />
         <input type="submit" value="Usuń" class="btn btn-danger" /> |
         <a asp-action="Index">Powrót</a>
     </form>
