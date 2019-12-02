@@ -19,8 +19,8 @@
     <p>
         Od: <input asp-for="@Model.FirstOrDefault().data_zamowienia" class="form-control" name="DataOd" />
         <span asp-validation-for="@Model.FirstOrDefault().data_zamowienia" class="text-danger"></span>
-        Do: <input asp-for="@Model.FirstOrDefault().data_zamowienia" class="form-control" name="DataDo" />
-        <span asp-validation-for="@Model.FirstOrDefault().data_zamowienia" class="text-danger"></span>
+        Do: <input asp-for="@DateTime.UtcNow.AddHours(1)" class="form-control" name="DataDo" />
+        <span asp-validation-for="@DateTime.UtcNow.AddHours(1)" class="text-danger"></span>
         <input type="submit" value="Filtruj" />
         @Html.ActionLink("Wyłącz filtr", "Zamowienia")
     </p>

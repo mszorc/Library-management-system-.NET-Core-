@@ -12977,11 +12977,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\szorc\\Desktop\\Semestr V\\SBD\\Library-management-system-.NET-Core-\\SBDlibrary\\SBDlibrary.csproj",
+      "projectUniqueName": "C:\\Users\\szorc\\Desktop\\Semestr V\\SBD\\sadas\\Library-management-system-.NET-Core-\\SBDlibrary\\SBDlibrary.csproj",
       "projectName": "SBDlibrary",
-      "projectPath": "C:\\Users\\szorc\\Desktop\\Semestr V\\SBD\\Library-management-system-.NET-Core-\\SBDlibrary\\SBDlibrary.csproj",
+      "projectPath": "C:\\Users\\szorc\\Desktop\\Semestr V\\SBD\\sadas\\Library-management-system-.NET-Core-\\SBDlibrary\\SBDlibrary.csproj",
       "packagesPath": "C:\\Users\\szorc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\szorc\\Desktop\\Semestr V\\SBD\\Library-management-system-.NET-Core-\\SBDlibrary\\obj\\",
+      "outputPath": "C:\\Users\\szorc\\Desktop\\Semestr V\\SBD\\sadas\\Library-management-system-.NET-Core-\\SBDlibrary\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

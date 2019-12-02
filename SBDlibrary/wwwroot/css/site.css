@@ -9,7 +9,13 @@ a.navbar-brand {
   /*background-color: #dcdcdc;*/
 
 }
+.colorA {
+    background-color: red
+}
 
+.colorB {
+    background-color: #f9eebf
+}
 header{
     background-color: #dcdcdc;
 =======

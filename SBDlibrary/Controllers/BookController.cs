@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -111,7 +112,7 @@ namespace SBDlibrary.Controllers
 
            // return View();
         }
-
+        [Authorize(Roles = "Bibliotekarz,Admin")]
         public async Task<IActionResult> Edytuj(int? id)
         {
             if (id == null)
@@ -130,6 +131,7 @@ namespace SBDlibrary.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Bibliotekarz,Admin")]
         public async Task<IActionResult> Edytuj(int id, Ksiazki ksiazka)
         {
             if (id != ksiazka.id_ksiazki)
@@ -161,8 +163,9 @@ namespace SBDlibrary.Controllers
             return _context.Ksiazki.Any(k => k.id_ksiazki == id);
         }
 
-        
-        public IActionResult Create()
+        [HttpGet]
+        [Authorize(Roles = "Bibliotekarz,Admin")]
+        public async Task<IActionResult> Create()
         {
             //ViewData["kategorie"] = new MultiSelectList(_context.Kategorie, "nazwa", "nazwa");
             ViewData["wydawnictwa"] = new SelectList(_context.Wydawnictwa, "id_wydawnictwa", "nazwa");
@@ -182,7 +185,8 @@ namespace SBDlibrary.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(KsiazkaViewModel ksiazkaVM)
+        [Authorize(Roles = "Bibliotekarz,Admin")]
+        public async Task<ActionResult> Create([Bind("tytuł, data_wydania")]KsiazkaViewModel ksiazkaVM)
         {
             
             var wydawnictwo = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == ksiazkaVM.id_wydawnictwo);
@@ -244,6 +248,7 @@ namespace SBDlibrary.Controllers
            
             return RedirectToAction("Index");
         }
-        
+       
+
     }
 }
