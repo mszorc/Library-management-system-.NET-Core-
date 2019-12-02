@@ -13,18 +13,6 @@
 
 <h1>Egzemplarze</h1>
 
-<form asp-action="Index">
-    <p>
-        Od: <input asp-for="@Model.FirstOrDefault().data_rezerwacji" class="form-control" name="DataOd" />
-        <span asp-validation-for="@Model.FirstOrDefault().data_rezerwacji" class="text-danger"></span>
-        Do: <input asp-for="@Model.FirstOrDefault().data_rezerwacji" class="form-control" name="DataDo" />
-        <span asp-validation-for="@Model.FirstOrDefault().data_rezerwacji" class="text-danger"></span>
-        Imie: <input type="text" name="imie">
-        Nazwisko: <input type="text" name="nazwisko">
-        <input type="submit" value="Filtruj" />
-        @Html.ActionLink("Wyłącz filtry", "Index")
-    </p>
-</form>
 
 <table class="table">
     <thead>
@@ -54,19 +42,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-
-            {
-                var statusClass = "colorB";
-
-                if (item.data_odbioru < DateTime.Now &&item.status_rezerwacji==Rezerwacje.Status.aktualna)
-                {
-                    statusClass = "colorA";
-                }
-
-
-
-
-            <tr class="@statusClass">
+            <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Uzytkownicy.imie)
                 </td>
@@ -94,6 +70,6 @@
                 </td>
 
             </tr>
-        }}
+        }
     </tbody>
 </table>
