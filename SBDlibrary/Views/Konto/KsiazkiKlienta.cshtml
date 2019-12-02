@@ -4,7 +4,7 @@
         font-family: 'Lato', monospace;
     }
 </style>
-@model IEnumerable<SBDlibrary.Models.Ksiazki>
+@model IEnumerable<SBDlibrary.ViewModels.BookViewModels.KsiazkaViewModel>
 
 @{
     ViewData["Title"] = "Ksiazki";
@@ -16,18 +16,24 @@
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                Miniatura
-            </th>
+        <tr>            
             <th>
                 @Html.DisplayNameFor(model => model.tytuł)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.autorzy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.kategorie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.id_ksiazki)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.data_wydania)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Wydawnictwa)
+                @Html.DisplayNameFor(model => model.Wydawnictwa.nazwa)
             </th>
         </tr>
     </thead>
@@ -36,17 +42,28 @@
         {
             <tr>
                 <td>
-                    <img src="https://via.placeholder.com/150" />
+                    @item.tytuł
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.tytuł)
+                    @foreach (var autor in item.autorzyLista)
+                    {
+                        <li>@autor</li>
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.data_wydania)
+                    @foreach(var kategoria in item.kategorieLista)
+                    {
+                        <li>@kategoria</li>
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Wydawnictwa.nazwa
-               )
+                    @item.id_ksiazki               
+                </td>
+                <td>
+                    @item.data_wydania
+                </td>
+                <td>
+                    @item.Wydawnictwa.nazwa
                 </td>
             </tr>
         }

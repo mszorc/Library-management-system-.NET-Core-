@@ -1,25 +1,26 @@
-﻿<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+﻿
 <style>
     h1 {
         font-family: 'Lato', monospace;
     }
+    
 </style>
 @model IEnumerable<WyswietlanieKsiazekModel>
 @{
     ViewData["Title"] = "Ksiazki";
 }
-<environment include="Development">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-</environment>
+
 
 <html>
 <head>
     <h1>Książki</h1>
 </head>
+
 <hr />
+
 <body>
     <div>
-        <a asp-action="Create">Dodaj</a>
+        <a asp-action="Stworz">Dodaj</a>
     </div>
     <br />
     <div align="center" width>
@@ -48,6 +49,7 @@
                     <th>
                         Status
                     </th>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>

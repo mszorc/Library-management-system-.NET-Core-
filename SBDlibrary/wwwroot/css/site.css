@@ -11,7 +11,6 @@ a.navbar-brand {
 
 
 header{
-    background-color: #dcdcdc;
 }
 
 /* Sticky footer styles
@@ -58,7 +57,8 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-color: #f9eebf;
+    display:flex;
+    flex-direction:column;
 }
 .footer {
     position: absolute;
@@ -68,19 +68,19 @@ body {
     /* Set the fixed height of the footer here */
     height: 60px;
     line-height: 60px; /* Vertically center the text there */
-    background-color: #dcdcdc;
-}
-#master {
-    background-color: black;
+    
+#master
+{
+    background-color: #cccccc;
     border: 3px dashed red;
     font-size: 1.4em;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
 }
 #men {
     float: left;

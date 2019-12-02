@@ -18,6 +18,7 @@ using Microsoft.EntityFrameworkCore;
 using SBDlibrary.Models;
 using SBDlibrary.ViewModel;
 using SBDlibrary.ViewModels.AccountViewModels;
+using SBDlibrary.ViewModels.BookViewModels;
 
 namespace SBDlibrary.Controllers
 {
@@ -466,7 +467,43 @@ namespace SBDlibrary.Controllers
             var wypozyczenia =  _context.Wypozyczenia.Where(m => m.id_uzytkownika == user.id_uzytkownika);
             var egzemplarze = from b in wypozyczenia from c in _context.Egzemplarze.Where(c => b.id_egzemplarza == c.id_egzemplarza) select c;
             var Ksiazki = from c in egzemplarze from d in _context.Ksiazki.Where(d => c.id_ksiazki == d.id_ksiazki) select d;
-            return View(Ksiazki);
+            List<KsiazkaViewModel> ksiazkaVM = new List<KsiazkaViewModel>();
+            foreach(Ksiazki k in Ksiazki)
+            {
+                KsiazkaViewModel kVM = new KsiazkaViewModel();
+                kVM.id_ksiazki = k.id_ksiazki;
+                kVM.id_wydawnictwo = k.id_wydawnictwa;
+                kVM.tytuł = k.tytuł;
+                kVM.data_wydania = k.data_wydania;
+                kVM.Wydawnictwa = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == k.id_wydawnictwa);
+
+                //kategorie
+                var kategorie_ksiazki = await _context.Kategorie_Ksiazki.Where(m => m.id_ksiazki == k.id_ksiazki).ToListAsync();
+                Kategorie kategoria = new Kategorie();
+                List<string> listaKategorii = new List<string>();
+                foreach (Kategorie_Ksiazki kk in kategorie_ksiazki)
+                {
+                    kategoria = await _context.Kategorie.FirstOrDefaultAsync(m => m.id_kategorii == kk.id_kategorii);
+                    listaKategorii.Add(kategoria.nazwa);
+                }
+                kVM.kategorieLista = listaKategorii;
+
+                //autorzy
+                var autorzy_ksiazki = await _context.Autorzy_Ksiazki.Where(m => m.id_ksiazki == k.id_ksiazki).ToListAsync();
+                Autor autor = new Autor();
+                List<string> listaAutorow = new List<string>();
+                string autorRecord;
+                foreach (Autorzy_Ksiazki a in autorzy_ksiazki)
+                {
+                    autor = await _context.Autor.FirstOrDefaultAsync(m => m.id_autor == a.id_autora);
+                    autorRecord = autor.imie + " " + autor.nazwisko;
+                    listaAutorow.Add(autorRecord);
+                }
+                kVM.autorzyLista = listaAutorow;
+
+                ksiazkaVM.Add(kVM);
+            }
+            return View(ksiazkaVM);
         }
 
         [Authorize(Roles = "Klient")]

@@ -49,7 +49,7 @@ namespace SBDlibrary.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Stworz()
         {
             return View(new SimpleModel());
         }
@@ -105,7 +105,7 @@ namespace SBDlibrary.Controllers
                     wypozyczenie.Egzemplarze.status = Egzemplarze.Status.Wypozyczony;
                     _context.Wypozyczenia.Add(wypozyczenie);
                     _context.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Wypozyczono");
                 }
             }
             catch (DataException /* dex */)
@@ -114,7 +114,12 @@ namespace SBDlibrary.Controllers
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Ksiazka");
+        }
+
+        public IActionResult Wypozyczono()
+        {
+            return View();
         }
 
     }
