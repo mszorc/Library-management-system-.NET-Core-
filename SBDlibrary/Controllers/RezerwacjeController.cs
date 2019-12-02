@@ -34,25 +34,27 @@ namespace SBDlibrary.Controllers
         //}
         //[HttpPost]
         [Authorize(Roles = "Bibliotekarz,Admin")]
-        public async Task<IActionResult> Index(DateTime DataOd, DateTime DataDo, string imie, string nazwisko,Rezerwacje.Status status)
+        public async Task<IActionResult> Index(DateTime ?DataOd, DateTime ?DataDo, string imie, string nazwisko)
         {
             var rezerwacje = from a in _context.Rezerwacje select a;
-            foreach (Rezerwacje x in rezerwacje)
+            if (rezerwacje != null)
             {
-                x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);
-                x.Egzemplarze.Ksiazki = await _context.Ksiazki.FirstOrDefaultAsync(n => n.id_ksiazki == x.Egzemplarze.id_ksiazki);
-                x.Uzytkownicy = await _context.Uzytkownicy.FirstOrDefaultAsync(l => l.id_uzytkownika == x.id_uzytkownika);
-            }
+                foreach (Rezerwacje x in rezerwacje)
+                {
+                    x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);
+                    x.Egzemplarze.Ksiazki = await _context.Ksiazki.FirstOrDefaultAsync(n => n.id_ksiazki == x.Egzemplarze.id_ksiazki);
+                    x.Uzytkownicy = await _context.Uzytkownicy.FirstOrDefaultAsync(l => l.id_uzytkownika == x.id_uzytkownika);
+                }
 
-            if(DataOd !=null)
-                rezerwacje = rezerwacje.Where(s => s.data_rezerwacji>=DataOd);
-            if (DataDo != null)
-                rezerwacje = rezerwacje.Where(s => s.data_rezerwacji <= DataDo);
-            if (!string.IsNullOrEmpty(imie))
-                rezerwacje = rezerwacje.Where(s => s.Uzytkownicy.imie.Contains(imie));
-            if (!string.IsNullOrEmpty(nazwisko))
-                rezerwacje = rezerwacje.Where(s => s.Uzytkownicy.nazwisko.Contains(nazwisko));
-            
+                if (DataOd != null)
+                    rezerwacje = rezerwacje.Where(s => s.data_rezerwacji >= DataOd);
+                if (DataDo != null)
+                    rezerwacje = rezerwacje.Where(s => s.data_rezerwacji <= DataDo);
+                if (!string.IsNullOrEmpty(imie))
+                    rezerwacje = rezerwacje.Where(s => s.Uzytkownicy.imie.Contains(imie));
+                if (!string.IsNullOrEmpty(nazwisko))
+                    rezerwacje = rezerwacje.Where(s => s.Uzytkownicy.nazwisko.Contains(nazwisko));
+            }
 
             return View(rezerwacje);
         }
