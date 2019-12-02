@@ -7,18 +7,19 @@
 @model IEnumerable<SBDlibrary.Models.Rezerwacje>
 
 @{
-    ViewData["Title"] = "Egzemplarze";
+    ViewData["Title"] = "Rezerwacje";
 }
 
 
-<h1>Egzemplarze</h1>
-
+<h1>Rezerwacje</h1>
 <form asp-action="Index">
     <p>
-        Od: <input asp-for="@Model.FirstOrDefault().data_rezerwacji" class="form-control" name="DataOd" />
-        <span asp-validation-for="@Model.FirstOrDefault().data_rezerwacji" class="text-danger"></span>
-        Do: <input asp-for="@Model.FirstOrDefault().data_rezerwacji" class="form-control" name="DataDo" />
-        <span asp-validation-for="@Model.FirstOrDefault().data_rezerwacji" class="text-danger"></span>
+        <span>
+            Data pomiędzy: <input type="date" value="2000-01-01" name="DataOd">
+            i <input type="date" value="2020-01-01" name="DataDo">
+
+        </span>
+        
         Imie: <input type="text" name="imie">
         Nazwisko: <input type="text" name="nazwisko">
         <input type="submit" value="Filtruj" />
