@@ -16,10 +16,12 @@ namespace SBDlibrary.ViewModels.ZwrotyViewModels
         [Display(Name = "Data zwrotu")]
         public DateTime data_zwrotu { get; set; }
         [Display(Name = "Kara")]
-        public float kara { get; set; }
+        public double kara { get; set; }
+        [Display(Name = "Email")]
+        public string email { get; set; }
 
         public ZwrotKsiazkiViewModel(int id_zwrotu, int id_egzemplarza, string tytul,
-            int id_wypozyczenia, DateTime data_zwrotu, float kara)
+            int id_wypozyczenia, DateTime data_zwrotu, float kara, string email)
         {
             this.id_zwrotu = id_zwrotu;
             this.id_egzemplarza = id_egzemplarza;
@@ -27,6 +29,7 @@ namespace SBDlibrary.ViewModels.ZwrotyViewModels
             this.id_wypozyczenia = id_wypozyczenia;
             this.data_zwrotu = data_zwrotu;
             this.kara = kara;
+            this.email = email;
         }
     }
 }

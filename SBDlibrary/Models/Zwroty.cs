@@ -24,7 +24,7 @@ namespace SBDlibrary.Models
         [Required]
         [Column(Order = 3)]
         [Display(Name = "Kara")]
-        public float kara { get; set; }
+        public double kara { get; set; }
 
         [ForeignKey("id_wypozyczenia")]
         public virtual Wypozyczenia Wypozyczenia { get; set; }

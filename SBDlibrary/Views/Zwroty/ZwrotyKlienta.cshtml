@@ -6,12 +6,12 @@
 
 <h1>Zwroty</h1>
 
-<p>
-    <a asp-action="Zwroc">Zwróć książkę</a>
-</p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.tytul)
             </th>
@@ -28,6 +28,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.tytul)
             </td>
             <td>
@@ -35,11 +38,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.kara)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id_zwrotu">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id_zwrotu">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id_zwrotu">Delete</a>
             </td>
         </tr>
 }

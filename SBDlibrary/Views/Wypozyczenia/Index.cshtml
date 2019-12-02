@@ -55,6 +55,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Egzemplarze.Ksiazki.tytuł)
             </td>
+            <td>
+                @Html.ActionLink("Zwróć książkę", "ZwrocAdmin", "Wypozyczenia", new { id = item.id_wypozyczenia} )
+            </td>
             
         </tr>
         }
