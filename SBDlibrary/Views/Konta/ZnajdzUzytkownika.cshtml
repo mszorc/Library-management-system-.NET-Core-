@@ -44,6 +44,9 @@
                 <td>
                     @Html.ActionLink("Zmień dane osobowe", "ZmienDaneOsobowe", new { id = model.id_uzytkownika })
                 </td>
+                <td>
+                    @Html.ActionLink("Usuń użytkownika", "UsunUzytkownika", new { id = model.id_uzytkownika})
+                </td>
             </tr>         
         }
     </tbody>

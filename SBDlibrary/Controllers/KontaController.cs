@@ -523,6 +523,23 @@ namespace SBDlibrary.Controllers
             return View(Ksiazki);
         }
 
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UsunUzytkownika(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var uzytkownik = await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.id_uzytkownika == id);
+
+            _context.Uzytkownicy.Remove(uzytkownik);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("ZnajdzUzytkownika", "Konta");
+        }
+
         [Authorize(Roles = "Klient")]
         public async Task<IActionResult> RezerwacjeKlienta(int? id)
         {

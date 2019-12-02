@@ -27,12 +27,15 @@ namespace SBDlibrary.Models
 
         [Required]
         [Column(Order = 3)]
+        [Display(Name = "Data rezerwacji")]
         public DateTime data_rezerwacji { get; set; }
         [Required]
         [Column(Order = 4)]
+        [Display(Name = "Data odbioru")]
         public DateTime data_odbioru { get; set; }
         [Required]
         [Column(Order = 5)]
+        [Display(Name = "Status rezerwacji")]
         public Status? status_rezerwacji { get; set; }
 
         [ForeignKey("id_uzytkownika")]
