@@ -70,7 +70,6 @@
                 {
                     @Html.ActionLink("Wypożycz", "Wypozycz", "Wypozyczenia", new { id_ksiazki = item.ksiazka.id_ksiazki })
                 }
-
             </td>
             <td>
                 @if (item.dostepneEgzemplarze == "dostepne")
@@ -78,6 +77,9 @@
                     @Html.ActionLink("Rezerwuj", "Zarezerwuj", "Rezerwacje", new { id_ksiazki = item.ksiazka.id_ksiazki })
                 }
             </td>
+             <td>
+                 @Html.ActionLink("Usuń","Usun","Ksiazka",new {id=item.ksiazka.id_ksiazki })
+             </td>
          </tr>
          }
     </tbody>
