@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Details";
+}
+@model SBDlibrary.ViewModels.BookViewModels.KsiazkaViewModel
+
+<h1>Szczegóły</h1>
+
+<div>
+    <h2>Książka</h2>
+    <hr />
+    
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.tytuł)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.tytuł)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.autorzy)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var item in Model.autorzyLista)
+            {
+                <li>@item</li>
+            }
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.kategorie)
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (string item in Model.kategorieLista)
+            {
+                <li>@item</li>
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.id_ksiazki)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.id_ksiazki)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.data_wydania)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.data_wydania)
+        </dd>
+
+        <dt class="col-sm-2">
+            Wydawnictwo
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Wydawnictwa.nazwa)
+        </dd>
+    </dl>
+</div>
+<a asp-action="Index">Powrót do listy</a>
+
+
