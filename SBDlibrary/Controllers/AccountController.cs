@@ -459,20 +459,7 @@ namespace SBDlibrary.Controllers
         
         
 
-        [Authorize(Roles = "Klient")]
-        public async Task<IActionResult> RezerwacjeKlienta(int? id)
-        {
-            // if(id==0)
-            var user = await _userManager.GetUserAsync(User);
-
-            var rezerwacje = _context.Rezerwacje.Where(m => m.id_uzytkownika == user.id_uzytkownika);
-           foreach(Rezerwacje x in rezerwacje)
-            {
-                x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);
-                x.Uzytkownicy= await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.id_uzytkownika == x.id_uzytkownika);
-            }
-            return View(rezerwacje);
-        }
+       
 
 
         private int RandomNumber(int min, int max)

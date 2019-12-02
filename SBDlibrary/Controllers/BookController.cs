@@ -85,7 +85,7 @@ namespace SBDlibrary.Controllers
 
            // return View();
         }
-
+        [Authorize(Roles = "Bibliotekarz,Admin")]
         public async Task<IActionResult> Edytuj(int? id)
         {
             if (id == null)
@@ -104,6 +104,7 @@ namespace SBDlibrary.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Bibliotekarz,Admin")]
         public async Task<IActionResult> Edytuj(int id, Ksiazki ksiazka)
         {
             if (id != ksiazka.id_ksiazki)
@@ -136,6 +137,7 @@ namespace SBDlibrary.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Bibliotekarz,Admin")]
         public async Task<IActionResult> Create()
         {
             List<Kategorie> kategorieList = await _context.Kategorie.ToListAsync();
@@ -154,6 +156,7 @@ namespace SBDlibrary.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Bibliotekarz,Admin")]
         public async Task<ActionResult> Create([Bind("tytuł, data_wydania")]KsiazkaViewModel ksiazkaVM)
         {
             ksiazkaVM.Wydawnictwa = await _context.Wydawnictwa
@@ -182,17 +185,7 @@ namespace SBDlibrary.Controllers
            
             return RedirectToAction("Index");
         }
-        [Authorize(Roles = "Klient")]
-        public async Task<IActionResult> KsiazkiKlienta(int? id)
-        {
-            // if(id==0)
-            var user = await _userManager.GetUserAsync(User);
-
-            var wypozyczenia = _context.Wypozyczenia.Where(m => m.id_uzytkownika == user.id_uzytkownika);
-            var egzemplarze = from b in wypozyczenia from c in _context.Egzemplarze.Where(c => b.id_egzemplarza == c.id_egzemplarza) select c;
-            var Ksiazki = from c in egzemplarze from d in _context.Ksiazki.Where(d => c.id_ksiazki == d.id_ksiazki) select d;
-            return View(Ksiazki);
-        }
+       
 
     }
 }
