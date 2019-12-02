@@ -17,50 +17,50 @@ using SBDlibrary.ViewModels.BookViewModels;
 
 namespace SBDlibrary.Controllers
 {
-    public class BookController : Controller
+    public class KsiazkaController : Controller
     {
         private readonly  LibraryDbContext _context;
 
 
-        public BookController(LibraryDbContext context)
+        public KsiazkaController(LibraryDbContext context)
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string tytul)
         {
             var number = new List<int>();
             var models = new List<WyswietlanieKsiazekModel>();
 
             var Ksiazki = from t in _context.Ksiazki
                      select t;
+
+            
+
             foreach (Ksiazki k in Ksiazki)
-            {
-                
+            {                
                 WyswietlanieKsiazekModel pom = new WyswietlanieKsiazekModel();
                 k.Wydawnictwa = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == k.id_wydawnictwa);
                 pom.ksiazka = k;
-               IQueryable<Egzemplarze> xd = from x in _context.Egzemplarze where (x.id_ksiazki == k.id_ksiazki) where (x.status == Egzemplarze.Status.Dostępny) select x;
+                IQueryable<Egzemplarze> xd = from x in _context.Egzemplarze where (x.id_ksiazki == k.id_ksiazki) where (x.status == Egzemplarze.Status.Dostępny) select x;
                 
                 if (xd.Count()>0)
                     pom.dostepneEgzemplarze = "dostepne";
                 else
                     pom.dostepneEgzemplarze = "niedostepne";
-               models.Add(pom);
+
+                models.Add(pom);
                 xd = null;
             }
+            if (!String.IsNullOrEmpty(tytul))
+            {
+                models = models.Where(m => m.ksiazka.tytuł.Contains(tytul)).ToList();
+            }
 
-            // if (!HttpContext.User.IsInRole(""))
-            // {
-
-            //  }
-           
-
-           
             return View(models);
-            //return View();
+            
         }
 
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Detale(int? id)
         {
             
             if (id == null)
@@ -162,7 +162,7 @@ namespace SBDlibrary.Controllers
         }
 
         
-        public IActionResult Create()
+        public IActionResult Stworz()
         {
             
             ViewData["wydawnictwa"] = new SelectList(_context.Wydawnictwa, "id_wydawnictwa", "nazwa");
@@ -176,7 +176,7 @@ namespace SBDlibrary.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(KsiazkaViewModel ksiazkaVM)
+        public async Task<IActionResult> Stworz(KsiazkaViewModel ksiazkaVM)
         {
             
             var wydawnictwo = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == ksiazkaVM.id_wydawnictwo);
