@@ -21,7 +21,7 @@ using SBDlibrary.ViewModels.AccountViewModels;
 
 namespace SBDlibrary.Controllers
 {
-    public class AccountController : Controller
+    public class KontoController : Controller
     {
         private readonly LibraryDbContext _context;
         private readonly UserManager<Uzytkownicy> _userManager;
@@ -35,7 +35,7 @@ namespace SBDlibrary.Controllers
         private IHttpContextAccessor _accessor;
 
        
-        public AccountController(LibraryDbContext libraryDbContext, 
+        public KontoController(LibraryDbContext libraryDbContext, 
             UserManager<Uzytkownicy> userManager, SignInManager<Uzytkownicy> signInManager,
             IEmailSender emailSender, IHttpContextAccessor accessor)
         {
@@ -183,10 +183,10 @@ namespace SBDlibrary.Controllers
         }
 
         [Authorize]
-        public IActionResult LogOut()
+        public async Task<IActionResult> LogOut()
         {
-            _signInManager.SignOutAsync();
-            return View();
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index","Home");
         }
 
         public async Task<IActionResult> Manage()

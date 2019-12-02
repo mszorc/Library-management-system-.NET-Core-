@@ -9,6 +9,7 @@ a.navbar-brand {
 
 }
 
+
 header{
     background-color: #dcdcdc;
 }
@@ -17,15 +18,9 @@ header{
 -------------------------------------------------- */
 html {
     font-size: 14px;
-
     
 }
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
 
-  }
-}
 
 .border-top {
   border-top: 1px solid #e5e5e5;
