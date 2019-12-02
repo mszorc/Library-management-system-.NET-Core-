@@ -21,7 +21,7 @@ using SBDlibrary.ViewModels.AccountViewModels;
 
 namespace SBDlibrary.Controllers
 {
-    public class AccountController : Controller
+    public class KontaController : Controller
     {
         private readonly LibraryDbContext _context;
         private readonly UserManager<Uzytkownicy> _userManager;
@@ -35,7 +35,7 @@ namespace SBDlibrary.Controllers
         private IHttpContextAccessor _accessor;
 
        
-        public AccountController(LibraryDbContext libraryDbContext, 
+        public KontaController(LibraryDbContext libraryDbContext, 
             UserManager<Uzytkownicy> userManager, SignInManager<Uzytkownicy> signInManager,
             IEmailSender emailSender, IHttpContextAccessor accessor)
         {
@@ -46,38 +46,36 @@ namespace SBDlibrary.Controllers
             _accessor = accessor;
         }
 
-
-        [HttpGet]
-        [Authorize(Roles="Admin")]
-        public IActionResult FindUser()
+        public IActionResult Index()
         {
-            return View();
+            return NotFound();
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> FindUser([Bind("email")] Uzytkownicy model)
+        public IActionResult ZnajdzUzytkownika(string email)
         {
-            var user = await _userManager.FindByEmailAsync(model.email);
-            
-            if (user == null)
+            var uzytkownicy = from m in _context.Uzytkownicy
+                          select m;
+
+            if (!String.IsNullOrEmpty(email))
             {
-                return NotFound();
+                uzytkownicy = uzytkownicy.Where(s => s.email.Contains(email));
             }
 
-            return View(user);
+            return View(uzytkownicy);
         }
-        
+
 
         [HttpGet]
         [Authorize]
-        public IActionResult ChangePassword()
+        public IActionResult ZmienHaslo()
         {
             return View();
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> ChangePassword([Bind("Password,NewPassword,ConfirmNewPassword")] InputModelChangePassword model)
+        public async Task<IActionResult> ZmienHaslo([Bind("Password,NewPassword,ConfirmNewPassword")] InputModelChangePassword model)
         {
             if (!ModelState.IsValid)
             {
@@ -103,13 +101,13 @@ namespace SBDlibrary.Controllers
         }
 
         [HttpGet]
-        public IActionResult ForgotPassword()
+        public IActionResult ZapomnianoHasla()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> ForgotPassword([Bind("Email")] InputModelForgotPassword model)
+        public async Task<IActionResult> ZapomnianoHasla([Bind("Email")] InputModelForgotPassword model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (ModelState.IsValid)
@@ -122,25 +120,25 @@ namespace SBDlibrary.Controllers
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
 
                 var callbackUrl = Url.Action(
-                    "ResetPassword",
-                    "Account",
+                    "ResetujHaslo",
+                    "Konta",
                     new { code = code },
                     protocol: HttpContext.Request.Scheme);
 
                 await _emailSender.SendEmailAsync(model.Email, "Reset password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    $"Zresetuj swoje hasło <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klikając tutaj</a>.");
             }
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
-        public IActionResult LogIn()
+        public IActionResult Zaloguj()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> LogIn([Bind("Email,Password")] InputModelLogin model)
+        public async Task<IActionResult> Zaloguj([Bind("Email,Password")] InputModelLogin model)
         {
             if (ModelState.IsValid)
             {
@@ -183,13 +181,13 @@ namespace SBDlibrary.Controllers
         }
 
         [Authorize]
-        public IActionResult LogOut()
+        public IActionResult Wyloguj()
         {
             _signInManager.SignOutAsync();
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Manage()
+        public async Task<IActionResult> Zarzadzaj()
         {
 
             var user = await _userManager.GetUserAsync(User);
@@ -204,7 +202,7 @@ namespace SBDlibrary.Controllers
             return View(Input);
         }
         [HttpPost]
-        public async Task<IActionResult> Manage([Bind("FirstName,LastName,Address")]InputModelChangePersonalData model)
+        public async Task<IActionResult> Zarzadzaj([Bind("FirstName,LastName,Address")]InputModelChangePersonalData model)
         {
 
             if (ModelState.IsValid)
@@ -224,16 +222,68 @@ namespace SBDlibrary.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ZmienDaneOsobowe(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.FindByIdAsync(id.ToString());
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var Input = new InputModelChangePersonalData
+            {
+                FirstName = user.imie,
+                LastName = user.nazwisko,
+                Address = user.adres_zamieszkania
+            };
+            Input.StatusMessage = null;
+
+            return View(Input);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ZmienDaneOsobowe(int id, [Bind("FirstName,LastName,Address")]InputModelChangePersonalData model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByIdAsync(id.ToString());
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                user.imie = model.FirstName;
+                user.nazwisko = model.LastName;
+                user.adres_zamieszkania = model.Address;
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    model.StatusMessage = (string)"Profil został zaktualizowany";
+                    return View(model);
+                }
+
+            }
+            return View();
+        }
+
         [HttpGet]
         [Authorize(Roles = "Bibliotekarz,Admin")]
-        public IActionResult Register()
+        public IActionResult Zarejestruj()
         {
             return View();
         }
 
         [HttpPost]
         [Authorize(Roles = "Bibliotekarz,Admin")]
-        public async Task<IActionResult> Register([Bind("Email,FirstName,LastName,Address")]InputModelRegister model)
+        public async Task<IActionResult> Zarejestruj([Bind("Email,FirstName,LastName,Address")]InputModelRegister model)
         {
             if (ModelState.IsValid)
             {
@@ -268,20 +318,9 @@ namespace SBDlibrary.Controllers
         }
 
         [HttpGet]
-        public IActionResult ResetPassword(string code)
+        public IActionResult ResetujHaslo(string code)
         {
             TempData["Token"] = (string)code;
-            /*if (code == null)
-            {
-                return BadRequest("A code must be supplied for password reset.");
-            }
-            else
-            {
-                TempData["Model"] = new InputModelResetPassword
-                {
-                    Code = code
-                };
-            }*/
             if (TempData["Error"] != null)
             {
                 ModelState.AddModelError(string.Empty, (string)TempData["Error"]);
@@ -290,7 +329,7 @@ namespace SBDlibrary.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ResetPassword([Bind("Email,Password,ConfirmPassword")] InputModelResetPassword model)
+        public async Task<IActionResult> ResetujHaslo([Bind("Email,Password,ConfirmPassword")] InputModelResetPassword model)
         {
             var token = (string)TempData["Token"];
             if (ModelState.IsValid)
@@ -325,7 +364,7 @@ namespace SBDlibrary.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> SetRoles(int? id)
+        public async Task<IActionResult> UstawRole(int? id)
         {
             if (id == null)
             {
@@ -364,7 +403,7 @@ namespace SBDlibrary.Controllers
 
         [HttpPost]
         [Authorize(Roles="Admin")]
-        public async Task<IActionResult> SetRoles(int id, IFormCollection formCollection)
+        public async Task<IActionResult> UstawRole(int id, IFormCollection formCollection)
         {
             bool KlientCheckbox = false, BibliotekarzCheckbox = false, AdminCheckbox = false;
             string KlientCheckboxValue = "";
@@ -410,6 +449,11 @@ namespace SBDlibrary.Controllers
                     ViewBag.Klient = "checked";
                 }
             }
+            else
+            {
+                if (IsKlient) ViewBag.Klient = "checked";
+                else ViewBag.Klient = "";
+            }
 
             if (BibliotekarzCheckbox != IsBibliotekarz)
             {
@@ -427,6 +471,11 @@ namespace SBDlibrary.Controllers
                     await _context.SaveChangesAsync();
                     ViewBag.Bibliotekarz = "checked";
                 }
+            }
+            else
+            {
+                if (IsBibliotekarz) ViewBag.Bibliotekarz = "checked";
+                else ViewBag.Bibliotekarz = "";
             }
 
             if (AdminCheckbox != IsAdmin)
@@ -446,6 +495,11 @@ namespace SBDlibrary.Controllers
                     ViewBag.Admin = "checked";
                 }
             }
+            else
+            {
+                if (IsAdmin) ViewBag.Admin = "checked";
+                else ViewBag.Admin = "";
+            }
 
             var Input = new InputModelSetRoles
             {
@@ -458,7 +512,7 @@ namespace SBDlibrary.Controllers
         }
         
         [Authorize(Roles = "Klient")]
-        public async Task<IActionResult> CustomerBooks (int ?id)
+        public async Task<IActionResult> KsiazkiKlienta (int ?id)
         {
           // if(id==0)
             var user = await _userManager.GetUserAsync(User);
@@ -466,13 +520,24 @@ namespace SBDlibrary.Controllers
             var wypozyczenia =  _context.Wypozyczenia.Where(m => m.id_uzytkownika == user.id_uzytkownika);
             var egzemplarze = from b in wypozyczenia from c in _context.Egzemplarze.Where(c => b.id_egzemplarza == c.id_egzemplarza) select c;
             var Ksiazki = from c in egzemplarze from d in _context.Ksiazki.Where(d => c.id_ksiazki == d.id_ksiazki) select d;
-
-
-
-
-
             return View(Ksiazki);
         }
+
+        [Authorize(Roles = "Klient")]
+        public async Task<IActionResult> RezerwacjeKlienta(int? id)
+        {
+            // if(id==0)
+            var user = await _userManager.GetUserAsync(User);
+
+            var rezerwacje = _context.Rezerwacje.Where(m => m.id_uzytkownika == user.id_uzytkownika);
+           foreach(Rezerwacje x in rezerwacje)
+            {
+                x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);
+                x.Uzytkownicy= await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.id_uzytkownika == x.id_uzytkownika);
+            }
+            return View(rezerwacje);
+        }
+
 
         private int RandomNumber(int min, int max)
         {

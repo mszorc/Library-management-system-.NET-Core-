@@ -11,7 +11,7 @@ namespace SBDlibrary.Models
     {
         public enum Status
         {
-            A, B
+            odebrano, odwołano, aktualna
         }
         [Key]
         [Column(Order = 0)]
@@ -30,6 +30,9 @@ namespace SBDlibrary.Models
         public DateTime data_rezerwacji { get; set; }
         [Required]
         [Column(Order = 4)]
+        public DateTime data_odbioru { get; set; }
+        [Required]
+        [Column(Order = 5)]
         public Status? status_rezerwacji { get; set; }
 
         [ForeignKey("id_uzytkownika")]

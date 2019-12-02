@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kacpe\\OneDrive\\Documents\\GitHub\\Library-management-system-.NET-Core-\\SBDlibrary\\SBDlibrary.csproj": {}
+    "C:\\Users\\szorc\\Desktop\\Semestr V\\SBD\\Library-management-system-.NET-Core-\\SBDlibrary\\SBDlibrary.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kacpe\\OneDrive\\Documents\\GitHub\\Library-management-system-.NET-Core-\\SBDlibrary\\SBDlibrary.csproj": {
+    "C:\\Users\\szorc\\Desktop\\Semestr V\\SBD\\Library-management-system-.NET-Core-\\SBDlibrary\\SBDlibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kacpe\\OneDrive\\Documents\\GitHub\\Library-management-system-.NET-Core-\\SBDlibrary\\SBDlibrary.csproj",
+        "projectUniqueName": "C:\\Users\\szorc\\Desktop\\Semestr V\\SBD\\Library-management-system-.NET-Core-\\SBDlibrary\\SBDlibrary.csproj",
         "projectName": "SBDlibrary",
-        "projectPath": "C:\\Users\\kacpe\\OneDrive\\Documents\\GitHub\\Library-management-system-.NET-Core-\\SBDlibrary\\SBDlibrary.csproj",
-        "packagesPath": "C:\\Users\\kacpe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kacpe\\OneDrive\\Documents\\GitHub\\Library-management-system-.NET-Core-\\SBDlibrary\\obj\\",
+        "projectPath": "C:\\Users\\szorc\\Desktop\\Semestr V\\SBD\\Library-management-system-.NET-Core-\\SBDlibrary\\SBDlibrary.csproj",
+        "packagesPath": "C:\\Users\\szorc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\szorc\\Desktop\\Semestr V\\SBD\\Library-management-system-.NET-Core-\\SBDlibrary\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\kacpe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\szorc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -41,10 +41,6 @@
       "frameworks": {
         "netcoreapp2.2": {
           "dependencies": {
-            "Microsoft.AspNet.Mvc": {
-              "target": "Package",
-              "version": "[5.2.7, )"
-            },
             "Microsoft.AspNetCore.App": {
               "suppressParent": "All",
               "target": "Package",

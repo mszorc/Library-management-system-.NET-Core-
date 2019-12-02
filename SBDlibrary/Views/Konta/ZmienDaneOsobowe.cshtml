@@ -1,17 +1,11 @@
 ﻿@model SBDlibrary.ViewModel.InputModelChangePersonalData
 @using Microsoft.AspNetCore.Identity
-@inject UserManager<Uzytkownicy> UserManager
-
 @{
-    ViewData["Title"] = "Manage";
+    ViewData["Title"] = "Zmień dane osobowe";
 }
 
 <partial name="_StatusMessage" for="StatusMessage" />
-@if (this.User.IsInRole("Admin"))
-{
-    <a asp-area="" asp-controller="Account" asp-action="FindUser">Znajdź użytkowników</a>
-}
-<a asp-area="" asp-controller="Account" asp-action="ChangePassword">Zmień hasło</a>
+
 <form class="form" method="post" novalidate>
     <h2 class="form-heading">Zmień dane osobowe</h2>
     <div class="col-md-4">
@@ -35,6 +29,6 @@
     </div>
 </form>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+<p>
+    <a asp-action="ZnajdzUzytkownika">Powrót</a>
+</p>

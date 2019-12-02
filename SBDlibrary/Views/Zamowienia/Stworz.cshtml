@@ -18,8 +18,8 @@
             <select asp-for="data_zamowienia" class="form-control" asp-items="ViewBag.data_zamowienia"></select>
         </div>
         <div class="form-group">
-            <label asp-for="status_zamowienia" class="control-label"></label>
-            <select asp-for="status_zamowienia" class="form-control" asp-items="ViewBag.status"></select>
+            <input type="hidden" asp-for="status_zamowienia" class="control-label"/>
+           
         </div>
         <div class="form-group">
             <input type="submit" value="Create" class="btn btn-primary" />

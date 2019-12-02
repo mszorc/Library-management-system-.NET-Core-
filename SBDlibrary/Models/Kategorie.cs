@@ -13,6 +13,7 @@ namespace SBDlibrary.Models
         [Key]
         [Column(Order = 0)]
         public int id_kategorii { get; set; }
+
         [Required(ErrorMessage = "Pole 'Nazwa' jest wymagane.")]
         [StringLength(20, ErrorMessage = "Nazwa musi mieć co najmniej 2 oraz maksymalnie 20 znaków długości.", MinimumLength = 2)]
         [Column(Order = 1)]
