@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SBDlibrary.Models;
@@ -18,7 +17,6 @@ namespace SBDlibrary.Controllers
         {
             _context = context;
         }
-        [Authorize(Roles = "Bibliotekarz,Admin")]
         public async Task<IActionResult> Index()
         {
            var wypozyczenia = from a in _context.Wypozyczenia select a;
@@ -94,7 +92,7 @@ namespace SBDlibrary.Controllers
 
             Wypozyczenia wypozyczenie =new Wypozyczenia();
             wypozyczenie.Egzemplarze = dostepnyEgzemplarz;
-            wypozyczenie.data_wypozyczenia = DateTime.UtcNow.Date.AddHours(1);
+            wypozyczenie.data_wypozyczenia = new DateTime();
             wypozyczenie.data_zwrotu = wypozyczenie.data_wypozyczenia.AddMonths(1);
             wypozyczenie.id_uzytkownika = Convert.ToInt32(HttpContext.User.Identity.Name);
             
@@ -117,23 +115,6 @@ namespace SBDlibrary.Controllers
             }
 
             return RedirectToAction("Index");
-        }
-        [Authorize(Roles = "Klient")]
-        public async Task<IActionResult> KsiazkiKlienta(int? id)
-        {
-            // if(id==0)
-            var idek = Convert.ToInt32(HttpContext.User.Identity.Name);
-
-
-
-            var user = await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.id_uzytkownika == idek);
-
-
-
-            var wypozyczenia = _context.Wypozyczenia.Where(m => m.id_uzytkownika == user.id_uzytkownika);
-            var egzemplarze = from b in wypozyczenia from c in _context.Egzemplarze.Where(c => b.id_egzemplarza == c.id_egzemplarza) select c;
-            var Ksiazki = from c in egzemplarze from d in _context.Ksiazki.Where(d => c.id_ksiazki == d.id_ksiazki) select d;
-            return View(Ksiazki);
         }
 
     }

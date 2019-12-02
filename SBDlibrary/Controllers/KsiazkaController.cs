@@ -156,6 +156,75 @@ namespace SBDlibrary.Controllers
             return View(ksiazka);
         }
 
+        public async Task<IActionResult> Usun(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var ksiazka = await _context.Ksiazki.FirstOrDefaultAsync(m => m.id_ksiazki == id);
+            ksiazka.Wydawnictwa = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == ksiazka.id_wydawnictwa);
+            if (ksiazka == null)
+            {
+                return NotFound();
+            }
+
+            KsiazkaViewModel ksiazkaVM = new KsiazkaViewModel();
+            ksiazkaVM.id_ksiazki = ksiazka.id_ksiazki;
+            ksiazkaVM.id_wydawnictwo = ksiazka.id_wydawnictwa;
+            ksiazkaVM.tytuł = ksiazka.tytuł;
+            ksiazkaVM.data_wydania = ksiazka.data_wydania;
+
+            ksiazkaVM.Wydawnictwa = await _context.Wydawnictwa.FirstOrDefaultAsync(m => m.id_wydawnictwa == ksiazka.id_wydawnictwa);
+
+            //kategorie
+            var kategorie_ksiazki = await _context.Kategorie_Ksiazki.Where(m => m.id_ksiazki == ksiazka.id_ksiazki).ToListAsync();
+            Kategorie kategoria = new Kategorie();
+            List<string> listaKategorii = new List<string>();
+            foreach (Kategorie_Ksiazki k in kategorie_ksiazki)
+            {
+                kategoria = await _context.Kategorie.FirstOrDefaultAsync(m => m.id_kategorii == k.id_kategorii);
+                listaKategorii.Add(kategoria.nazwa);
+            }
+            ksiazkaVM.kategorieLista = listaKategorii;
+
+            //autorzy
+            var autorzy_ksiazki = await _context.Autorzy_Ksiazki.Where(m => m.id_ksiazki == ksiazka.id_ksiazki).ToListAsync();
+            Autor autor = new Autor();
+            List<string> listaAutorow = new List<string>();
+            string autorRecord;
+            foreach (Autorzy_Ksiazki a in autorzy_ksiazki)
+            {
+                autor = await _context.Autor.FirstOrDefaultAsync(m => m.id_autor == a.id_autora);
+                autorRecord = autor.imie + " " + autor.nazwisko;
+                listaAutorow.Add(autorRecord);
+            }
+            ksiazkaVM.autorzyLista = listaAutorow;
+
+            return View(ksiazkaVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Usun(int id)
+        {
+            var ksiazka = await _context.Ksiazki.FindAsync(id);
+            var autorzy_ksiazka = await _context.Autorzy_Ksiazki.Where(m => m.id_ksiazki == id).ToListAsync();
+            foreach(Autorzy_Ksiazki a in autorzy_ksiazka)
+            {
+                _context.Autorzy_Ksiazki.Remove(a);
+            }
+            var kategorie_ksiazka = await _context.Kategorie_Ksiazki.Where(m => m.id_ksiazki == id).ToListAsync();
+            foreach(Kategorie_Ksiazki k in kategorie_ksiazka)
+            {
+                _context.Kategorie_Ksiazki.Remove(k);
+            }
+            _context.Ksiazki.Remove(ksiazka);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
         private bool KsiazkaExists(int id)
         {
             return _context.Ksiazki.Any(k => k.id_ksiazki == id);
