@@ -32,21 +32,27 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Egzemplarze.Ksiazki.tytuł)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.data_wypozyczenia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.data_zwrotu)
-               
-                </td>
-                <td>
-                    @Html.ActionLink("Zwróć książkę", "Zwroc", "Wypozyczenia", new { id = item.id_wypozyczenia })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Egzemplarze.Ksiazki.tytuł)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.data_wypozyczenia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.data_zwrotu)
+            </td>
+            <td>
+                @Html.ActionLink("Zwróć książkę", "Zwroc", "Wypozyczenia", new { id = item.id_wypozyczenia })
+            </td>
+            <td>
+                @if ((item.data_zwrotu - item.data_wypozyczenia).TotalDays <= 31)
+                {
+                    @Html.ActionLink("Przedłuzenie wypożyczenia", "PrzedluzWypozyczenie", "Wypozyczenia", new { id = item.id_wypozyczenia })
+
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>

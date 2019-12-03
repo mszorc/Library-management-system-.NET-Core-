@@ -15,7 +15,6 @@ namespace SBDlibrary.Controllers
     {
         private readonly LibraryDbContext _context;
         private readonly UserManager<Uzytkownicy> _userManager;
-
         private const double KaraZaDzien = 0.2;
 
         public WypozyczeniaController(LibraryDbContext context, UserManager<Uzytkownicy> userManager)
@@ -243,6 +242,42 @@ namespace SBDlibrary.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> PrzedluzWypozyczenie(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var wypozyczenie = await _context.Wypozyczenia.FirstOrDefaultAsync(m => m.id_wypozyczenia == id);
+
+            if (wypozyczenie == null)
+            {
+                return NotFound();
+            }
+            var uzytkownik = await _userManager.GetUserAsync(User);
+            if (await _userManager.IsInRoleAsync(uzytkownik, "Admin") || await _userManager.IsInRoleAsync(uzytkownik, "Bibliotekarz")
+                        || (await _userManager.IsInRoleAsync(uzytkownik, "Klient") && wypozyczenie.id_uzytkownika == uzytkownik.id_uzytkownika))
+            {
+                if ((wypozyczenie.data_zwrotu - wypozyczenie.data_wypozyczenia).TotalDays <= 31)
+                {
+                    wypozyczenie.data_zwrotu = wypozyczenie.data_wypozyczenia.AddMonths(2);
+                    _context.Wypozyczenia.Update(wypozyczenie);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Nie można już przedłużyć okresu wypożyczenia");
+                }
+
+                return RedirectToAction("Index", "Wypozyczenia");
+            }
+            else
+                return NotFound();
+            
+        }
+
         public IActionResult Wypozyczono()
         {
             return View();
