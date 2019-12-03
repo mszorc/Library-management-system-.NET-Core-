@@ -44,7 +44,5 @@ namespace SBDlibrary.Models
         [ForeignKey("id_egzemplarza")]
         public virtual Egzemplarze Egzemplarze { get; set; }
 
-        //public ICollection<Uzytkownicy> Uzytkownicy { get; set; }
-        //public ICollection<Egzemplarze> Egzemplarze { get; set; }
     }
 }

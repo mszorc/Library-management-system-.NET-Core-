@@ -11,6 +11,9 @@
         <input type="submit" value="Filtruj" />
     </p>
 </form>
+
+@Html.ActionLink("Powrót", "Zarzadzaj", "Konta")
+
 <table class="table">
     <thead>
         <tr>
@@ -31,20 +34,20 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id_logu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.id_uzytkownika)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ip_urzadzenia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.komunikat)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_logu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_uzytkownika)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ip_urzadzenia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.komunikat)
+                </td>
+            </tr>
         }
     </tbody>
 </table>

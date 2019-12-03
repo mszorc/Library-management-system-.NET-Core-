@@ -10,6 +10,10 @@
     </p>
 </form>
 
+<div>
+    <a asp-action="Zarzadzaj">Powrót</a>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -45,13 +49,10 @@
                     @Html.ActionLink("Zmień dane osobowe", "ZmienDaneOsobowe", new { id = model.id_uzytkownika })
                 </td>
                 <td>
-                    @Html.ActionLink("Usuń użytkownika", "UsunUzytkownika", new { id = model.id_uzytkownika})
+                    @Html.ActionLink("Usuń użytkownika", "UsunUzytkownika", new { id = model.id_uzytkownika })
                 </td>
-            </tr>         
+            </tr>
+
         }
     </tbody>
 </table>
-
-<div>
-    <a asp-action="Zarzadzaj">Powrót</a>
-</div>
