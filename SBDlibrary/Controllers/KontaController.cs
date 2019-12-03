@@ -145,17 +145,11 @@ namespace SBDlibrary.Controllers
 
                 var user = await _userManager.FindByEmailAsync(model.Email);
 
-                Logi log = new Logi();
-                log.Uzytkownicy = user;
-                var ip = _accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-                log.ip_urzadzenia = ip;
-
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "Logowanie przebiegło niepomyślnie.");
-                    log.Uzytkownicy = await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.email == "niezidentyfikowany");
-                    log.komunikat = "logowanie niepomyślne, nieodnaleziono uzytkownika";
-                    _context.Logi.Add(log);
+                    _context.Logi.Add(stworzLog(await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.email == "niezidentyfikowany"),
+                                         "logowanie niepomyślne, nieodnaleziono uzytkownika"));
                     _context.SaveChanges();
                     return View();
                 }
@@ -163,15 +157,13 @@ namespace SBDlibrary.Controllers
                 var result = await _signInManager.PasswordSignInAsync(user.id_uzytkownika.ToString(), model.Password, false, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-                    log.komunikat = "logowanie pomyslne";
-                    _context.Logi.Add(log);
+                    _context.Logi.Add(stworzLog(user, "logowanie pomyslne"));
                     _context.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    log.komunikat = "logowanie niepomyślne, błędne hasło";
-                    _context.Logi.Add(log);
+                    _context.Logi.Add(stworzLog(user, "logowanie niepomyślne, błędne hasło"));
                     _context.SaveChanges();
                     ModelState.AddModelError(string.Empty, "Logowanie przebiegło niepomyślnie");
                 }
@@ -181,9 +173,12 @@ namespace SBDlibrary.Controllers
         }
 
         [Authorize]
-        public IActionResult Wyloguj()
+        public async Task<IActionResult> Wyloguj()
         {
-            _signInManager.SignOutAsync();
+            var uzytkownik = await _userManager.GetUserAsync(User);
+            _context.Logi.Add(stworzLog(uzytkownik, "wylogowanie przebiegło pomyślnie"));
+            _context.SaveChanges();
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
         
@@ -353,11 +348,6 @@ namespace SBDlibrary.Controllers
                 //TempData["Token"] = null;
                 if (result.Succeeded)
                 {
-                    Logi log = new Logi();
-                    var ip = _accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-                    log.Uzytkownicy = user;
-                    log.ip_urzadzenia = ip;
-                    log.komunikat = "zmieniono hasło";
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -573,6 +563,16 @@ namespace SBDlibrary.Controllers
             builder.Append(RandomString(2, false));
             builder.Append(RandomSpecialCharacter(2));
             return builder.ToString();
+        }
+
+        private Logi stworzLog(Uzytkownicy user, string komunikat)
+        {
+            Logi log = new Logi();
+            var ip = _accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            log.Uzytkownicy = user;
+            log.ip_urzadzenia = ip;
+            log.komunikat = komunikat;
+            return log;
         }
     }
 }

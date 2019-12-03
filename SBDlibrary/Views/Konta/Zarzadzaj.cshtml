@@ -9,7 +9,8 @@
 <partial name="_StatusMessage" for="StatusMessage" />
 @if (this.User.IsInRole("Admin"))
 {
-    <a asp-area="" asp-controller="Konta" asp-action="ZnajdzUzytkownika">Znajdź użytkowników</a>
+    <a asp-area="" asp-controller="Logi" asp-action="Index">Logi użytkowników </a>
+    <a asp-area="" asp-controller="Konta" asp-action="ZnajdzUzytkownika">Znajdź użytkowników </a>
 }
 <a asp-area="" asp-controller="Konta" asp-action="ZmienHaslo">Zmień hasło</a>
 @if (this.User.IsInRole("Admin") || this.User.IsInRole("Bibliotekarz"))
@@ -45,17 +46,17 @@ else
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FirstName"></label>
-                <input asp-for="FirstName" class="form-control" disabled/>
+                <input asp-for="FirstName" class="form-control" disabled />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastName"></label>
-                <input asp-for="LastName" class="form-control" disabled/>
+                <input asp-for="LastName" class="form-control" disabled />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address"></label>
-                <input asp-for="Address" class="form-control" disabled/>
+                <input asp-for="Address" class="form-control" disabled />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
         </div>

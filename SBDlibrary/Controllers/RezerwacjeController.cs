@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,11 +19,14 @@ namespace SBDlibrary.Controllers
 
         private readonly LibraryDbContext _context;
         private readonly UserManager<Uzytkownicy> _userManager;
+        private IHttpContextAccessor _accessor;
 
-        public RezerwacjeController(LibraryDbContext context, UserManager<Uzytkownicy> userManager)
+        public RezerwacjeController(LibraryDbContext context, UserManager<Uzytkownicy> userManager,
+                            IHttpContextAccessor accessor)
         {
             _context = context;
             _userManager = userManager;
+            _accessor = accessor;
         }
         //[Authorize(Roles = "Bibliotekarz,Admin")]
         
@@ -108,6 +112,9 @@ namespace SBDlibrary.Controllers
                     rezerwacja.Egzemplarze.status = Egzemplarze.Status.Zarezerwowany;
                     _context.Rezerwacje.Add(rezerwacja);
                     _context.SaveChanges();
+                    var uzytkownik = await _userManager.GetUserAsync(User);
+                    _context.Logi.Add(stworzLog(uzytkownik, "stworzono rezerwację o numerze " + rezerwacja.id_rezerwacji));
+                    _context.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }
@@ -170,6 +177,9 @@ namespace SBDlibrary.Controllers
             _context.Egzemplarze.Update(egzemplarz);
             _context.Rezerwacje.Add(rezerwacja);
             await _context.SaveChangesAsync();
+            var uzytkownik = await _userManager.GetUserAsync(User);
+            _context.Logi.Add(stworzLog(uzytkownik, "stworzono rezerwację o numerze " + rezerwacja.id_rezerwacji));
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
         [Authorize(Roles = "Klient,Bibliotekarz,Admin")]
@@ -189,6 +199,8 @@ namespace SBDlibrary.Controllers
             {
                 rezerwacja.status_rezerwacji = Rezerwacje.Status.odwołano;
                 rezerwacja.Egzemplarze.status = Egzemplarze.Status.Dostępny;
+                _context.SaveChanges();
+                _context.Logi.Add(stworzLog(uzytkownik, "anulowano rezerwację o numerze " + rezerwacja.id_rezerwacji));
                 _context.SaveChanges();
             }
 
@@ -239,11 +251,23 @@ namespace SBDlibrary.Controllers
                 
                 _context.Wypozyczenia.Add(wypozyczenia);
                 _context.SaveChanges();
+                _context.Logi.Add(stworzLog(user, "wypożyczono książkę z rezerwacji o numerze " + rezerwacja.id_rezerwacji));
+                _context.SaveChanges();
             }
             else return NotFound();
 
 
            return  RedirectToAction(nameof(RezerwacjeKlienta));
+        }
+
+        private Logi stworzLog(Uzytkownicy user, string komunikat)
+        {
+            Logi log = new Logi();
+            var ip = _accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            log.Uzytkownicy = user;
+            log.ip_urzadzenia = ip;
+            log.komunikat = komunikat;
+            return log;
         }
     }
 

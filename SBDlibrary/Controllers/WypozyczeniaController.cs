@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,12 +18,15 @@ namespace SBDlibrary.Controllers
     {
         private readonly LibraryDbContext _context;
         private readonly UserManager<Uzytkownicy> _userManager;
+        private IHttpContextAccessor _accessor;
         private const double KaraZaDzien = 0.2;
 
-        public WypozyczeniaController(LibraryDbContext context, UserManager<Uzytkownicy> userManager)
+        public WypozyczeniaController(LibraryDbContext context, UserManager<Uzytkownicy> userManager,
+                            IHttpContextAccessor accessor)
         {
             _context = context;
             _userManager = userManager;
+            _accessor = accessor;
         }
         [Authorize(Roles = "Bibliotekarz")]
         public async Task<IActionResult> Index(DateTime? DataOd, DateTime? DataDo, string imie, string nazwisko)
@@ -105,6 +109,9 @@ namespace SBDlibrary.Controllers
                 {
                     wypozyczenie.Egzemplarze.status = Egzemplarze.Status.Wypozyczony;
                     _context.Wypozyczenia.Add(wypozyczenie);
+                    _context.SaveChanges(); 
+                    var uzytkownik = await _userManager.GetUserAsync(User);
+                    _context.Logi.Add(stworzLog(uzytkownik, "wypozyczono książkę. numer wypozyczenia - " + wypozyczenie.id_wypozyczenia));
                     _context.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -157,6 +164,8 @@ namespace SBDlibrary.Controllers
             if ((wypozyczenie.data_zwrotu - now).TotalDays > 0) zwrot.kara = (float)0;
             else zwrot.kara = (float)(Math.Truncate((now - wypozyczenie.data_zwrotu).TotalDays * KaraZaDzien * 100) / 100);
             _context.Zwroty.Add(zwrot);
+            _context.Logi.Add(stworzLog(uzytkownik, "zwrócono książkę o numerze wypozyczenia " + wypozyczenie.id_wypozyczenia));
+            _context.SaveChanges();
             await _context.SaveChangesAsync();
 
             return RedirectToAction("KsiazkiKlienta", "Wypozyczenia");
@@ -195,6 +204,9 @@ namespace SBDlibrary.Controllers
             if ((wypozyczenie.data_zwrotu - now).TotalDays > 0) zwrot.kara = (float)0;
             else zwrot.kara = (float)(Math.Truncate((now - wypozyczenie.data_zwrotu).TotalDays * KaraZaDzien * 100) / 100);
             _context.Zwroty.Add(zwrot);
+            var uzytkownik = await _userManager.GetUserAsync(User);
+            _context.Logi.Add(stworzLog(uzytkownik, "zwrócono książkę o numerze wypozyczenia " + wypozyczenie.id_wypozyczenia));
+            _context.SaveChanges();
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
@@ -221,6 +233,9 @@ namespace SBDlibrary.Controllers
                 wypozyczenie.data_zwrotu = wypozyczenie.data_wypozyczenia.AddMonths(2);
                 _context.Wypozyczenia.Update(wypozyczenie);
                 await _context.SaveChangesAsync();
+                var uzytkownik = await _userManager.GetUserAsync(User);
+                _context.Logi.Add(stworzLog(uzytkownik, "przedłużono wypożyczenie o numerze " + wypozyczenie.id_wypozyczenia));
+                _context.SaveChanges();
             }
             else
             {
@@ -268,7 +283,10 @@ namespace SBDlibrary.Controllers
                 egzemplarz.status = Egzemplarze.Status.Wypozyczony;
                 _context.Egzemplarze.Update(egzemplarz);
                 _context.Wypozyczenia.Add(wypozyczenie);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); 
+                var uzytkownik = await _userManager.GetUserAsync(User);
+                _context.Logi.Add(stworzLog(uzytkownik, "wypozyczono książkę. numer wypozyczenia - " + wypozyczenie.id_wypozyczenia));
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View();
@@ -301,7 +319,7 @@ namespace SBDlibrary.Controllers
         
 
         [Authorize(Roles = "Klient")]
-        public async Task<IActionResult> PrzedluzWYpozyczenie(int? id)
+        public async Task<IActionResult> PrzedluzWypozyczenie(int? id)
         {
             if (id == null)
             {
@@ -324,6 +342,9 @@ namespace SBDlibrary.Controllers
                     wypozyczenie.data_zwrotu = wypozyczenie.data_wypozyczenia.AddMonths(2);
                     _context.Wypozyczenia.Update(wypozyczenie);
                     await _context.SaveChangesAsync();
+                    _context.Logi.Add(stworzLog(uzytkownik, "przedłużono wypożyczenie o numerze " + wypozyczenie.id_wypozyczenia));
+                    _context.SaveChanges();
+
                 }
                 else
                 {
@@ -341,6 +362,16 @@ namespace SBDlibrary.Controllers
         public IActionResult Wypozyczono()
         {
             return View();
+        }
+
+        private Logi stworzLog(Uzytkownicy user, string komunikat)
+        {
+            Logi log = new Logi();
+            var ip = _accessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            log.Uzytkownicy = user;
+            log.ip_urzadzenia = ip;
+            log.komunikat = komunikat;
+            return log;
         }
     }
 }
