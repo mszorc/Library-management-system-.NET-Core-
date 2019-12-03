@@ -38,7 +38,7 @@ namespace SBDlibrary.Controllers
         //    return View(rezerwacje);
         //}
         //[HttpPost]
-        [Authorize(Roles = "Bibliotekarz,Admin")]
+        [Authorize(Roles = "Bibliotekarz")]
         public async Task<IActionResult> Index(DateTime ?DataOd, DateTime ?DataDo, string imie, string nazwisko)
         {
             var rezerwacje = from a in _context.Rezerwacje select a;
@@ -63,7 +63,7 @@ namespace SBDlibrary.Controllers
 
             return View(rezerwacje);
         }
-
+        [Authorize(Roles = "Klient,Bibliotekarz,Admin")]
         public async Task<IActionResult> Zarezerwuj(int id_ksiazki)
         {
             var Ksiazka = await _context.Ksiazki
@@ -172,7 +172,7 @@ namespace SBDlibrary.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "Klient,Bibliotekarz,Admin")]
         public async Task<IActionResult> AnulujRezerwacje(int id_rezerwacji)
         {
             var rezerwacja = await _context.Rezerwacje

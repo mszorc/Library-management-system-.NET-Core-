@@ -24,7 +24,7 @@ namespace SBDlibrary.Controllers
             _context = context;
             _userManager = userManager;
         }
-        [Authorize(Roles = "Bibliotekarz,Admin")]
+        [Authorize(Roles = "Bibliotekarz")]
         public async Task<IActionResult> Index(DateTime? DataOd, DateTime? DataDo, string imie, string nazwisko)
         {
             var wypozyczenia = from a in _context.Wypozyczenia select a;
@@ -53,30 +53,6 @@ namespace SBDlibrary.Controllers
             }
 
             return View(wypozyczenia_aktualne);
-        }
-        public IActionResult Details(int? id)
-        {
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var wypozyczenia = _context.Wypozyczenia.FirstOrDefault(m => m.id_wypozyczenia == id);
-
-            if (wypozyczenia == null)
-            {
-                return NotFound();
-            }
-            wypozyczenia.Egzemplarze = _context.Egzemplarze.FirstOrDefault(m => m.id_egzemplarza == wypozyczenia.id_egzemplarza);
-            wypozyczenia.Egzemplarze.Ksiazki = _context.Ksiazki.FirstOrDefault(m => m.id_ksiazki == wypozyczenia.Egzemplarze.id_ksiazki);
-            return View(wypozyczenia);
-        }
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View(new SimpleModel());
         }
 
        

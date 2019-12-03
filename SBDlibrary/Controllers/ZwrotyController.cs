@@ -12,7 +12,6 @@ using SBDlibrary.ViewModels.ZwrotyViewModels;
 
 namespace SBDlibrary.Controllers
 {
-    [Authorize]
     public class ZwrotyController : Controller
     {
         private readonly LibraryDbContext _context;
@@ -25,7 +24,7 @@ namespace SBDlibrary.Controllers
             _userManager = userManager;
         }
 
-        [Authorize(Roles = "Bibliotekarz,Admin")]
+        [Authorize(Roles = "Bibliotekarz")]
         public async Task<IActionResult> Index(string email)
         {
             var zwroty = await _context.Zwroty.ToListAsync();

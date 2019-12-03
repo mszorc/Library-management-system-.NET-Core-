@@ -10,7 +10,7 @@ using SBDlibrary.Models;
 
 namespace SBDlibrary.Controllers
 {
-    [Authorize(Roles = "Bibliotekarz,Admin")]
+    [Authorize(Roles = "Bibliotekarz")]
     public class DostawcyController : Controller
     {
         private readonly LibraryDbContext _context;

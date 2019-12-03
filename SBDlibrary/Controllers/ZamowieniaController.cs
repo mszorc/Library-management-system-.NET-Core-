@@ -11,7 +11,7 @@ using SBDlibrary.ViewModels.ZamowieniaViewModels;
 
 namespace SBDlibrary.Controllers
 {
-    [Authorize(Roles = "Bibliotekarz,Admin")]
+    [Authorize(Roles = "Bibliotekarz")]
     public class ZamowieniaController : Controller
     {
         private readonly LibraryDbContext _context;

@@ -186,10 +186,10 @@ namespace SBDlibrary.Controllers
             _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-
+        
+        [Authorize]
         public async Task<IActionResult> Zarzadzaj()
         {
-
             var user = await _userManager.GetUserAsync(User);
             var Input = new InputModelChangePersonalData
             {
@@ -201,6 +201,7 @@ namespace SBDlibrary.Controllers
 
             return View(Input);
         }
+
         [HttpPost]
         public async Task<IActionResult> Zarzadzaj([Bind("FirstName,LastName,Address")]InputModelChangePersonalData model)
         {
@@ -249,6 +250,7 @@ namespace SBDlibrary.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ZmienDaneOsobowe(int id, [Bind("FirstName,LastName,Address")]InputModelChangePersonalData model)
         {
             if (ModelState.IsValid)
@@ -275,14 +277,14 @@ namespace SBDlibrary.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Bibliotekarz,Admin")]
+        [Authorize(Roles = "Bibliotekarz")]
         public IActionResult Zarejestruj()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Bibliotekarz,Admin")]
+        [Authorize(Roles = "Bibliotekarz")]
         public async Task<IActionResult> Zarejestruj([Bind("Email,FirstName,LastName,Address")]InputModelRegister model)
         {
             if (ModelState.IsValid)

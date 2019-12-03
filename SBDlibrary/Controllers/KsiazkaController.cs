@@ -27,6 +27,8 @@ namespace SBDlibrary.Controllers
         {
             _context = context;
         }
+
+        [Authorize(Roles="Klient,Bibliotekarz,Admin")]
         public async Task<IActionResult> Index(string tytul)
         {
             var number = new List<int>();
@@ -61,6 +63,7 @@ namespace SBDlibrary.Controllers
             
         }
 
+        [Authorize(Roles = "Klient,Bibliotekarz,Admin")]
         public async Task<ActionResult> Detale(int? id)
         {
             
@@ -113,6 +116,7 @@ namespace SBDlibrary.Controllers
            // return View();
         }
 
+        [Authorize(Roles = "Bibliotekarz")]
         public async Task<IActionResult> Edytuj(int? id)
         {
             if (id == null)
@@ -131,6 +135,7 @@ namespace SBDlibrary.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Bibliotekarz")]
         public async Task<IActionResult> Edytuj(int id, Ksiazki ksiazka)
         {
             if (id != ksiazka.id_ksiazki)
@@ -208,6 +213,7 @@ namespace SBDlibrary.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Bibliotekarz,Admin")]
         public async Task<IActionResult> Usun(int id)
         {
             var ksiazka = await _context.Ksiazki.FindAsync(id);
@@ -232,7 +238,7 @@ namespace SBDlibrary.Controllers
             return _context.Ksiazki.Any(k => k.id_ksiazki == id);
         }
 
-        
+        [Authorize(Roles = "Bibliotekarz,Admin")]
         public IActionResult Stworz()
         {
             
@@ -247,6 +253,7 @@ namespace SBDlibrary.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Bibliotekarz,Admin")]
         public async Task<IActionResult> Stworz(KsiazkaViewModel ksiazkaVM)
         {
             
