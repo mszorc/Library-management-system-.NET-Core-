@@ -37,11 +37,4 @@
     </div>
 </form>
 
-<hr />
-
-<div class="external-providers">
-    @foreach (var scheme in await schemeProvider.GetRequestHandlerSchemesAsync())
-    {
-        <a asp-action="LogInExternal" asp-route-id="@scheme.Name" class="btn btn-lg btn-default">@scheme.DisplayName</a>
-    }
-</div>
+<hr />  

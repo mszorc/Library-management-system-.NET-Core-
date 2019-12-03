@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SBDlibrary.Models;
@@ -18,15 +19,43 @@ namespace SBDlibrary.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
+        //[Authorize(Roles = "Bibliotekarz,Admin")]
+        
+        //public async Task<IActionResult> Index()
+        //{
+        //    var rezerwacje = from a in _context.Rezerwacje select a;
+        //    foreach (Rezerwacje x in rezerwacje)
+        //    {
+        //        x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);
+        //        x.Egzemplarze.Ksiazki = await _context.Ksiazki.FirstOrDefaultAsync(n => n.id_ksiazki == x.Egzemplarze.id_ksiazki);
+        //        x.Uzytkownicy = await _context.Uzytkownicy.FirstOrDefaultAsync(l => l.id_uzytkownika == x.id_uzytkownika);
+        //    }
+        //    return View(rezerwacje);
+        //}
+        //[HttpPost]
+        [Authorize(Roles = "Bibliotekarz,Admin")]
+        public async Task<IActionResult> Index(DateTime ?DataOd, DateTime ?DataDo, string imie, string nazwisko)
         {
             var rezerwacje = from a in _context.Rezerwacje select a;
-            foreach (Rezerwacje x in rezerwacje)
+            if (rezerwacje != null)
             {
-                x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);
-                x.Egzemplarze.Ksiazki = await _context.Ksiazki.FirstOrDefaultAsync(n => n.id_ksiazki == x.Egzemplarze.id_ksiazki);
-                x.Uzytkownicy = await _context.Uzytkownicy.FirstOrDefaultAsync(l => l.id_uzytkownika == x.id_uzytkownika);
+                foreach (Rezerwacje x in rezerwacje)
+                {
+                    x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);
+                    x.Egzemplarze.Ksiazki = await _context.Ksiazki.FirstOrDefaultAsync(n => n.id_ksiazki == x.Egzemplarze.id_ksiazki);
+                    x.Uzytkownicy = await _context.Uzytkownicy.FirstOrDefaultAsync(l => l.id_uzytkownika == x.id_uzytkownika);
+                }
+
+                if (DataOd != null)
+                    rezerwacje = rezerwacje.Where(s => s.data_rezerwacji >= DataOd);
+                if (DataDo != null)
+                    rezerwacje = rezerwacje.Where(s => s.data_rezerwacji <= DataDo);
+                if (!string.IsNullOrEmpty(imie))
+                    rezerwacje = rezerwacje.Where(s => s.Uzytkownicy.imie.Contains(imie));
+                if (!string.IsNullOrEmpty(nazwisko))
+                    rezerwacje = rezerwacje.Where(s => s.Uzytkownicy.nazwisko.Contains(nazwisko));
             }
+
             return View(rezerwacje);
         }
 
@@ -59,7 +88,7 @@ namespace SBDlibrary.Controllers
 
             Rezerwacje rezerwacja = new Rezerwacje();
             rezerwacja.Egzemplarze = dostepnyEgzemplarz;
-            rezerwacja.data_rezerwacji = new DateTime();
+            rezerwacja.data_rezerwacji = DateTime.UtcNow.Date.AddHours(1);
             rezerwacja.data_odbioru = rezerwacja.data_rezerwacji.AddDays(2);
             rezerwacja.id_uzytkownika = Convert.ToInt32(HttpContext.User.Identity.Name);
 
@@ -100,10 +129,31 @@ namespace SBDlibrary.Controllers
                 _context.SaveChanges();
             }
 
-            return RedirectToAction(nameof(Index));
+            if (HttpContext.User.IsInRole("Administrator") || HttpContext.User.IsInRole("Bibliotekarz"))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+                return RedirectToAction(nameof(RezerwacjeKlienta));
         }
+      
+        
+        [Authorize(Roles = "Klient")]
+        public async Task<IActionResult> RezerwacjeKlienta(int? id)
+        {
+            var idek = Convert.ToInt32(HttpContext.User.Identity.Name);
 
-           
+            
+            var user = await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.id_uzytkownika == idek);
+
+            var rezerwacje = _context.Rezerwacje.Where(m => m.id_uzytkownika == user.id_uzytkownika);
+            foreach (Rezerwacje x in rezerwacje)
+            {
+                x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);
+                x.Uzytkownicy = await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.id_uzytkownika == x.id_uzytkownika);
+            }
+            return View(rezerwacje);
+        }
     }
 
 

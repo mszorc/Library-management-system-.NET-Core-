@@ -1,6 +1,6 @@
 ﻿@model SBDlibrary.ViewModels.AccountViewModels.InputModelSetRoles
 @{
-    ViewData["Title"] = "SetRoles";
+    ViewData["Title"] = "Zmień role";
 }
 
 <partial name="_StatusMessage" for="StatusMessage" />
@@ -19,3 +19,7 @@
     </ul>
     <input type="submit" class="btn btn-primary mb-2" value="Zapisz zmiany" />
 </form>
+
+<div>
+    <a asp-action="ZnajdzUzytkownika">Powrót</a>
+</div>

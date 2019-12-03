@@ -7,21 +7,18 @@
 @model IEnumerable<SBDlibrary.Models.Wypozyczenia>
 
 @{
-    ViewData["Title"] = "Wypozyczenia";
+    ViewData["Title"] = "Ksiazki";
 }
 
 
-<h1>Egzemplarze</h1>
+<h1>ksiazki</h1>
 
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Uzytkownicy.imie)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Uzytkownicy.nazwisko)
+                @Html.DisplayNameFor(model => model.Egzemplarze.Ksiazki.tytuł)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.data_wypozyczenia)
@@ -29,11 +26,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.data_zwrotu)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Egzemplarze.Ksiazki.tytuł)
-            </th>
-
-
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -41,21 +34,18 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Uzytkownicy.imie)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Uzytkownicy.nazwisko)
+                    @Html.DisplayFor(modelItem => item.Egzemplarze.Ksiazki.tytuł)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.data_wypozyczenia)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.data_zwrotu)
+               
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Egzemplarze.Ksiazki.tytuł)
+                    @Html.ActionLink("Zwróć książkę", "Zwroc", "Wypozyczenia", new { id = item.id_wypozyczenia })
                 </td>
-
             </tr>
         }
     </tbody>

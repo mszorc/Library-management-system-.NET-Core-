@@ -2,21 +2,21 @@
 @inject SignInManager<Uzytkownicy> SignInManager
 @inject UserManager<Uzytkownicy> UserManager
 <div>
-    <ul class="navbar-nav" >
+    <ul class="navbar-nav">
         @if (SignInManager.IsSignedIn(User))
         {
-        <li>
-            <a class="btn btn-secondary" asp-area="" asp-controller="Konto" asp-action="Manage">Hello @User.Identity.Name!</a>
-            
-        </li>
-            
+            <li>
+                <a class="btn btn-secondary" asp-area="" asp-controller="Konta" asp-action="Manage">Hello @User.Identity.Name!</a>
+
+            </li>
+
             @if (this.User.IsInRole("Bibliotekarz") || this.User.IsInRole("Admin"))
             {
-    <li>
-        &nbsp;
-        <a class="btn btn-secondary" asp-area="" asp-controller="Konto" asp-action="Register">Register</a>
-        
-    </li>
+                <li>
+                    &nbsp;
+                    <a class="btn btn-secondary" asp-area="" asp-controller="Konta" asp-action="Register">Register</a>
+
+                </li>
 
                 <li class="nav-item">
                     <div class="dropdown mr-1">
@@ -39,7 +39,7 @@
             }
             @if (this.User.IsInRole("Klient"))
             {
-                
+
                 <li class="nav-item">
                     <div class="dropdown mr-1">
                         &nbsp;
@@ -47,23 +47,23 @@
                             Moje
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" asp-controller="Konto" asp-action="KsiazkiKlienta">Ksiazki</a>
-                            <a class="dropdown-item" asp-controller="Konto" asp-action="RezerwacjeKlienta">Rezerwacje</a>
+                            <a class="dropdown-item" asp-controller="Wypozyczenia" asp-action="KsiazkiKlienta">Ksiazki</a>
+                            <a class="dropdown-item" asp-controller="Rezerwacje" asp-action="RezerwacjeKlienta">Rezerwacje</a>
                         </div>
                     </div>
                 </li>
             }
             <li class="nav-item">
-                <form class="form-inline" asp-area="" asp-controller="Konto" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <form class="form-inline" asp-area="" asp-controller="Konta" asp-action="Wyloguj" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                     &nbsp;
-                    <button type="submit" class="btn btn-outline-secondary">Logout</button>
+                    <button type="submit" class="btn btn-outline-secondary">Wyloguj</button>
                 </form>
             </li>
         }
         else
         {
             <li class="nav-item">
-                <a class="btn btn-outline-secondary" asp-area="" asp-controller="Konto" asp-action="Login">Login</a>
+                <a class="btn btn-outline-secondary" asp-area="" asp-controller="Konta" asp-action="Zaloguj">Zaloguj sie</a>
             </li>
         }
     </ul>

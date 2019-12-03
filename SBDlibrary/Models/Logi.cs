@@ -20,11 +20,13 @@ namespace SBDlibrary.Models
         [Required]
         [StringLength(15)]
         [Column(Order = 2)]
+        [Display(Name = "IP urządzenia")]
         public string ip_urzadzenia { get; set; }
         
         [Required]
         [StringLength(50)]
         [Column(Order = 3)]
+        [Display(Name = "Komunikat")]
         public string komunikat { get; set; }
 
         [ForeignKey("id_uzytkownika")]

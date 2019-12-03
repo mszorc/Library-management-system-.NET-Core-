@@ -23,10 +23,12 @@ namespace SBDlibrary.Models
 
         [Required]
         [Column(Order = 3)]
+        [Display(Name = "Data wypożyczenia")]
         public DateTime data_wypozyczenia { get; set; }
 
         [Required]
         [Column(Order = 4)]
+        [Display(Name = "Data zwrotu")]
         public DateTime data_zwrotu { get; set; }
 
         [ForeignKey("id_uzytkownika")]

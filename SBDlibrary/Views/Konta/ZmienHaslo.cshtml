@@ -1,7 +1,7 @@
 ﻿@model SBDlibrary.ViewModel.InputModelChangePassword
 
 @{
-    ViewData["Title"] = "ChangePassword";
+    ViewData["Title"] = "Zmień hasło";
 }
 
 <partial name="_StatusMessage" for="StatusMessage" />
@@ -24,6 +24,10 @@
             <input asp-for="ConfirmNewPassword" class="form-control" />
             <span asp-validation-for="ConfirmNewPassword" class="text-danger"></span>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Zatwierdź zmiany</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Zapisz zmiany</button>
     </div>
 </form>
+
+<div>
+    <a asp-action="Zarzadzaj">Powrót</a>
+</div>

@@ -1,7 +1,7 @@
 ﻿@inject Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider schemeProvider
 @model SBDlibrary.ViewModel.InputModelForgotPassword
 @{
-    ViewData["Title"] = "ForgotPassword";
+    ViewData["Title"] = "Zapomniano hasła";
 }
 
 @if (!ViewData.ModelState.IsValid)
@@ -20,10 +20,3 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Wyślij wiadomość na adres email</button>
     </div>
 </form>
-
-<div class="external-providers">
-    @foreach (var scheme in await schemeProvider.GetRequestHandlerSchemesAsync())
-    {
-        <a asp-action="LogInExternal" asp-route-id="@scheme.Name" class="btn btn-lg btn-default">@scheme.DisplayName</a>
-    }
-</div>

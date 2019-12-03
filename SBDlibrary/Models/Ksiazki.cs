@@ -20,6 +20,7 @@ namespace SBDlibrary.Models
         [Required]
         [StringLength(50)]
         [Column(Order = 2)]
+        [Display(Name = "Tytuł")]
         public string tytuł { get; set; }
 
         [Required]
