@@ -8,6 +8,7 @@ using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -156,6 +157,7 @@ namespace SBDlibrary.Controllers
             return View(ksiazka);
         }
 
+        [Authorize(Roles = "Bibliotekarz,Admin")]
         public async Task<IActionResult> Usun(int? id)
         {
             if (id == null)

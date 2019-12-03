@@ -5,6 +5,8 @@
     }
 </style>
 @model IEnumerable<WyswietlanieKsiazekModel>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<Uzytkownicy> UserManager
 
 @{
     ViewData["Title"] = "Ksiazki";
@@ -42,45 +44,53 @@
             </th>
             <th></th>
             <th></th>
-            <th></th>
+            @if (this.User.IsInRole("Admin") || this.User.IsInRole("Bibliotekarz"))
+            {
+                <th></th>
+            }
+
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
-         {
-         <tr>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.ksiazka.tytuł)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ksiazka.Wydawnictwa.nazwa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ksiazka.data_wydania)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.dostepneEgzemplarze)
-            </td>
-            <td>
-                @Html.ActionLink("Szczegóły", "Detale", "Ksiazka", new { id = item.ksiazka.id_ksiazki })
-            </td>
-            <td>
-                @if (item.dostepneEgzemplarze == "dostepne")
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ksiazka.tytuł)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ksiazka.Wydawnictwa.nazwa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ksiazka.data_wydania)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dostepneEgzemplarze)
+                </td>
+                <td>
+                    @Html.ActionLink("Szczegóły", "Detale", "Ksiazka", new { id = item.ksiazka.id_ksiazki })
+                </td>
+                <td>
+                    @if (item.dostepneEgzemplarze == "dostepne")
+                    {
+                        @Html.ActionLink("Wypożycz", "Wypozycz", "Wypozyczenia", new { id_ksiazki = item.ksiazka.id_ksiazki })
+                    }
+                </td>
+                <td>
+                    @if (item.dostepneEgzemplarze == "dostepne")
+                    {
+                        @Html.ActionLink("Rezerwuj", "Zarezerwuj", "Rezerwacje", new { id_ksiazki = item.ksiazka.id_ksiazki })
+                    }
+                </td>
+                @if (this.User.IsInRole("Admin") || this.User.IsInRole("Bibliotekarz"))
                 {
-                    @Html.ActionLink("Wypożycz", "Wypozycz", "Wypozyczenia", new { id_ksiazki = item.ksiazka.id_ksiazki })
+                    <td>
+
+                        @Html.ActionLink("Usuń", "Usun", "Ksiazka", new { id = item.ksiazka.id_ksiazki })
+                    </td>
                 }
-            </td>
-            <td>
-                @if (item.dostepneEgzemplarze == "dostepne")
-                {
-                    @Html.ActionLink("Rezerwuj", "Zarezerwuj", "Rezerwacje", new { id_ksiazki = item.ksiazka.id_ksiazki })
-                }
-            </td>
-             <td>
-                 @Html.ActionLink("Usuń","Usun","Ksiazka",new {id=item.ksiazka.id_ksiazki })
-             </td>
-         </tr>
-         }
+            </tr>
+        }
     </tbody>
 </table>

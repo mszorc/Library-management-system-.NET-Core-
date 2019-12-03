@@ -7,12 +7,12 @@
 @model IEnumerable<SBDlibrary.Models.Wypozyczenia>
 
 @{
-    ViewData["Title"] = "Egzemplarze";
+    ViewData["Title"] = "Wypozyczenia";
 }
 
 
 <h1>Egzemplarze</h1>
-
+@Html.ActionLink("Wypożycz książkę klientowi", "WypozyczKlientowi", "Wypozyczenia")
 
 <table class="table">
     <thead>
@@ -32,7 +32,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Egzemplarze.Ksiazki.tytuł)
             </th>
-            
+
 
         </tr>
     </thead>
@@ -56,9 +56,15 @@
                 @Html.DisplayFor(modelItem => item.Egzemplarze.Ksiazki.tytuł)
             </td>
             <td>
-                @Html.ActionLink("Zwróć książkę", "ZwrocAdmin", "Wypozyczenia", new { id = item.id_wypozyczenia} )
+                @Html.ActionLink("Zwróć książkę", "ZwrocAdmin", "Wypozyczenia", new { id = item.id_wypozyczenia })
             </td>
-            
+            <td>
+                @if ((item.data_zwrotu - item.data_wypozyczenia).TotalDays <= 31)
+                {
+                    @Html.ActionLink("Przedłuzenie wypożyczenia", "PrzedluzWypozyczenieAdmin", "Wypozyczenia", new { id = item.id_wypozyczenia })
+
+                }
+            </td>
         </tr>
         }
     </tbody>

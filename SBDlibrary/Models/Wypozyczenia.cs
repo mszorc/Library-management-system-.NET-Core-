@@ -15,10 +15,12 @@ namespace SBDlibrary.Models
 
         [Required]
         [Column(Order = 1)]
+        [Display(Name = "Użytkownik")]
         public int id_uzytkownika { get; set; }
         
         [Required]
         [Column(Order = 2)]
+        [Display(Name = "Egzemplarz")]
         public int id_egzemplarza { get; set; }
 
         [Required]

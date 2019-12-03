@@ -139,6 +139,12 @@ namespace SBDlibrary.Controllers
         public async Task<IActionResult> Usun(int id)
         {
             var kategoria = await _context.Kategorie.FindAsync(id);
+            var kategoria_ksiazki = await _context.Kategorie_Ksiazki.FirstOrDefaultAsync(m => m.id_kategorii == id);
+            if (kategoria_ksiazki != null)
+            {
+                ModelState.AddModelError("", "Nie można usunąć kategorii, ponieważ istnieją połączenia z książkami.");
+                return View(kategoria);
+            }
             _context.Kategorie.Remove(kategoria);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

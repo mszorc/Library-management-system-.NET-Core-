@@ -2,53 +2,38 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-  /*background-color: #dcdcdc;*/
-
-}
-.colorA {
-    background-color: red
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    /*background-color: #dcdcdc;*/
 }
 
-.colorB {
-    background-color: #f9eebf
-}
-header{
-    background-color: #dcdcdc;
+
+header {
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
     font-size: 14px;
-
-    
 }
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
 
-  }
-}
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
-
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-  
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
@@ -56,9 +41,8 @@ button.accept-policy {
 html {
     position: relative;
     min-height: 100%;
-
-    
 }
+
 #kurwa {
     float: right;
     width: 300px;
@@ -69,8 +53,10 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-color: #f9eebf;
+    display: flex;
+    flex-direction: column;
 }
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -79,20 +65,21 @@ body {
     /* Set the fixed height of the footer here */
     height: 60px;
     line-height: 60px; /* Vertically center the text there */
-    background-color: #dcdcdc;
-}
-#master {
-    background-color: black;
+    #master
+
+{
+    background-color: #cccccc;
     border: 3px dashed red;
     font-size: 1.4em;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
 }
+
 #men {
     float: left;
     width: 20%;

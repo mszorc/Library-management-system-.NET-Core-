@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SBDlibrary.Models;
+using SBDlibrary.ViewModels.WypozyczeniaViewModels;
 
 namespace SBDlibrary.Controllers
 {
@@ -15,7 +17,6 @@ namespace SBDlibrary.Controllers
     {
         private readonly LibraryDbContext _context;
         private readonly UserManager<Uzytkownicy> _userManager;
-
         private const double KaraZaDzien = 0.2;
 
         public WypozyczeniaController(LibraryDbContext context, UserManager<Uzytkownicy> userManager)
@@ -140,6 +141,50 @@ namespace SBDlibrary.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = "Bibliotekarz,Admin")]
+        public async Task<IActionResult> WypozyczKlientowi()
+        {
+            var ksiazki = await _context.Ksiazki.ToListAsync();
+            List<EgzemplarzViewModel> egzemplarze = new List<EgzemplarzViewModel>();
+            foreach (var ksiazka in ksiazki)
+            {
+                var egzemplarz = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_ksiazki == ksiazka.id_ksiazki && m.status == Egzemplarze.Status.Dostępny);
+                if (egzemplarz != null)
+                {
+                    var egzemplarz_vm = new EgzemplarzViewModel(egzemplarz.id_egzemplarza, egzemplarz.id_ksiazki, ksiazka.tytuł);
+                    egzemplarze.Add(egzemplarz_vm);
+                }
+            }
+            ViewData["id_egzemplarza"] = new SelectList(egzemplarze, "id_egzemplarza", "tytul");
+            var uzytkownicy = await _context.Uzytkownicy.ToListAsync();
+            ViewData["id_uzytkownika"] = new SelectList(uzytkownicy, "id_uzytkownika", "email");
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Bibliotekarz,Admin")]
+        public async Task<IActionResult> WypozyczKlientowi([Bind("id_egzemplarza,id_uzytkownika")] Wypozyczenia wypozyczenie)
+        {
+            var czas = DateTime.Now;
+            wypozyczenie.data_wypozyczenia = czas;
+            wypozyczenie.data_zwrotu = czas.AddMonths(1);
+            if (ModelState.IsValid)
+            {
+                var egzemplarz = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == wypozyczenie.id_egzemplarza);
+                if (egzemplarz == null)
+                {
+                    return NotFound();
+                }
+                egzemplarz.status = Egzemplarze.Status.Wypozyczony;
+                _context.Egzemplarze.Update(egzemplarz);
+                _context.Wypozyczenia.Add(wypozyczenie);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
         [Authorize(Roles = "Klient")]
         public async Task<IActionResult> KsiazkiKlienta(int? id)
         {
@@ -163,7 +208,7 @@ namespace SBDlibrary.Controllers
             return View(wypozyczenia_aktualne);
         }
 
-        [Authorize(Roles = "Klient")]
+        [Authorize]
         public async Task<IActionResult> Zwroc(int? id)
         {
             if (id == null)
@@ -242,6 +287,78 @@ namespace SBDlibrary.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+        [Authorize(Roles = "Bibliotekarz,Admin")]
+        public async Task<IActionResult> PrzedluzWypozyczenieAdmin(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var wypozyczenie = await _context.Wypozyczenia.FirstOrDefaultAsync(m => m.id_wypozyczenia == id);
+
+            if (wypozyczenie == null)
+            {
+                return NotFound();
+            }
+
+            if ((wypozyczenie.data_zwrotu - wypozyczenie.data_wypozyczenia).TotalDays <= 31)
+            {
+                wypozyczenie.data_zwrotu = wypozyczenie.data_wypozyczenia.AddMonths(2);
+                _context.Wypozyczenia.Update(wypozyczenie);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                ModelState.AddModelError("", "Nie można już przedłużyć okresu wypożyczenia");
+            }
+
+            return RedirectToAction("Index", "Wypozyczenia");
+            
+        }
+
+        [Authorize(Roles = "Klient")]
+        public async Task<IActionResult> PrzedluzWYpozyczenie(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var wypozyczenie = await _context.Wypozyczenia.FirstOrDefaultAsync(m => m.id_wypozyczenia == id);
+
+            if (wypozyczenie == null)
+            {
+                return NotFound();
+            }
+
+            var uzytkownik = await _userManager.GetUserAsync(User);
+
+            if (uzytkownik.id_uzytkownika == wypozyczenie.id_uzytkownika)
+            {
+                if ((wypozyczenie.data_zwrotu - wypozyczenie.data_wypozyczenia).TotalDays <= 31)
+                {
+                    wypozyczenie.data_zwrotu = wypozyczenie.data_wypozyczenia.AddMonths(2);
+                    _context.Wypozyczenia.Update(wypozyczenie);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Nie można już przedłużyć okresu wypożyczenia");
+                }
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("KsiazkiKlienta", "Wypozyczenia");
+        }
+
+        public IActionResult Wypozyczono()
+        {
+            return View();
         }
     }
 }
