@@ -58,7 +58,7 @@
                 <td>
                     @if ((item.data_zwrotu - item.data_wypozyczenia).TotalDays <= 31)
                     {
-                        @Html.ActionLink("Przedłuzenie wypożyczenia", "PrzedluzWypozyczenid", "Wypozyczenia", new { id = item.id_wypozyczenia })
+                        @Html.ActionLink("Przedłuzenie wypożyczenia", "PrzedluzWypozyczenieAdmin", "Wypozyczenia", new { id = item.id_wypozyczenia })
 
                     }
                 </td>

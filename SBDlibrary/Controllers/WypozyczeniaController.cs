@@ -242,8 +242,8 @@ namespace SBDlibrary.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-        public async Task<IActionResult> PrzedluzWypozyczenie(int? id)
+        [Authorize(Roles = "Bibliotekarz,Admin")]
+        public async Task<IActionResult> PrzedluzWypozyczenieAdmin(int? id)
         {
             if (id == null)
             {
@@ -256,9 +256,40 @@ namespace SBDlibrary.Controllers
             {
                 return NotFound();
             }
+
+            if ((wypozyczenie.data_zwrotu - wypozyczenie.data_wypozyczenia).TotalDays <= 31)
+            {
+                wypozyczenie.data_zwrotu = wypozyczenie.data_wypozyczenia.AddMonths(2);
+                _context.Wypozyczenia.Update(wypozyczenie);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                ModelState.AddModelError("", "Nie można już przedłużyć okresu wypożyczenia");
+            }
+
+            return RedirectToAction("Index", "Wypozyczenia");
+            
+        }
+
+        [Authorize(Roles = "Klient")]
+        public async Task<IActionResult> PrzedluzWYpozyczenie(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var wypozyczenie = await _context.Wypozyczenia.FirstOrDefaultAsync(m => m.id_wypozyczenia == id);
+
+            if (wypozyczenie == null)
+            {
+                return NotFound();
+            }
+
             var uzytkownik = await _userManager.GetUserAsync(User);
-            if (await _userManager.IsInRoleAsync(uzytkownik, "Admin") || await _userManager.IsInRoleAsync(uzytkownik, "Bibliotekarz")
-                        || (await _userManager.IsInRoleAsync(uzytkownik, "Klient") && wypozyczenie.id_uzytkownika == uzytkownik.id_uzytkownika))
+
+            if (uzytkownik.id_uzytkownika == wypozyczenie.id_uzytkownika)
             {
                 if ((wypozyczenie.data_zwrotu - wypozyczenie.data_wypozyczenia).TotalDays <= 31)
                 {
@@ -270,12 +301,13 @@ namespace SBDlibrary.Controllers
                 {
                     ModelState.AddModelError("", "Nie można już przedłużyć okresu wypożyczenia");
                 }
-
-                return RedirectToAction("Index", "Wypozyczenia");
             }
             else
+            {
                 return NotFound();
-            
+            }
+
+            return RedirectToAction("KsiazkiKlienta", "Wypozyczenia");
         }
 
         public IActionResult Wypozyczono()
