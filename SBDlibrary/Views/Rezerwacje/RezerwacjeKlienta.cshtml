@@ -42,34 +42,41 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Uzytkownicy.imie)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Uzytkownicy.nazwisko)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.data_rezerwacji)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.data_odbioru)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Egzemplarze.Ksiazki.tytuł)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.status_rezerwacji)
-                </td>
-                <td>
-                    @if (item.status_rezerwacji == Rezerwacje.Status.aktualna)
-                    {
-                        @Html.ActionLink("Anuluj rezerwacje", "AnulujRezerwacje", "Rezerwacje", new { id_rezerwacji = item.id_rezerwacji })
-                    }
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uzytkownicy.imie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uzytkownicy.nazwisko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.data_rezerwacji)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.data_odbioru)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Egzemplarze.Ksiazki.tytuł)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status_rezerwacji)
+            </td>
+            <td>
+                @if (item.status_rezerwacji == Rezerwacje.Status.aktualna)
+                {
+                    @Html.ActionLink("Anuluj rezerwacje", "AnulujRezerwacje", "Rezerwacje", new { id_rezerwacji = item.id_rezerwacji })
+                }
 
-                </td>
+            </td>
+            <td>
+                @if (item.status_rezerwacji == Rezerwacje.Status.aktualna)
+                {
+                    @Html.ActionLink("Wypożycz zarezerwowany egzemplarz", "wypozyczZarezerwowanyEgzemplarz", "Rezerwacje", new { id_rezerwacji = item.id_rezerwacji })
+                }
 
-            </tr>
+            </td>
+
+        </tr>
         }
     </tbody>
 </table>

@@ -141,74 +141,9 @@ namespace SBDlibrary.Controllers
 
             return RedirectToAction("Index");
         }
-
-        [Authorize(Roles = "Bibliotekarz,Admin")]
-        public async Task<IActionResult> WypozyczKlientowi()
-        {
-            var ksiazki = await _context.Ksiazki.ToListAsync();
-            List<EgzemplarzViewModel> egzemplarze = new List<EgzemplarzViewModel>();
-            foreach (var ksiazka in ksiazki)
-            {
-                var egzemplarz = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_ksiazki == ksiazka.id_ksiazki && m.status == Egzemplarze.Status.Dostępny);
-                if (egzemplarz != null)
-                {
-                    var egzemplarz_vm = new EgzemplarzViewModel(egzemplarz.id_egzemplarza, egzemplarz.id_ksiazki, ksiazka.tytuł);
-                    egzemplarze.Add(egzemplarz_vm);
-                }
-            }
-            ViewData["id_egzemplarza"] = new SelectList(egzemplarze, "id_egzemplarza", "tytul");
-            var uzytkownicy = await _context.Uzytkownicy.ToListAsync();
-            ViewData["id_uzytkownika"] = new SelectList(uzytkownicy, "id_uzytkownika", "email");
-            return View();
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Bibliotekarz,Admin")]
-        public async Task<IActionResult> WypozyczKlientowi([Bind("id_egzemplarza,id_uzytkownika")] Wypozyczenia wypozyczenie)
-        {
-            var czas = DateTime.Now;
-            wypozyczenie.data_wypozyczenia = czas;
-            wypozyczenie.data_zwrotu = czas.AddMonths(1);
-            if (ModelState.IsValid)
-            {
-                var egzemplarz = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == wypozyczenie.id_egzemplarza);
-                if (egzemplarz == null)
-                {
-                    return NotFound();
-                }
-                egzemplarz.status = Egzemplarze.Status.Wypozyczony;
-                _context.Egzemplarze.Update(egzemplarz);
-                _context.Wypozyczenia.Add(wypozyczenie);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
+        
 
         [Authorize(Roles = "Klient")]
-        public async Task<IActionResult> KsiazkiKlienta(int? id)
-        {
-            // if(id==0)
-            var idek = Convert.ToInt32(HttpContext.User.Identity.Name);
-            var user = await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.id_uzytkownika == idek);
-
-
-
-            var wypozyczenia = _context.Wypozyczenia.Where(m => m.id_uzytkownika == user.id_uzytkownika);
-            List<Wypozyczenia> wypozyczenia_aktualne = new List<Wypozyczenia>();
-            foreach(Wypozyczenia x in wypozyczenia)
-            {
-                x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(b => b.id_egzemplarza == x.id_egzemplarza);
-                x.Egzemplarze.Ksiazki = await _context.Ksiazki.FirstOrDefaultAsync(c => c.id_ksiazki == x.Egzemplarze.id_ksiazki); 
-                var zwrot = await _context.Zwroty.FirstOrDefaultAsync(m => m.id_wypozyczenia == x.id_wypozyczenia);
-                if (zwrot == null) wypozyczenia_aktualne.Add(x);
-            }
-          //  var egzemplarze = from b in wypozyczenia from c in _context.Egzemplarze.Where(c => b.id_egzemplarza == c.id_egzemplarza) select c;
-         //   var Ksiazki = from c in egzemplarze from d in _context.Ksiazki.Where(d => c.id_ksiazki == d.id_ksiazki) select d;
-            return View(wypozyczenia_aktualne);
-        }
-
-        [Authorize]
         public async Task<IActionResult> Zwroc(int? id)
         {
             if (id == null)
@@ -288,6 +223,8 @@ namespace SBDlibrary.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+
         [Authorize(Roles = "Bibliotekarz,Admin")]
         public async Task<IActionResult> PrzedluzWypozyczenieAdmin(int? id)
         {
@@ -317,6 +254,75 @@ namespace SBDlibrary.Controllers
             return RedirectToAction("Index", "Wypozyczenia");
             
         }
+
+        [Authorize(Roles = "Bibliotekarz,Admin")]
+        public async Task<IActionResult> WypozyczKlientowi()
+        {
+            var ksiazki = await _context.Ksiazki.ToListAsync();
+            List<EgzemplarzViewModel> egzemplarze = new List<EgzemplarzViewModel>();
+            foreach (var ksiazka in ksiazki)
+            {
+                var egzemplarz = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_ksiazki == ksiazka.id_ksiazki && m.status == Egzemplarze.Status.Dostępny);
+                if (egzemplarz != null)
+                {
+                    var egzemplarz_vm = new EgzemplarzViewModel(egzemplarz.id_egzemplarza, egzemplarz.id_ksiazki, ksiazka.tytuł);
+                    egzemplarze.Add(egzemplarz_vm);
+                }
+            }
+            ViewData["id_egzemplarza"] = new SelectList(egzemplarze, "id_egzemplarza", "tytul");
+            var uzytkownicy = await _context.Uzytkownicy.ToListAsync();
+            ViewData["id_uzytkownika"] = new SelectList(uzytkownicy, "id_uzytkownika", "email");
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Bibliotekarz,Admin")]
+        public async Task<IActionResult> WypozyczKlientowi([Bind("id_egzemplarza,id_uzytkownika")] Wypozyczenia wypozyczenie)
+        {
+            var czas = DateTime.Now;
+            wypozyczenie.data_wypozyczenia = czas;
+            wypozyczenie.data_zwrotu = czas.AddMonths(1);
+            if (ModelState.IsValid)
+            {
+                var egzemplarz = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == wypozyczenie.id_egzemplarza);
+                if (egzemplarz == null)
+                {
+                    return NotFound();
+                }
+                egzemplarz.status = Egzemplarze.Status.Wypozyczony;
+                _context.Egzemplarze.Update(egzemplarz);
+                _context.Wypozyczenia.Add(wypozyczenie);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        [Authorize(Roles = "Klient")]
+        public async Task<IActionResult> KsiazkiKlienta(int? id)
+        {
+            // if(id==0)
+            var idek = Convert.ToInt32(HttpContext.User.Identity.Name);
+            var user = await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.id_uzytkownika == idek);
+
+
+
+            var wypozyczenia = _context.Wypozyczenia.Where(m => m.id_uzytkownika == user.id_uzytkownika);
+            List<Wypozyczenia> wypozyczenia_aktualne = new List<Wypozyczenia>();
+            foreach(Wypozyczenia x in wypozyczenia)
+            {
+                x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(b => b.id_egzemplarza == x.id_egzemplarza);
+                x.Egzemplarze.Ksiazki = await _context.Ksiazki.FirstOrDefaultAsync(c => c.id_ksiazki == x.Egzemplarze.id_ksiazki); 
+                var zwrot = await _context.Zwroty.FirstOrDefaultAsync(m => m.id_wypozyczenia == x.id_wypozyczenia);
+                if (zwrot == null) wypozyczenia_aktualne.Add(x);
+            }
+          //  var egzemplarze = from b in wypozyczenia from c in _context.Egzemplarze.Where(c => b.id_egzemplarza == c.id_egzemplarza) select c;
+         //   var Ksiazki = from c in egzemplarze from d in _context.Ksiazki.Where(d => c.id_ksiazki == d.id_ksiazki) select d;
+            return View(wypozyczenia_aktualne);
+        }
+
+       
+        
 
         [Authorize(Roles = "Klient")]
         public async Task<IActionResult> PrzedluzWYpozyczenie(int? id)
