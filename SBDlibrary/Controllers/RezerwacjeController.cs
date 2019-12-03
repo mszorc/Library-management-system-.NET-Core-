@@ -4,9 +4,12 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SBDlibrary.Models;
+using SBDlibrary.ViewModels.WypozyczeniaViewModels;
 
 namespace SBDlibrary.Controllers
 {
@@ -14,10 +17,12 @@ namespace SBDlibrary.Controllers
     {
 
         private readonly LibraryDbContext _context;
+        private readonly UserManager<Uzytkownicy> _userManager;
 
-        public RezerwacjeController(LibraryDbContext context)
+        public RezerwacjeController(LibraryDbContext context, UserManager<Uzytkownicy> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         //[Authorize(Roles = "Bibliotekarz,Admin")]
         
@@ -115,11 +120,69 @@ namespace SBDlibrary.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Bibliotekarz")]
+        public async Task<IActionResult> ZarezerwujKlientowi()
+        {
+            var ksiazki = await _context.Ksiazki.ToListAsync();
+            List<EgzemplarzViewModel> egzemplarze = new List<EgzemplarzViewModel>();
+            foreach (var ksiazka in ksiazki)
+            {
+                var egzemplarz = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_ksiazki == ksiazka.id_ksiazki && m.status == Egzemplarze.Status.Dostępny);
+                if (egzemplarz != null)
+                {
+                    var egzemplarz_vm = new EgzemplarzViewModel(egzemplarz.id_egzemplarza, egzemplarz.id_ksiazki, ksiazka.tytuł);
+                    egzemplarze.Add(egzemplarz_vm);
+                }
+            }
+            ViewData["id_egzemplarza"] = new SelectList(egzemplarze, "id_egzemplarza", "tytul");
+            var uzytkownicy = await _context.Uzytkownicy.ToListAsync();
+            ViewData["id_uzytkownika"] = new SelectList(uzytkownicy, "id_uzytkownika", "email");
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Bibliotekarz")]
+        public async Task<IActionResult> ZarezerwujKlientowi([Bind("id_egzemplarza,id_uzytkownika")] Rezerwacje rezerwacja)
+        {
+            var czas = DateTime.Now;
+            rezerwacja.data_rezerwacji = czas;
+            rezerwacja.data_odbioru = czas.AddDays(2);
+            rezerwacja.status_rezerwacji = Rezerwacje.Status.aktualna;
+            /*if (ModelState.IsValid)
+            {
+                var egzemplarz = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == rezerwacja.id_egzemplarza);
+                if (egzemplarz == null)
+                {
+                    return NotFound();
+                }
+                egzemplarz.status = Egzemplarze.Status.Zarezerwowany;
+                _context.Egzemplarze.Update(egzemplarz);
+                _context.Rezerwacje.Add(rezerwacja);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }*/
+            var egzemplarz = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == rezerwacja.id_egzemplarza);
+            if (egzemplarz == null)
+            {
+                return NotFound();
+            }
+            egzemplarz.status = Egzemplarze.Status.Zarezerwowany;
+            _context.Egzemplarze.Update(egzemplarz);
+            _context.Rezerwacje.Add(rezerwacja);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
         public async Task<IActionResult> AnulujRezerwacje(int id_rezerwacji)
         {
             var rezerwacja = await _context.Rezerwacje
                  .FirstOrDefaultAsync(m => m.id_rezerwacji == id_rezerwacji);
-            rezerwacja.Egzemplarze = await _context.Egzemplarze
+            var uzytkownik = await _userManager.GetUserAsync(User);
+            if (HttpContext.User.IsInRole("Klient") && rezerwacja.id_uzytkownika != uzytkownik.id_uzytkownika)
+            {
+                return NotFound();
+            }
+                rezerwacja.Egzemplarze = await _context.Egzemplarze
                  .FirstOrDefaultAsync(m => m.id_egzemplarza == rezerwacja.id_egzemplarza);
 
             if(rezerwacja!=null && rezerwacja.Egzemplarze != null)
@@ -129,7 +192,7 @@ namespace SBDlibrary.Controllers
                 _context.SaveChanges();
             }
 
-            if (HttpContext.User.IsInRole("Administrator") || HttpContext.User.IsInRole("Bibliotekarz"))
+            if (HttpContext.User.IsInRole("Admin") || HttpContext.User.IsInRole("Bibliotekarz"))
             {
                 return RedirectToAction(nameof(Index));
             }

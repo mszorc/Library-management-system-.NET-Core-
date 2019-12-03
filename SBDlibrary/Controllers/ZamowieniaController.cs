@@ -114,33 +114,23 @@ namespace SBDlibrary.Controllers
             ViewData["id_ksiazki"] = new SelectList(_context.Ksiazki, "id_ksiazki", "tytuł", zamowienie_ksiazki.id_ksiazki);
             return View(zamowienie_ksiazki.id_zamowienia);
         }
-
+        
+        [Authorize(Roles = "Bibliotekarz")]
         public IActionResult Stworz()
         {
-            List<Zamowienia.Status> status = new List<Zamowienia.Status>();
-            status.Add(Zamowienia.Status.Zamówione);
-            List<DateTime> data = new List<DateTime>();
-            data.Add(DateTime.Now);
             ViewData["id_dostawcy"] = new SelectList(_context.Dostawcy, "id_dostawcy", "adres");
-            ViewData["status"] = new SelectList(status);
-            ViewData["data_zamowienia"] = new SelectList(data);
-
             return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Stworz([Bind("id_zamowienia,id_dostawcy,data_zamowienia,status_zamowienia")] Zamowienia zamowienie)
+        [Authorize(Roles = "Bibliotekarz")]
+        public async Task<IActionResult> Stworz([Bind("id_dostawcy")] Zamowienia zamowienie)
         {
-            if (ModelState.IsValid)
-            {
-                zamowienie.status_zamowienia = Zamowienia.Status.Zamówione;
-                _context.Add(zamowienie);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["id_dostawcy"] = new SelectList(_context.Dostawcy, "id_dostawcy", "adres", zamowienie.id_dostawcy);
-            return View(zamowienie);
+            zamowienie.data_zamowienia = DateTime.Now;
+            zamowienie.status_zamowienia = Zamowienia.Status.Zamówione;
+            _context.Add(zamowienie);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Usun(int? id)
