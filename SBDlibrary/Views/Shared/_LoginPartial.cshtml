@@ -1,29 +1,24 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<Uzytkownicy> SignInManager
 @inject UserManager<Uzytkownicy> UserManager
-<div>
+
     <ul class="navbar-nav">
         @if (SignInManager.IsSignedIn(User))
         {
             <li>
-                <a class="btn btn-secondary" asp-area="" asp-controller="Konta" asp-action="Manage">Hello @User.Identity.Name!</a>
-
+                <a class="btn btn-secondary" asp-area="" asp-controller="Konta" asp-action="Zarzadzaj">Moje konto</a> &nbsp;
             </li>
-
             @if (this.User.IsInRole("Bibliotekarz") || this.User.IsInRole("Admin"))
             {
-                <li>
-                    &nbsp;
-                    <a class="btn btn-secondary" asp-area="" asp-controller="Konta" asp-action="Register">Register</a>
-
-                </li>
+    <li>
+        <a class="btn btn-secondary" asp-area="" asp-controller="Konta" asp-action="Zarejestruj">Rejestracja</a>&nbsp;
+    </li>
 
                 <li class="nav-item">
                     <div class="dropdown mr-1">
-                        &nbsp;
                         <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
                             Zarzadzaj
-                        </button>
+                        </button>&nbsp;
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" asp-controller="Ksiazka" asp-action="Index">Ksiazki</a>
                             <a class="dropdown-item" asp-controller="Autorzy" asp-action="Index">Autorzy</a>
@@ -31,7 +26,9 @@
                             <a class="dropdown-item" asp-controller="Dostawcy" asp-action="Index">Dostawcy</a>
                             <a class="dropdown-item" asp-controller="Wydawnictwa" asp-action="Index">Wydawnictwa</a>
                             <a class="dropdown-item" asp-controller="Zamowienia" asp-action="Index">Zamowienia</a>
-                            <a class="dropdown-item" asp-controller="Rezerwacje" asp-action="Index">Rezewacje</a>
+                            <a class="dropdown-item" asp-controller="Rezerwacje" asp-action="Index">Rezerwacje</a>
+                            <a class="dropdown-item" asp-controller="Wypozyczenia" asp-action="Index">Wypozyczenia</a>
+                            <a class="dropdown-item" asp-controller="Zwroty" asp-action="Index">Zwroty</a>
 
                         </div>
                     </div>
@@ -39,23 +36,22 @@
             }
             @if (this.User.IsInRole("Klient"))
             {
-
+                
                 <li class="nav-item">
                     <div class="dropdown mr-1">
-                        &nbsp;
                         <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
                             Moje
-                        </button>
+                        </button>&nbsp;
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" asp-controller="Wypozyczenia" asp-action="KsiazkiKlienta">Ksiazki</a>
                             <a class="dropdown-item" asp-controller="Rezerwacje" asp-action="RezerwacjeKlienta">Rezerwacje</a>
+                            <a class="dropdown-item" asp-controller="Zwroty" asp-action="ZwrotyKlienta">Zwroty</a>
                         </div>
                     </div>
                 </li>
             }
             <li class="nav-item">
                 <form class="form-inline" asp-area="" asp-controller="Konta" asp-action="Wyloguj" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    &nbsp;
                     <button type="submit" class="btn btn-outline-secondary">Wyloguj</button>
                 </form>
             </li>
@@ -63,8 +59,7 @@
         else
         {
             <li class="nav-item">
-                <a class="btn btn-outline-secondary" asp-area="" asp-controller="Konta" asp-action="Zaloguj">Zaloguj sie</a>
+                <a class="btn btn-outline-secondary" asp-area="" asp-controller="Konta" asp-action="Zaloguj">Zaloguj</a>
             </li>
         }
     </ul>
-</div>
