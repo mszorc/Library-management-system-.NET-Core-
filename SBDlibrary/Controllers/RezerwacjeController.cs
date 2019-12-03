@@ -229,7 +229,7 @@ namespace SBDlibrary.Controllers
             }
             return View(rezerwacje);
         }
-      
+
 
         [Authorize(Roles = "Klient")]
         public async Task<IActionResult> wypozyczZarezerwowanyEgzemplarz(int? id_rezerwacji)
@@ -270,9 +270,4 @@ namespace SBDlibrary.Controllers
             return log;
         }
     }
-
-
-
-
-
 }
