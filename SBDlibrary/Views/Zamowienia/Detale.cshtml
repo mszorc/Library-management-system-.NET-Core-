@@ -1,0 +1,67 @@
+﻿@model IEnumerable<SBDlibrary.ViewModels.ZamowieniaViewModels.ZamowienieKsiazkiViewModel>
+
+@{
+    ViewData["Title"] = "Zamówienie";
+}
+
+<h1>Detale</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.tytul)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ilosc)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tytul)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ilosc)
+                </td>
+                <td>
+                    @if (ViewBag.Status == Zamowienia.Status.Zamówione)
+                    {
+                        @Html.ActionLink("Usuń", "UsunKsiazki", new { id_zamowienia = item.id_zamowienia, id_ksiazki = item.id_ksiazki }, null)
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (ViewBag.Status == Zamowienia.Status.Zamówione)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Detale">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="@Model.FirstOrDefault().id_ksiazki" class="control-label"></label>
+                    <select asp-for="@Model.FirstOrDefault().id_ksiazki" class="form-control" asp-items="ViewBag.id_ksiazki"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.FirstOrDefault().ilosc" class="control-label"></label>
+                    <input asp-for="@Model.FirstOrDefault().ilosc" class="form-control" min="1" max="1000" />
+                    <span asp-validation-for="@Model.FirstOrDefault().ilosc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Dodaj" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+<div>
+    <a asp-action="Index">Powrót do listy</a>
+</div>
+

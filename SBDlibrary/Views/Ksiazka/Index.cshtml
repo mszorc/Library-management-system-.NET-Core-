@@ -1,0 +1,103 @@
+﻿<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+<style>
+    h1 {
+        font-family: 'Lato', monospace;
+    }
+</style>
+@model IEnumerable<WyswietlanieKsiazekModel>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<Uzytkownicy> UserManager
+
+@{
+    ViewData["Title"] = "Ksiazki";
+}
+
+<h1>Książki</h1>
+<hr />
+@if (this.User.IsInRole("Admin") || this.User.IsInRole("Bibliotekarz"))
+{
+<div>
+    <a class="btn btn-outline-secondary" asp-action="Stworz">Dodaj</a>&nbsp;&nbsp;
+</div>
+}
+
+
+<br />
+<div style="text-align:center ">
+    <form asp-action="Index">
+        <p>
+            Tytuł: <input type="text" name="tytuł" size="80">&nbsp;
+            <input type="submit" value="Filtruj" />&nbsp;
+            @Html.ActionLink("Wyłącz filtry", "Index")
+        </p>
+    </form>
+</div>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.ksiazka)
+            </th>
+            <th>
+                Wydawnictwo
+            </th>
+            <th>
+                Data wydania
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+            <th></th>
+            @if (this.User.IsInRole("Admin") || this.User.IsInRole("Bibliotekarz"))
+            {
+                <th></th>
+            }
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ksiazka.tytuł)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ksiazka.Wydawnictwa.nazwa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ksiazka.data_wydania)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dostepneEgzemplarze)
+                </td>
+                <td>
+                    @Html.ActionLink("Szczegóły", "Detale", "Ksiazka", new { id = item.ksiazka.id_ksiazki })
+                </td>
+                <td>
+                    @if (item.dostepneEgzemplarze == "dostepne")
+                    {
+                        @Html.ActionLink("Wypożycz", "Wypozycz", "Wypozyczenia", new { id_ksiazki = item.ksiazka.id_ksiazki })
+                    }
+                </td>
+                <td>
+                    @if (item.dostepneEgzemplarze == "dostepne")
+                    {
+                        @Html.ActionLink("Rezerwuj", "Zarezerwuj", "Rezerwacje", new { id_ksiazki = item.ksiazka.id_ksiazki })
+                    }
+                </td>
+                @if (this.User.IsInRole("Admin") || this.User.IsInRole("Bibliotekarz"))
+                {
+                    <td>
+
+                        @Html.ActionLink("Usuń", "Usun", "Ksiazka", new { id = item.ksiazka.id_ksiazki })
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

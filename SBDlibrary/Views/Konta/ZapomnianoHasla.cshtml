@@ -1,0 +1,22 @@
+﻿@inject Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider schemeProvider
+@model SBDlibrary.ViewModel.InputModelForgotPassword
+@{
+    ViewData["Title"] = "Zapomniano hasła";
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div asp-validation-summary="All" class="alert alert-danger"></div>
+}
+
+<h4>Odzyskaj hasło</h4>
+<form class="form" method="post" novalidate>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Wyślij wiadomość na adres email</button>
+    </div>
+</form>

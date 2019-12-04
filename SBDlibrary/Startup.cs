@@ -14,6 +14,9 @@ using SBDlibrary.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SBDlibrary.Models;
+using SBDlibrary.Authentication;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using SBDlibrary.Services;
 
 namespace SBDlibrary
 {
@@ -29,6 +32,9 @@ namespace SBDlibrary
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+          
+           services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -36,15 +42,26 @@ namespace SBDlibrary
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            /*services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnection")));*/
             services.AddDbContext<LibraryDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<Uzytkownicy, Uzytkownicy_role>()
+                .AddDefaultTokenProviders();
+            services.AddTransient<IUserStore<Uzytkownicy>, UserStore>();
+            services.AddTransient<IRoleStore<Uzytkownicy_role>, RoleStore>();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.LoginPath = "/Login";
+                options.LogoutPath = "/Logout";
+            });
+
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

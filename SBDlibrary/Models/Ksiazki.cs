@@ -12,15 +12,33 @@ namespace SBDlibrary.Models
         [Key]
         [Column(Order = 0)]
         public int id_ksiazki { get; set; }
+
         [Required]
         [Column(Order = 1)]
-        public virtual Wydawnictwa Wydawnictwa { get; set; }
+        public int id_wydawnictwa { get; set; }
+
         [Required]
         [StringLength(50)]
         [Column(Order = 2)]
+        [Display(Name = "Tytuł")]
         public string tytuł { get; set; }
+
         [Required]
         [Column(Order = 3)]
         public DateTime data_wydania { get; set; }
+
+        [ForeignKey("id_wydawnictwa")]
+        public virtual Wydawnictwa Wydawnictwa { get; set; }
+    }
+    public class SimpleCreateModelWydawnictwo
+    {
+
+        [Display(Name = "idKategorii")]
+        public int id_ksiazki;
+    }
+    public class WyswietlanieKsiazekModel
+    {
+        public Ksiazki ksiazka;
+        public string dostepneEgzemplarze;
     }
 }

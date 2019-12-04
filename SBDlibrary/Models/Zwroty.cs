@@ -12,17 +12,22 @@ namespace SBDlibrary.Models
         [Key]
         [Column(Order = 0)]
         public int id_zwrotu { get; set; }
+        [Required]
+        [Column(Order = 1)]
+        public int id_wypozyczenia { get; set; }
 
         [Required]
         [Column(Order = 2)]
+        [Display(Name = "Data zwrotu")]
         public DateTime data_zwrotu { get; set; }
 
         [Required]
         [Column(Order = 3)]
-        public float kara { get; set; }
+        [Display(Name = "Kara")]
+        public double kara { get; set; }
 
-        [Column(Order = 1)]
-        public virtual Wypozyczenia id_wypozyczenia { get; set; }
+        [ForeignKey("id_wypozyczenia")]
+        public virtual Wypozyczenia Wypozyczenia { get; set; }
 
     }
 }

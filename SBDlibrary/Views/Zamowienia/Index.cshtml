@@ -1,0 +1,78 @@
+﻿<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+<style>
+    h1 {
+        font-family: 'Lato', monospace;
+    }
+</style>
+@model IEnumerable<SBDlibrary.Models.Zamowienia>
+
+@{
+    ViewData["Title"] = "Zamówienia";
+}
+
+<h1>Zamówienia</h1>
+<hr />
+
+<p>
+    <a class="btn btn-outline-secondary" asp-action="Stworz">Dodaj</a> &nbsp;&nbsp;
+</p>
+<form asp-action="Index">
+    <p>
+        Od:
+        <br />
+        <input type="date" asp-for="@Model.FirstOrDefault().data_zamowienia" class="form-control" name="DataOd" />
+        <span asp-validation-for="@Model.FirstOrDefault().data_zamowienia" class="text-danger"></span>
+        <br />
+        Do:
+        <br />
+        <input type="date" asp-for="@Model.FirstOrDefault().data_zamowienia" class="form-control" name="DataDo" />
+        <span asp-validation-for="@Model.FirstOrDefault().data_zamowienia" class="text-danger"></span>
+        <br />
+        <input type="submit" value="Filtruj" />&nbsp;
+        @Html.ActionLink("Wyłącz filtr", "Zamowienia")
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.data_zamowienia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status_zamowienia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dostawcy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.data_zamowienia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.status_zamowienia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dostawcy.adres)
+                </td>
+                <td>
+                    @if (item.status_zamowienia == Zamowienia.Status.Zamówione)
+                    {
+                        @Html.ActionLink("Usuń", "Usun", new { id = item.id_zamowienia })<text> | </text>
+                    }
+                    @Html.ActionLink("Detale", "Detale", new { id = item.id_zamowienia })
+                    @if (item.status_zamowienia == Zamowienia.Status.Zamówione)
+                    {
+                        <text>| </text>
+                        @Html.ActionLink("Odbierz zamówienie", "OdbierzZamowienie", new { id = item.id_zamowienia })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

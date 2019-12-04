@@ -1,0 +1,30 @@
+﻿@model SBDlibrary.Models.Zamowienia
+
+@{
+    ViewData["Title"] = "Zamówienia";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Stworz">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="id_dostawcy" class="control-label"></label>
+                <select asp-for="id_dostawcy" class="form-control" asp-items="ViewBag.id_dostawcy"></select>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="data_zamowienia" class="control-label" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="status_zamowienia" class="control-label" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Dodaj zamówienie" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Powrót</a>
+</div>

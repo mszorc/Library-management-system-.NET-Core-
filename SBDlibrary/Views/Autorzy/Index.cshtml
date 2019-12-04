@@ -1,0 +1,60 @@
+﻿<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+<style>
+    h1 {
+        font-family: 'Lato', monospace;
+    }
+</style>
+@model IEnumerable<SBDlibrary.Models.Autor>
+
+@{
+    ViewData["Title"] = "Autorzy";
+}
+
+<h1>Autorzy</h1>
+<hr />
+<div>
+    <a class="btn btn-outline-secondary" asp-action="Stworz">Dodaj</a>&nbsp;&nbsp;
+</div>
+<br />
+<div style="text-align:center ">
+    <form asp-action="Index">
+        <p>
+            Nazwisko: <input type="text" name="nazwisko" size="80">&nbsp;
+            <input type="submit" value="Filtruj" />&nbsp;
+            @Html.ActionLink("Wyłącz filtry", "Index")
+        </p>
+    </form>
+</div>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.imie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nazwisko)
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.imie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nazwisko)
+                </td>
+                <td>
+                    @Html.ActionLink("Edytuj", "Edytuj", new { id=item.id_autor }) |
+                    @Html.ActionLink("Usuń", "Usun", new { id=item.id_autor })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
