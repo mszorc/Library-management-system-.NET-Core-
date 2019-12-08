@@ -1,0 +1,30 @@
+﻿@model SBDlibrary.Models.Kategorie
+@{
+    ViewData["Title"] = "Kategorie";
+}
+
+<h1>Edytuj</h1>
+
+<h4>Kategoria</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edytuj">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="id_kategorii" />
+            <div class="form-group">
+                <label asp-for="nazwa" class=""></label>
+                <input asp-for="nazwa" class="form-control">
+                <span asp-validation-for="nazwa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Zapisz" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Powrót</a>
+</div>
+

@@ -12,13 +12,15 @@ namespace SBDlibrary.Models
         [Key]
         [Column(Order = 0)]
         public int id_autor { get; set; }
-        [Required]
-        [StringLength(20)]
+        [Required(ErrorMessage = "Pole 'Imię' jest wymagane.")]
+        [StringLength(20, ErrorMessage = "Imię musi mieć co najmniej 2 oraz maksymalnie 20 znaków długości.", MinimumLength = 2)]
         [Column(Order = 1)]
+        [Display(Name = "Imię")]
         public string imie { get; set; }
-        [Required]
-        [StringLength(20)]
-        [Column(Order = 1)]
+        [Required(ErrorMessage = "Pole 'Nazwisko' jest wymagane.")]
+        [StringLength(20, ErrorMessage = "Nazwisko musi mieć co najmniej 2 oraz maksymalnie 20 znaków długości.", MinimumLength = 2)]
+        [Column(Order = 2)]
+        [Display(Name = "Nazwisko")]
         public string nazwisko { get; set; }
     }
 }

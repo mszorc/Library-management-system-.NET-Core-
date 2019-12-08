@@ -11,26 +11,40 @@ namespace SBDlibrary.Models
     {
         public enum Status
         {
-            A, B
+            odebrano, odwołano, aktualna
         }
         [Key]
         [Column(Order = 0)]
         public int id_rezerwacji { get; set; }
 
         [Required]
-        [Column(Order = 3)]
-        public DateTime data_rezerwacji { get; set; }
-        [Required]
-        [Column(Order = 4)]
-        public Status? status_rezerwacji { get; set; }
-
-        [Required]
         [Column(Order = 1)]
-        public virtual Uzytkownicy id_uzytkownika { get; set; }
+        [Display(Name ="Email")]
+        public int id_uzytkownika { get; set; }
 
         [Required]
         [Column(Order = 2)]
-        public virtual Egzemplarze id_egzemplarza { get; set; }
+        [Display(Name ="Tytuł")]
+        public int id_egzemplarza { get; set; }
+
+        [Required]
+        [Column(Order = 3)]
+        [Display(Name = "Data rezerwacji")]
+        public DateTime data_rezerwacji { get; set; }
+        [Required]
+        [Column(Order = 4)]
+        [Display(Name = "Data odbioru")]
+        public DateTime data_odbioru { get; set; }
+        [Required]
+        [Column(Order = 5)]
+        [Display(Name = "Status rezerwacji")]
+        public Status? status_rezerwacji { get; set; }
+
+        [ForeignKey("id_uzytkownika")]
+        public virtual Uzytkownicy Uzytkownicy { get; set; }
+   
+        [ForeignKey("id_egzemplarza")]
+        public virtual Egzemplarze Egzemplarze { get; set; }
 
         //public ICollection<Uzytkownicy> Uzytkownicy { get; set; }
         //public ICollection<Egzemplarze> Egzemplarze { get; set; }

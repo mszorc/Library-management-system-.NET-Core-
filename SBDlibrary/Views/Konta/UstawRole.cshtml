@@ -1,0 +1,25 @@
+﻿@model SBDlibrary.ViewModels.AccountViewModels.InputModelSetRoles
+@{
+    ViewData["Title"] = "Zmień role";
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h4>@Model.Email</h4>
+<form id="form" method="post">
+    <ul>
+        <li>
+            <input type="checkbox" name="KlientCheckbox" value="1" @ViewBag.Klient /> Klient
+        </li>
+        <li>
+            <input type="checkbox" name="BibliotekarzCheckbox" value="2" @ViewBag.Bibliotekarz /> Bibliotekarz
+        </li>
+        <li>
+            <input type="checkbox" name="AdminCheckbox" value="3" @ViewBag.Admin /> Admin
+        </li>
+    </ul>
+    <input type="submit" class="btn btn-primary mb-2" value="Zapisz zmiany" />
+</form>
+
+<div>
+    <a asp-action="ZnajdzUzytkownika">Powrót</a>
+</div>

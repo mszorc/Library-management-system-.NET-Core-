@@ -1,0 +1,76 @@
+﻿<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+<style>
+    h1 {
+        font-family: 'Lato', monospace;
+    }
+</style>
+@model IEnumerable<SBDlibrary.Models.Wypozyczenia>
+
+@{
+    ViewData["Title"] = "Wypozyczenia";
+}
+
+
+<h1>Wypożyczenia</h1>
+<hr />
+<div>
+    <a class="btn btn-outline-secondary" asp-action="WypozyczKlientowi" asp-controller="Wypozyczenia">Wypożycz książkę klientowi</a>&nbsp;&nbsp;
+</div>
+<br />
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Uzytkownicy.imie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Uzytkownicy.nazwisko)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data_wypozyczenia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data_zwrotu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Egzemplarze.Ksiazki.tytuł)
+            </th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Uzytkownicy.imie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Uzytkownicy.nazwisko)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.data_wypozyczenia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.data_zwrotu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Egzemplarze.Ksiazki.tytuł)
+                </td>
+                <td>
+                    @Html.ActionLink("Zwróć książkę", "ZwrocAdmin", "Wypozyczenia", new { id = item.id_wypozyczenia })
+                </td>
+                <td>
+                    @if ((item.data_zwrotu - item.data_wypozyczenia).TotalDays <= 31)
+                    {
+                        @Html.ActionLink("Przedłuzenie wypożyczenia", "PrzedluzWypozyczenieAdmin", "Wypozyczenia", new { id = item.id_wypozyczenia })
+
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

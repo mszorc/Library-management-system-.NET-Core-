@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SBDlibrary.Models.Uzytkownicy>
+@{
+    ViewData["Title"] = "Znajdź użytkownika";
+}
+
+<form asp-action="ZnajdzUzytkownika">
+    <p>
+        Email: <input type="text" name="email">
+        <input type="submit" value="Filtruj" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.imie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nazwisko)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var model in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => model.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => model.imie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => model.nazwisko)
+                </td>
+                <td>
+                    @Html.ActionLink("Zmień rolę", "UstawRole", new { id = model.id_uzytkownika })
+                </td>
+                <td>
+                    @Html.ActionLink("Zmień dane osobowe", "ZmienDaneOsobowe", new { id = model.id_uzytkownika })
+                </td>
+                <td>
+                    @Html.ActionLink("Usuń użytkownika", "UsunUzytkownika", new { id = model.id_uzytkownika})
+                </td>
+            </tr>         
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Zarzadzaj">Powrót</a>
+</div>

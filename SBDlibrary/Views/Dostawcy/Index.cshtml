@@ -1,0 +1,59 @@
+﻿
+@model IEnumerable<SBDlibrary.Models.Dostawcy>
+
+@{
+    ViewData["Title"] = "Dostawcy";
+}
+
+<html>
+    <head>
+        <h1>Dostawcy</h1>
+    </head>
+    <hr />
+    <div>
+        <a class="btn btn-outline-secondary" asp-action="Stworz">Dodaj</a>&nbsp;&nbsp;
+    </div>
+    <br />
+    <div style="text-align:center ">
+        <form asp-action="Index">
+            <p>
+                Nazwa: <input type="text" name="nazwa" size="80">&nbsp;
+                <input type="submit" value="Filtruj" />&nbsp;
+                @Html.ActionLink("Wyłącz filtry", "Index")
+            </p>
+        </form>
+    </div>
+    <br />
+<body>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.nazwa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.adres)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nazwa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.adres)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edytuj", "Edytuj", new { id = item.id_dostawcy }) |
+                        @Html.ActionLink("Usuń", "Usun", new { id = item.id_dostawcy })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    </body>
+    </html>

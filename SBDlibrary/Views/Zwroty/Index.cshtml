@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SBDlibrary.ViewModels.ZwrotyViewModels.ZwrotKsiazkiViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Zwroty</h1>
+<hr />
+
+<br />
+<div style="text-align:center ">
+    <form asp-action="Index">
+        <p>
+            Email: <input type="text" name="email" size="80">&nbsp;
+            <input type="submit" value="Filtruj" />&nbsp;
+            @Html.ActionLink("Wyłącz filtry", "Index")
+        </p>
+    </form>
+</div>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tytul)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data_zwrotu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.kara)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tytul)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.data_zwrotu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.kara)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
