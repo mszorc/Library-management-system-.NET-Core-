@@ -17,8 +17,29 @@
     <a class="btn btn-outline-secondary" asp-action="WypozyczKlientowi" asp-controller="Wypozyczenia">Wypożycz książkę klientowi</a>&nbsp;&nbsp;
 </div>
 <br />
+<form asp-action="Index" style="text-align:center">
+    <p>
+        <span>
+            <div style="text-align:left">Od:</div>
 
+            <input type="date" class="form-control" value="2000-01-01" name="DataOd" />&nbsp;
+            <br />
+            <div style="text-align:left">Do:</div>
 
+            <input type="date" class="form-control" value="2020-01-01" name="DataDo" />&nbsp;
+
+        </span>
+        <br />
+        <div style="text-align:left">
+            <input placeholder="Imię" type="text" name="imie" size="50">&nbsp;&nbsp;
+            <input placeholder="Nazwisko" type="text" name="nazwisko" size="50">
+
+            &nbsp;&nbsp;
+            <input type="submit" value="Filtruj" />&nbsp;
+            @Html.ActionLink("Wyłącz filtry", "Index")
+        </div>
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>

@@ -209,11 +209,13 @@ namespace SBDlibrary.Controllers
             
             var user = await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.id_uzytkownika == idek);
 
+           
             var rezerwacje = _context.Rezerwacje.Where(m => m.id_uzytkownika == user.id_uzytkownika);
             foreach (Rezerwacje x in rezerwacje)
             {
                 x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);
                 x.Uzytkownicy = await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.id_uzytkownika == x.id_uzytkownika);
+                x.Egzemplarze.Ksiazki = await _context.Ksiazki.FirstOrDefaultAsync(m => m.id_ksiazki == x.Egzemplarze.id_ksiazki);
             }
             return View(rezerwacje);
         }
@@ -227,6 +229,7 @@ namespace SBDlibrary.Controllers
             var rezerwacja = await _context.Rezerwacje.FirstOrDefaultAsync(m => m.id_rezerwacji == id_rezerwacji);
             
             var egzemplarz = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == rezerwacja.id_egzemplarza);
+
             if (egzemplarz != null && rezerwacja != null && user != null)
             {
                 egzemplarz.status = Egzemplarze.Status.Wypozyczony;
