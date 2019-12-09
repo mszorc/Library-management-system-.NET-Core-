@@ -250,6 +250,33 @@ namespace SBDlibrary.Controllers
            return  RedirectToAction(nameof(RezerwacjeKlienta));
         }
 
+        [Authorize(Roles = "Bibliotekarz,Admin")]
+        public async Task<IActionResult> wypozyczZarezerwowanyEgzemplarzKlientow(int? id_rezerwacji, int? id_Klienta)
+        {
+            // var idU = Convert.ToInt32(HttpContext.User.Identity.Name);
+            var user = await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.id_uzytkownika == id_Klienta);
+            var rezerwacja = await _context.Rezerwacje.FirstOrDefaultAsync(m => m.id_rezerwacji == id_rezerwacji);
+
+            var egzemplarz = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == rezerwacja.id_egzemplarza);
+            if (egzemplarz != null && rezerwacja != null && user != null)
+            {
+                egzemplarz.status = Egzemplarze.Status.Wypozyczony;
+                rezerwacja.status_rezerwacji = Rezerwacje.Status.odebrano;
+                Wypozyczenia wypozyczenia = new Wypozyczenia();
+                wypozyczenia.Egzemplarze = egzemplarz;
+                wypozyczenia.Uzytkownicy = user;
+                wypozyczenia.data_wypozyczenia = DateTime.UtcNow.AddHours(1);
+                wypozyczenia.data_zwrotu = wypozyczenia.data_wypozyczenia.AddMonths(1);
+
+                _context.Wypozyczenia.Add(wypozyczenia);
+                _context.SaveChanges();
+            }
+            else return NotFound();
+
+
+            return RedirectToAction(nameof(RezerwacjeKlienta));
+        }
+
         private Logi stworzLog(Uzytkownicy user, string komunikat)
         {
             Logi log = new Logi();

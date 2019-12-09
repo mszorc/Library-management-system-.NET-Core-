@@ -7,8 +7,9 @@
 
 <form asp-action="Index">
     <p>
-        Email: <input type="text" name="email">
+        Email: <input placeholder="Email" type="text" name="email">
         <input type="submit" value="Filtruj" />
+        @Html.ActionLink("Wyłącz filtry", "Index")
     </p>
 </form>
 
