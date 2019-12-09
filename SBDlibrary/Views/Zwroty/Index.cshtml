@@ -5,14 +5,19 @@
 }
 
 <h1>Zwroty</h1>
+<hr />
 
-<form asp-action="Index">
-    <p>
-        Email: <input type="text" name="email">
-        <input type="submit" value="Filtruj" />
-    </p>
-</form>
-
+<br />
+<div style="text-align:center ">
+    <form asp-action="Index">
+        <p>
+            Email: <input type="text" name="email" size="80">&nbsp;
+            <input type="submit" value="Filtruj" />&nbsp;
+            @Html.ActionLink("Wyłącz filtry", "Index")
+        </p>
+    </form>
+</div>
+<br />
 <table class="table">
     <thead>
         <tr>
@@ -32,21 +37,22 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tytul)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.data_zwrotu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.kara)
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tytul)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.data_zwrotu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.kara)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

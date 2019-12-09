@@ -10,18 +10,22 @@
     ViewData["Title"] = "Autorzy";
 }
 
-
 <h1>Autorzy</h1>
-
+<hr />
 <div>
-    <a asp-action="Stworz">Dodaj</a>
+    <a class="btn btn-outline-secondary" asp-action="Stworz">Dodaj</a>&nbsp;&nbsp;
 </div>
-<form asp-action="Index">
-    <p>
-        Nazwisko: <input type="text" name="nazwisko">
-        <input type="submit" value="Filtruj" />
-    </p>
-</form>
+<br />
+<div style="text-align:center ">
+    <form asp-action="Index">
+        <p>
+            Nazwisko: <input type="text" name="nazwisko" size="80">&nbsp;
+            <input type="submit" value="Filtruj" />&nbsp;
+            @Html.ActionLink("Wyłącz filtry", "Index")
+        </p>
+    </form>
+</div>
+<br />
 <table class="table">
     <thead>
         <tr>
@@ -47,7 +51,7 @@
                     @Html.DisplayFor(modelItem => item.nazwisko)
                 </td>
                 <td>
-                    @Html.ActionLink("Edytuj", "Edytuj", new { id=item.id_autor })
+                    @Html.ActionLink("Edytuj", "Edytuj", new { id=item.id_autor }) |
                     @Html.ActionLink("Usuń", "Usun", new { id=item.id_autor })
                 </td>
             </tr>

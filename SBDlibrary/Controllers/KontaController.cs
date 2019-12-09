@@ -144,7 +144,6 @@ namespace SBDlibrary.Controllers
             {
 
                 var user = await _userManager.FindByEmailAsync(model.Email);
-
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "Logowanie przebiegło niepomyślnie.");

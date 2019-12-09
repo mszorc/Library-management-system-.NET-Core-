@@ -15,17 +15,21 @@
 
 
 <h1>Wydawnictwa</h1>
-
+<hr />
 <div>
-    <a asp-action="Stworz">Dodaj</a>
+    <a class="btn btn-outline-secondary" asp-action="Stworz">Dodaj</a>&nbsp;&nbsp;
 </div>
-<form asp-action="Index">
-    <p>
-        Nazwa: <input type="text" name="nazwa">
-        <input type="submit" value="Filtruj" />
-        @Html.ActionLink("Wyłącz filtry", "Index")
-    </p>
-</form>
+<br />
+<div style="text-align:center ">
+    <form asp-action="Index">
+        <p>
+            Nazwa: <input type="text" name="nazwa" size="80">&nbsp;
+            <input type="submit" value="Filtruj" />&nbsp;
+            @Html.ActionLink("Wyłącz filtry", "Index")
+        </p>
+    </form>
+</div>
+<br />
 <table class="table">
     <thead>
         <tr>
@@ -43,7 +47,7 @@
                     @Html.DisplayFor(modelItem => item.nazwa)
                 </td>
                 <td>
-                    @Html.ActionLink("Edytuj", "Edytuj", new { id = item.id_wydawnictwa }) 
+                    @Html.ActionLink("Edytuj", "Edytuj", new { id = item.id_wydawnictwa }) |
                     @Html.ActionLink("Usuń", "Usun", new { id = item.id_wydawnictwa })
                 </td>
             </tr>

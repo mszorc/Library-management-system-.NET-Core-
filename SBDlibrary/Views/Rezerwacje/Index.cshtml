@@ -12,21 +12,35 @@
 
 
 <h1>Rezerwacje</h1>
-<form asp-action="Index">
+<hr />
+<form asp-action="Index" style="text-align:center">
     <p>
         <span>
-            Data pomiędzy: <input type="date" value="2000-01-01" name="DataOd">
-            i <input type="date" value="2020-01-01" name="DataDo">
+            <div style="text-align:left">Od:</div>
+            
+            <input type="date" class="form-control" value="2000-01-01" name="DataOd"/>&nbsp;
+            <br />
+            <div style="text-align:left">Do:</div>
+           
+            <input type="date" class="form-control" value="2020-01-01" name="DataDo"/>&nbsp;
 
         </span>
+        <br />
+        <div style="text-align:left">
+            <input placeholder="Imię" type="text" name="imie" size="50">&nbsp;&nbsp;
+            <input placeholder="Nazwisko" type="text" name="nazwisko" size="50">
 
-        Imie: <input type="text" name="imie">
-        Nazwisko: <input type="text" name="nazwisko">
-        <input type="submit" value="Filtruj" />
-        @Html.ActionLink("Wyłącz filtry", "Index")
+            &nbsp;&nbsp;
+            <input type="submit" value="Filtruj" />&nbsp;
+            @Html.ActionLink("Wyłącz filtry", "Index")
+        </div>
     </p>
 </form>
-@Html.ActionLink("Zarezerwuj książkę klientowi", "ZarezerwujKlientowi", "Rezerwacje")
+<br />
+<div>
+    <a class="btn btn-outline-secondary" asp-action="ZarezerwujKlientowi" asp-controller="Rezerwacje">Zarezerwuj książkę klientowi</a>
+</div>
+<br />
 <table class="table">
     <thead>
         <tr>
@@ -48,7 +62,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.status_rezerwacji)
             </th>
-
+            <th></th>
 
         </tr>
     </thead>

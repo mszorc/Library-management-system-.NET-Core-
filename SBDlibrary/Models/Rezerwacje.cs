@@ -19,10 +19,12 @@ namespace SBDlibrary.Models
 
         [Required]
         [Column(Order = 1)]
+        [Display(Name ="Email")]
         public int id_uzytkownika { get; set; }
 
         [Required]
         [Column(Order = 2)]
+        [Display(Name ="Tytuł")]
         public int id_egzemplarza { get; set; }
 
         [Required]

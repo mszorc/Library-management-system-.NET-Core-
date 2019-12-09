@@ -344,7 +344,6 @@ namespace SBDlibrary.Controllers
                     await _context.SaveChangesAsync();
                     _context.Logi.Add(stworzLog(uzytkownik, "przedłużono wypożyczenie o numerze " + wypozyczenie.id_wypozyczenia));
                     _context.SaveChanges();
-
                 }
                 else
                 {

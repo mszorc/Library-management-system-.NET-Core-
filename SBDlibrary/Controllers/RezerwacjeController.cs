@@ -28,20 +28,7 @@ namespace SBDlibrary.Controllers
             _userManager = userManager;
             _accessor = accessor;
         }
-        //[Authorize(Roles = "Bibliotekarz,Admin")]
-        
-        //public async Task<IActionResult> Index()
-        //{
-        //    var rezerwacje = from a in _context.Rezerwacje select a;
-        //    foreach (Rezerwacje x in rezerwacje)
-        //    {
-        //        x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);
-        //        x.Egzemplarze.Ksiazki = await _context.Ksiazki.FirstOrDefaultAsync(n => n.id_ksiazki == x.Egzemplarze.id_ksiazki);
-        //        x.Uzytkownicy = await _context.Uzytkownicy.FirstOrDefaultAsync(l => l.id_uzytkownika == x.id_uzytkownika);
-        //    }
-        //    return View(rezerwacje);
-        //}
-        //[HttpPost]
+
         [Authorize(Roles = "Bibliotekarz")]
         public async Task<IActionResult> Index(DateTime ?DataOd, DateTime ?DataDo, string imie, string nazwisko)
         {
@@ -67,6 +54,7 @@ namespace SBDlibrary.Controllers
 
             return View(rezerwacje);
         }
+
         [Authorize(Roles = "Klient,Bibliotekarz,Admin")]
         public async Task<IActionResult> Zarezerwuj(int id_ksiazki)
         {
@@ -182,6 +170,7 @@ namespace SBDlibrary.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
         [Authorize(Roles = "Klient,Bibliotekarz,Admin")]
         public async Task<IActionResult> AnulujRezerwacje(int id_rezerwacji)
         {
@@ -226,10 +215,10 @@ namespace SBDlibrary.Controllers
             {
                 x.Egzemplarze = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == x.id_egzemplarza);
                 x.Uzytkownicy = await _context.Uzytkownicy.FirstOrDefaultAsync(m => m.id_uzytkownika == x.id_uzytkownika);
+                x.Egzemplarze.Ksiazki = await _context.Ksiazki.FirstOrDefaultAsync(m => m.id_ksiazki == x.Egzemplarze.id_ksiazki);
             }
             return View(rezerwacje);
         }
-
 
         [Authorize(Roles = "Klient")]
         public async Task<IActionResult> wypozyczZarezerwowanyEgzemplarz(int? id_rezerwacji)
@@ -239,6 +228,7 @@ namespace SBDlibrary.Controllers
             var rezerwacja = await _context.Rezerwacje.FirstOrDefaultAsync(m => m.id_rezerwacji == id_rezerwacji);
             
             var egzemplarz = await _context.Egzemplarze.FirstOrDefaultAsync(m => m.id_egzemplarza == rezerwacja.id_egzemplarza);
+
             if (egzemplarz != null && rezerwacja != null && user != null)
             {
                 egzemplarz.status = Egzemplarze.Status.Wypozyczony;

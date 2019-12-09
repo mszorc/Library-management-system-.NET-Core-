@@ -13,18 +13,25 @@
 }
 
 <h1>Książki</h1>
-
+<hr />
+@if (this.User.IsInRole("Admin") || this.User.IsInRole("Bibliotekarz"))
+{
 <div>
-    <a asp-action="Create">Dodaj</a>
+    <a class="btn btn-outline-secondary" asp-action="Stworz">Dodaj</a>&nbsp;&nbsp;
 </div>
+}
+
+
 <br />
-<form asp-action="Index">
-    <p>
-        Tytuł: <input type="text" name="tytul">
-        <input type="submit" value="Filtruj" />
-        @Html.ActionLink("Wyłącz filtry", "Index")
-    </p>
-</form>
+<div style="text-align:center ">
+    <form asp-action="Index">
+        <p>
+            Tytuł: <input type="text" name="tytuł" size="80">&nbsp;
+            <input type="submit" value="Filtruj" />&nbsp;
+            @Html.ActionLink("Wyłącz filtry", "Index")
+        </p>
+    </form>
+</div>
 <br />
 <table class="table">
     <thead>
@@ -72,13 +79,13 @@
                     @Html.ActionLink("Szczegóły", "Detale", "Ksiazka", new { id = item.ksiazka.id_ksiazki })
                 </td>
                 <td>
-                    @if (item.dostepneEgzemplarze == "dostepne")
+                    @if (item.dostepneEgzemplarze == "dostepne" && (this.User.IsInRole("Admin") || this.User.IsInRole("Bibliotekarz") || this.User.IsInRole("Klient")))
                     {
                         @Html.ActionLink("Wypożycz", "Wypozycz", "Wypozyczenia", new { id_ksiazki = item.ksiazka.id_ksiazki })
                     }
                 </td>
                 <td>
-                    @if (item.dostepneEgzemplarze == "dostepne")
+                    @if (item.dostepneEgzemplarze == "dostepne" && (this.User.IsInRole("Admin") || this.User.IsInRole("Bibliotekarz") || this.User.IsInRole("Klient")))
                     {
                         @Html.ActionLink("Rezerwuj", "Zarezerwuj", "Rezerwacje", new { id_ksiazki = item.ksiazka.id_ksiazki })
                     }

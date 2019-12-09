@@ -11,17 +11,24 @@
 }
 
 <h1>Zamówienia</h1>
+<hr />
 
 <p>
-    <a asp-action="Stworz">Dodaj</a>
+    <a class="btn btn-outline-secondary" asp-action="Stworz">Dodaj</a> &nbsp;&nbsp;
 </p>
 <form asp-action="Index">
     <p>
-        Od: <input asp-for="@Model.FirstOrDefault().data_zamowienia" class="form-control" name="DataOd" />
+        Od:
+        <br />
+        <input type="date" asp-for="@Model.FirstOrDefault().data_zamowienia" class="form-control" name="DataOd" />
         <span asp-validation-for="@Model.FirstOrDefault().data_zamowienia" class="text-danger"></span>
-        Do: <input asp-for="@Model.FirstOrDefault().data_zamowienia" class="form-control" name="DataDo" />
+        <br />
+        Do:
+        <br />
+        <input type="date" asp-for="@Model.FirstOrDefault().data_zamowienia" class="form-control" name="DataDo" />
         <span asp-validation-for="@Model.FirstOrDefault().data_zamowienia" class="text-danger"></span>
-        <input type="submit" value="Filtruj" />
+        <br />
+        <input type="submit" value="Filtruj" />&nbsp;
         @Html.ActionLink("Wyłącz filtr", "Zamowienia")
     </p>
 </form>

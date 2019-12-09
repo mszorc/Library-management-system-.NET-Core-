@@ -11,9 +11,35 @@
 }
 
 
-<h1>Egzemplarze</h1>
-@Html.ActionLink("Wypożycz książkę klientowi", "WypozyczKlientowi", "Wypozyczenia")
+<h1>Wypożyczenia</h1>
+<hr />
+<div>
+    <a class="btn btn-outline-secondary" asp-action="WypozyczKlientowi" asp-controller="Wypozyczenia">Wypożycz książkę klientowi</a>&nbsp;&nbsp;
+</div>
+<br />
+<form asp-action="Index" style="text-align:center">
+    <p>
+        <span>
+            <div style="text-align:left">Od:</div>
 
+            <input type="date" class="form-control" value="2000-01-01" name="DataOd" />&nbsp;
+            <br />
+            <div style="text-align:left">Do:</div>
+
+            <input type="date" class="form-control" value="2020-01-01" name="DataDo" />&nbsp;
+
+        </span>
+        <br />
+        <div style="text-align:left">
+            <input placeholder="Imię" type="text" name="imie" size="50">&nbsp;&nbsp;
+            <input placeholder="Nazwisko" type="text" name="nazwisko" size="50">
+
+            &nbsp;&nbsp;
+            <input type="submit" value="Filtruj" />&nbsp;
+            @Html.ActionLink("Wyłącz filtry", "Index")
+        </div>
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -39,33 +65,33 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Uzytkownicy.imie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Uzytkownicy.nazwisko)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.data_wypozyczenia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.data_zwrotu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Egzemplarze.Ksiazki.tytuł)
-            </td>
-            <td>
-                @Html.ActionLink("Zwróć książkę", "ZwrocAdmin", "Wypozyczenia", new { id = item.id_wypozyczenia })
-            </td>
-            <td>
-                @if ((item.data_zwrotu - item.data_wypozyczenia).TotalDays <= 31)
-                {
-                    @Html.ActionLink("Przedłuzenie wypożyczenia", "PrzedluzWypozyczenieAdmin", "Wypozyczenia", new { id = item.id_wypozyczenia })
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Uzytkownicy.imie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Uzytkownicy.nazwisko)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.data_wypozyczenia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.data_zwrotu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Egzemplarze.Ksiazki.tytuł)
+                </td>
+                <td>
+                    @Html.ActionLink("Zwróć książkę", "ZwrocAdmin", "Wypozyczenia", new { id = item.id_wypozyczenia })
+                </td>
+                <td>
+                    @if ((item.data_zwrotu - item.data_wypozyczenia).TotalDays <= 31)
+                    {
+                        @Html.ActionLink("Przedłuzenie wypożyczenia", "PrzedluzWypozyczenieAdmin", "Wypozyczenia", new { id = item.id_wypozyczenia })
 
-                }
-            </td>
-        </tr>
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>

@@ -12,6 +12,7 @@ using SBDlibrary.ViewModels.ZwrotyViewModels;
 
 namespace SBDlibrary.Controllers
 {
+    [Authorize]
     public class ZwrotyController : Controller
     {
         private readonly LibraryDbContext _context;

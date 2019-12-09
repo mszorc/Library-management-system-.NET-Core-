@@ -603,7 +603,11 @@ pre {
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
+<<<<<<< HEAD
     background-color: white
+=======
+    background-color: #c9c5ad
+>>>>>>> Prezentacja
 }
 
 .no-gutters {
